@@ -1,4 +1,6 @@
-package com.bw.movie.utils;
+package com.bw.movie.model.utils;
+
+import com.bw.movie.model.api.Api;
 
 import java.util.concurrent.TimeUnit;
 
@@ -8,7 +10,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitUtils {
+public class RetrofitUtils
+{
     private static volatile RetrofitUtils instance;
     private final Retrofit retrofit;
 
@@ -37,7 +40,7 @@ public class RetrofitUtils {
 
     private RetrofitUtils(){
         retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl(Api.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient())

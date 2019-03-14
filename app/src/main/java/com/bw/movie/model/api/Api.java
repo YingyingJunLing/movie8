@@ -1,6 +1,7 @@
-package com.bw.movie.api;
+package com.bw.movie.model.api;
 
-public class Api {
+public class Api
+{
     public static final String BASE_URL="http://172.17.8.100/movieApi/user/v1/";
     //登录 POST请求
     public static final String LOGIN="login";
@@ -20,5 +21,6 @@ public class Api {
     public static final String  JILU="verify/findUserBuyTicketRecordList";
     //用户上传头像  post
     public static final String HEAD="verify/uploadHeadPic";
+
 
 }
