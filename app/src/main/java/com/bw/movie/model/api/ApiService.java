@@ -1,5 +1,7 @@
 package com.bw.movie.model.api;
 
+import com.bw.movie.model.bean.LoginBean;
+
 import java.util.HashMap;
 
 import io.reactivex.Observable;
