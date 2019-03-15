@@ -1,4 +1,4 @@
-package com.bw.movie.model.api;
+package com.bw.movie.mvp.model.api;
 
 public class Api
 {

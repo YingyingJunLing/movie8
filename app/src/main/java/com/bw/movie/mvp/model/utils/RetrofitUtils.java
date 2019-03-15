@@ -1,6 +1,6 @@
-package com.bw.movie.model.utils;
+package com.bw.movie.mvp.model.utils;
 
-import com.bw.movie.model.api.Api;
+import com.bw.movie.mvp.model.api.Api;
 
 import java.util.concurrent.TimeUnit;
 
