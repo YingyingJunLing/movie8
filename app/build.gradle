@@ -63,6 +63,7 @@ dependencies {
     implementation 'com.recker.flybanner:flybanner:1.3'
     //tab
     implementation 'com.android.support:design:28.0.0'
+    implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
 }
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
