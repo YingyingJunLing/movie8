@@ -103,4 +103,26 @@ public class Contract {
         void onFail(String errorInfo);
     }
 
+    //商品详情activity
+    public interface IMovieDetailView{
+
+        void onIMovieDetailSuccess(Object o);
+
+        void onIMovieDetailFail(String errorInfo);
+
+    }
+    public interface IMovieDetailPre{
+
+        void onIMovieDetailPre(int movieID);
+
+    }
+    public interface IMovieDetailModel{
+        void onIMovieDetailModel(int movieID,MovieDetailBack movieDetailBack);
+    }
+
+    public interface MovieDetailBack{
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
 }
