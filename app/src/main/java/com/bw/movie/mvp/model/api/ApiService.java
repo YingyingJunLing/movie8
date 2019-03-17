@@ -3,6 +3,7 @@ package com.bw.movie.mvp.model.api;
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
+import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.ReleaseMovieBean;
 
 import java.util.HashMap;
@@ -32,5 +33,9 @@ public interface ApiService {
     //即将上映电影类表
     @GET(Api.COMINGSOONMOVIE)
     Observable<ComingSoonMovieBean> getComingSoonMovie(@Query("page")int page, @Query("count")int count);
+
+    //根据电影ID查询电影详情
+    @GET(Api.MOVIEDETAIL)
+    Observable<MoviesDetailBean> getMoviesDetail(@Query("movieId")int movieId);
 
 }

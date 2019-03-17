@@ -1,6 +1,7 @@
 package com.bw.movie.mvp.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,13 +12,18 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.fresco.FrescoUtils;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
+import com.bw.movie.mvp.model.bean.MoviesDetailBean;
+import com.bw.movie.mvp.view.activity.MovieDetailActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 public class BannerFlowAdapter extends RecyclerView.Adapter<BannerFlowAdapter.MyViewHolder> {
     private Context context;
     private List<HotMovieBean.ResultBean> list;
+    private View view;
 
     public BannerFlowAdapter(Context context, List<HotMovieBean.ResultBean> list) {
         this.context = context;
@@ -27,7 +33,7 @@ public class BannerFlowAdapter extends RecyclerView.Adapter<BannerFlowAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = View.inflate(context, R.layout.item_cinema, null);
+        view = View.inflate(context, R.layout.banner_item, null);
         return new MyViewHolder(view);
     }
 
@@ -36,6 +42,16 @@ public class BannerFlowAdapter extends RecyclerView.Adapter<BannerFlowAdapter.My
         FrescoUtils.setPic(list.get(i).getImageUrl(),myViewHolder.cinema_img_simple);
         myViewHolder.cinema_nane_text.setText(list.get(i).getName());
         Log.i("名字",list.get(i).getName());
+        final int id = list.get(i).getId();
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("点击",id+"");
+                MoviesDetailBean.ResultBean resultBean = new MoviesDetailBean.ResultBean(id);
+                EventBus.getDefault().postSticky(resultBean);
+                context.startActivity(new Intent(context,MovieDetailActivity.class));
+            }
+        });
     }
 
     @Override

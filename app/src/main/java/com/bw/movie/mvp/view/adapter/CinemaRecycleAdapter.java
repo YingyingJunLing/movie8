@@ -1,15 +1,18 @@
 package com.bw.movie.mvp.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
+import com.bw.movie.mvp.view.activity.CinemaActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +34,9 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
     private RecyclerView release_recycle;
     private RecyclerView comingsoon_recycle;
     private RecyclerCoverFlow banner_flow;
+    private LinearLayout hot_linear;
+    private LinearLayout release_linear;
+    private LinearLayout comingsoon_linear;
 
     public CinemaRecycleAdapter(Context context, HashMap hashMap) {
         this.context = context;
@@ -68,20 +74,38 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
             hot_recycle.setLayoutManager(linearLayoutManager);
-            CimeaItemAdapter cimeaItemAdapter = new CimeaItemAdapter(context,hashMap,type);
-            hot_recycle.setAdapter(cimeaItemAdapter);
+            CinemaItemAdapter cinemaItemAdapter = new CinemaItemAdapter(context,hashMap,type);
+            hot_recycle.setAdapter(cinemaItemAdapter);
+            hot_linear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context,CinemaActivity.class));
+                }
+            });
         }else if (type==2){
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
             release_recycle.setLayoutManager(linearLayoutManager);
-            CimeaItemAdapter cimeaItemAdapter = new CimeaItemAdapter(context,hashMap,type);
-            release_recycle.setAdapter(cimeaItemAdapter);
+            CinemaItemAdapter cinemaItemAdapter = new CinemaItemAdapter(context,hashMap,type);
+            release_recycle.setAdapter(cinemaItemAdapter);
+            release_linear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context,CinemaActivity.class));
+                }
+            });
         }else {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
             comingsoon_recycle.setLayoutManager(linearLayoutManager);
-            CimeaItemAdapter cimeaItemAdapter = new CimeaItemAdapter(context,hashMap,type);
-            comingsoon_recycle.setAdapter(cimeaItemAdapter);
+            CinemaItemAdapter cinemaItemAdapter = new CinemaItemAdapter(context,hashMap,type);
+            comingsoon_recycle.setAdapter(cinemaItemAdapter);
+            comingsoon_linear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context,CinemaActivity.class));
+                }
+            });
         }
     }
 
@@ -117,6 +141,7 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
         public MyViewHolder2(@NonNull View itemView) {
             super(itemView);
             hot_recycle = itemView.findViewById(R.id.hot_recycle);
+            hot_linear = itemView.findViewById(R.id.hot_linear);
         }
     }
 
@@ -124,6 +149,7 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
         public MyViewHolder3(@NonNull View itemView) {
             super(itemView);
             release_recycle = itemView.findViewById(R.id.release_recycle);
+            release_linear = itemView.findViewById(R.id.release_linear);
         }
     }
 
@@ -131,6 +157,7 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
         public MyViewHolder4(@NonNull View itemView) {
             super(itemView);
             comingsoon_recycle = itemView.findViewById(R.id.comingsoon_recycle);
+            comingsoon_linear = itemView.findViewById(R.id.comingsoon_linear);
         }
     }
 }

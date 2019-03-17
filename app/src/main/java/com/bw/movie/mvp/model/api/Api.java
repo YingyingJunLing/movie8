@@ -26,5 +26,7 @@ public class Api {
     public static final String RELEASEMOVIE="movieApi/movie/v1/findReleaseMovieList";
     //即将上映电影列表 get
     public static final String COMINGSOONMOVIE="movieApi/movie/v1/findComingSoonMovieList";
+    //根据电影ID查询电影详情
+    public static final String MOVIEDETAIL="movieApi/movie/v1/findMoviesDetail";
 
 }
