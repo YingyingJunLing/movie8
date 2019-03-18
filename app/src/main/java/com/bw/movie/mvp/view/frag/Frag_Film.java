@@ -9,6 +9,10 @@ import com.bw.movie.mvp.presenter.presenterimpl.FilmPresenter;
 import com.bw.movie.mvp.view.base.BaseFragment;
 import com.bw.movie.mvp.view.contract.Contract;
 
+/**
+ * @author zhangbo
+ * 影院
+ */
 public class Frag_Film extends BaseFragment<Contract.IFilmView,FilmPresenter> implements Contract.IFilmModel {
     @Override
     protected View initFragmentView(LayoutInflater inflater) {
