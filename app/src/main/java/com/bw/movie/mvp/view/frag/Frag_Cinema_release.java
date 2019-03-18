@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.bw.movie.R;
-import com.bw.movie.mvp.model.bean.ReleaseMovieBean;
+import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.presenter.presenterimpl.CinemaPresenter;
 import com.bw.movie.mvp.view.adapter.CinemaReleaseAdapter;
 import com.bw.movie.mvp.view.base.BaseFragment;
@@ -54,9 +54,9 @@ public class Frag_Cinema_release extends BaseFragment<Contract.ICinemaView,Cinem
 
     @Override
     public void onIReleaseMovieSuccess(Object o) {
-        if (o instanceof ReleaseMovieBean){
-            ReleaseMovieBean releaseMovieBean = (ReleaseMovieBean) o;
-            List<ReleaseMovieBean.ResultBean> result = releaseMovieBean.getResult();
+        if (o instanceof RecommendMovieBean){
+            RecommendMovieBean recommendMovieBean = (RecommendMovieBean) o;
+            List<RecommendMovieBean.ResultBean> result = recommendMovieBean.getResult();
             cinema_release_recycle.setAdapter(new CinemaReleaseAdapter(getActivity(),result));
         }
     }
