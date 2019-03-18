@@ -9,7 +9,7 @@ import com.bw.movie.mvp.presenter.presenterimpl.MyPresenter;
 import com.bw.movie.mvp.view.base.BaseFragment;
 import com.bw.movie.mvp.view.contract.Contract;
 
-public class Frag_My extends BaseFragment<Contract.IMyView,MyPresenter> implements Contract.IMyModel {
+public class Frag_My extends BaseFragment<Contract.IMyView,MyPresenter> implements Contract.IMyView {
     @Override
     protected View initFragmentView(LayoutInflater inflater) {
         View view = View.inflate(getActivity(), R.layout.frag_my, null);
@@ -32,7 +32,12 @@ public class Frag_My extends BaseFragment<Contract.IMyView,MyPresenter> implemen
     }
 
     @Override
-    public void IMy(String url) {
+    public void onIMySuccess(Object o) {
+
+    }
+
+    @Override
+    public void onIMyFail(String errorInfo) {
 
     }
 }

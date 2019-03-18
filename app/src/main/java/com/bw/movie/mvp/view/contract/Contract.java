@@ -67,11 +67,11 @@ public class Contract {
     }
     public interface IFilmPre{
 
-        void onIFilmPre(String url);
+        void onIFilmPre();
 
     }
     public interface IFilmModel{
-        void ICFilm(String url);
+        void onIFilm();
     }
 
     public interface FilmCallBack{
@@ -121,6 +121,52 @@ public class Contract {
     }
 
     public interface MovieDetailBack{
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+
+    //推荐影院fragment
+    public interface IRecommendView{
+
+        void onIRecommendSuccess(Object o);
+
+        void onIRecommendFail(String errorInfo);
+
+    }
+    public interface IRecommendPre{
+
+        void onIRecommendPre(int page,int count);
+
+    }
+    public interface IRecommendModel{
+        void onIRecommendModel(int page,int count,RecommendBack recommendBack);
+    }
+
+    public interface RecommendBack{
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+
+    //附近影院fragment
+    public interface INearView{
+
+        void onINearSuccess(Object o);
+
+        void onINearFail(String errorInfo);
+
+    }
+    public interface INearPre{
+
+        void onINearPre(int page,int count);
+
+    }
+    public interface INearModel{
+        void onINearModel(int page,int count,NearBack nearBack);
+    }
+
+    public interface NearBack{
         void onSuccess(Object o);
 
         void onFail(String errorInfo);

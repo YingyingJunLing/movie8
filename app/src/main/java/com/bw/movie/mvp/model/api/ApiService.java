@@ -1,10 +1,12 @@
 package com.bw.movie.mvp.model.api;
 
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
+import com.bw.movie.mvp.model.bean.FindNearCinemaBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
-import com.bw.movie.mvp.model.bean.ReleaseMovieBean;
+import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
+import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 
 import java.util.HashMap;
 
@@ -28,7 +30,7 @@ public interface ApiService {
 
     //上映电影类表
     @GET(Api.RELEASEMOVIE)
-    Observable<ReleaseMovieBean> getReleaseMovie(@Query("page")int page, @Query("count")int count);
+    Observable<RecommendMovieBean> getReleaseMovie(@Query("page")int page, @Query("count")int count);
 
     //即将上映电影类表
     @GET(Api.COMINGSOONMOVIE)
@@ -37,5 +39,13 @@ public interface ApiService {
     //根据电影ID查询电影详情
     @GET(Api.MOVIEDETAIL)
     Observable<MoviesDetailBean> getMoviesDetail(@Query("movieId")int movieId);
+
+    //推荐影院
+    @GET(Api.RECOMMENDCINEMA)
+    Observable<RecommendCinemaBean> getRecommend(@Query("page")int page, @Query("count")int count);
+
+    //附近影院
+    @GET(Api.FINDNEARCINEMA)
+    Observable<FindNearCinemaBean> getFindNear(@Query("page")int page, @Query("count")int count);
 
 }

@@ -2,7 +2,7 @@ package com.bw.movie.mvp.model.bean;
 
 import java.util.List;
 
-public class ReleaseMovieBean {
+public class RecommendMovieBean {
 
     private String message;
     private String status;

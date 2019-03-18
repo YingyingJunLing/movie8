@@ -14,7 +14,7 @@ import com.bw.movie.fresco.FrescoUtils;
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
-import com.bw.movie.mvp.model.bean.ReleaseMovieBean;
+import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.view.activity.MovieDetailActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -31,7 +31,7 @@ public class CinemaItemAdapter extends RecyclerView.Adapter<CinemaItemAdapter.My
     private HashMap hashMap;
     private int type;
     private List<HotMovieBean.ResultBean> listhot;
-    private List<ReleaseMovieBean.ResultBean> listrelease;
+    private List<RecommendMovieBean.ResultBean> listrelease;
     private List<ComingSoonMovieBean.ResultBean> listcoming;
     private View view;
 
@@ -70,9 +70,9 @@ public class CinemaItemAdapter extends RecyclerView.Adapter<CinemaItemAdapter.My
             });
         }else if (type==2){
             Object o2 = hashMap.get("2");
-            if (o2 instanceof ReleaseMovieBean){
-                ReleaseMovieBean releaseMovieBean = (ReleaseMovieBean) o2;
-                listrelease = releaseMovieBean.getResult();
+            if (o2 instanceof RecommendMovieBean){
+                RecommendMovieBean recommendMovieBean = (RecommendMovieBean) o2;
+                listrelease = recommendMovieBean.getResult();
             }
             myViewHolder.cinema_nane_text.setText(listrelease.get(i).getName());
             FrescoUtils.setPic(listrelease.get(i).getImageUrl(),myViewHolder.cinema_img_simple);
@@ -116,9 +116,9 @@ public class CinemaItemAdapter extends RecyclerView.Adapter<CinemaItemAdapter.My
             return listhot.size();
         }else if (type==2){
             Object o2 = hashMap.get("2");
-            if (o2 instanceof ReleaseMovieBean){
-                ReleaseMovieBean releaseMovieBean = (ReleaseMovieBean) o2;
-                listrelease = releaseMovieBean.getResult();
+            if (o2 instanceof RecommendMovieBean){
+                RecommendMovieBean recommendMovieBean = (RecommendMovieBean) o2;
+                listrelease = recommendMovieBean.getResult();
             }
             return listrelease.size();
         }else {
@@ -151,9 +151,9 @@ public class CinemaItemAdapter extends RecyclerView.Adapter<CinemaItemAdapter.My
                 }
             }else if (type==2){
                 Object o2 = hashMap.get("2");
-                if (o2 instanceof ReleaseMovieBean){
-                    ReleaseMovieBean releaseMovieBean = (ReleaseMovieBean) o2;
-                    listrelease = releaseMovieBean.getResult();
+                if (o2 instanceof RecommendMovieBean){
+                    RecommendMovieBean recommendMovieBean = (RecommendMovieBean) o2;
+                    listrelease = recommendMovieBean.getResult();
                 }
             }else {
                 Object o3 = hashMap.get("3");

@@ -9,4 +9,6 @@
     <string name="movie_commit">影评</string>
     <string name="buy">购票</string>
     <string name="movie_detail">电影详情</string>
+    <string name="recommend">推荐影院</string>
+    <string name="near">附近影院</string>
 </resources>

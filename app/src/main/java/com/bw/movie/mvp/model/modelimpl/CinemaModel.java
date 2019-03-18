@@ -3,7 +3,7 @@ package com.bw.movie.mvp.model.modelimpl;
 import com.bw.movie.mvp.model.api.ApiService;
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
-import com.bw.movie.mvp.model.bean.ReleaseMovieBean;
+import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.model.utils.RetrofitUtils;
 import com.bw.movie.mvp.view.contract.Contract;
 
@@ -33,10 +33,10 @@ public class CinemaModel implements Contract.ICinemaModel {
         apiService.getReleaseMovie(page,count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ReleaseMovieBean>() {
+                .subscribe(new Consumer<RecommendMovieBean>() {
                     @Override
-                    public void accept(ReleaseMovieBean releaseMovieBean) throws Exception {
-                        cinemaCallBack.onSuccess(releaseMovieBean);
+                    public void accept(RecommendMovieBean recommendMovieBean) throws Exception {
+                        cinemaCallBack.onSuccess(recommendMovieBean);
                     }
                 });
     }
