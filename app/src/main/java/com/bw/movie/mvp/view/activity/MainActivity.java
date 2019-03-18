@@ -43,6 +43,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        cinemaBtn.setChecked(true);
         FragmentManager manager = getSupportFragmentManager();
         final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         frag_cinema = new Frag_Cinema();
@@ -66,6 +67,32 @@ public class MainActivity extends BaseActivity {
                         viewPager.setCurrentItem(2);
                         break;
                 }
+            }
+        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                switch (i){
+                    case 0:
+                        cinemaBtn.setChecked(true);
+                        break;
+                    case 1:
+                        filmBtn.setChecked(true);
+                        break;
+                    case 2:
+                        myBtn.setChecked(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
             }
         });
     }

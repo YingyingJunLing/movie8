@@ -79,7 +79,10 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
             hot_linear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context,CinemaActivity.class));
+                    //传值判断类型
+                    Intent intent = new Intent(context, CinemaActivity.class);
+                    intent.putExtra("1",1);
+                    context.startActivity(intent);
                 }
             });
         }else if (type==2){
@@ -91,7 +94,10 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
             release_linear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context,CinemaActivity.class));
+                    //传值判断类型
+                    Intent intent = new Intent(context, CinemaActivity.class);
+                    intent.putExtra("1",2);
+                    context.startActivity(intent);
                 }
             });
         }else {
@@ -103,7 +109,10 @@ public class CinemaRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
             comingsoon_linear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context,CinemaActivity.class));
+                    //传值判断类型
+                    Intent intent = new Intent(context, CinemaActivity.class);
+                    intent.putExtra("1",3);
+                    context.startActivity(intent);
                 }
             });
         }

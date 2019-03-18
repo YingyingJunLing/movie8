@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 
 import com.bw.movie.mvp.presenter.base.BasePresenter;
 
-public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragment {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragment implements CustomAdapt {
     public String TAG = getClass().getSimpleName() + "";
 
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
@@ -100,5 +102,15 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         if (null != mPresenter) {
             mPresenter.detachView();
         }
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 667;
     }
 }

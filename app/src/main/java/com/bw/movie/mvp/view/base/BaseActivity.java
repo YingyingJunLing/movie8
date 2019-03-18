@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.bw.movie.mvp.presenter.base.BasePresenter;
 
-public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity implements CustomAdapt {
     public String TAG = getClass().getSimpleName() + "";
 
     protected T mPresenter;
@@ -59,5 +61,15 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
         if (null != mPresenter) {
             mPresenter.detachView();
         }
+    }
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 667;
     }
 }
