@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.fresco.FrescoUtils;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
-import com.bw.movie.mvp.model.bean.ReleaseMovieBean;
+import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.view.activity.MovieDetailActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -21,10 +21,10 @@ import java.util.List;
 
 public class CinemaReleaseAdapter extends XRecyclerView.Adapter<CinemaReleaseAdapter.MyViewHolder> {
     private Context context;
-    private List<ReleaseMovieBean.ResultBean> list;
+    private List<RecommendMovieBean.ResultBean> list;
     private View view;
 
-    public CinemaReleaseAdapter(Context context, List<ReleaseMovieBean.ResultBean> list) {
+    public CinemaReleaseAdapter(Context context, List<RecommendMovieBean.ResultBean> list) {
         this.context = context;
         this.list = list;
     }
