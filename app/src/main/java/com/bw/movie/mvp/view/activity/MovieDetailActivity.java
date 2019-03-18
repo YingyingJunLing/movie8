@@ -19,6 +19,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @author zhangbo
+ * 详情页面
+ */
 public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView, MovieDetailPresenter> implements Contract.IMovieDetailView {
 
     @BindView(R.id.movie_detail_text)

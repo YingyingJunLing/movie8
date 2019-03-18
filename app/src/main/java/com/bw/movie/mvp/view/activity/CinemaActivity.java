@@ -1,9 +1,11 @@
 package com.bw.movie.mvp.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -20,6 +22,10 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @author zhangbo
+ * 影片分类
+ */
 public class CinemaActivity extends BaseActivity {
     @BindView(R.id.hotmovie)
     RadioButton hotmovie;
@@ -34,6 +40,7 @@ public class CinemaActivity extends BaseActivity {
     private Frag_Cinema_Hot frag_cinema_hot;
     private Frag_Cinema_release frag_cinema_release;
     private Frag_Cinema_Coming frag_cinema_coming;
+    private int type;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -43,6 +50,10 @@ public class CinemaActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        //判断影片类型
+        Intent intent = getIntent();
+        type = intent.getIntExtra("1",1);
+        Log.i("type判断类型",type+"");
         FragmentManager manager = getSupportFragmentManager();
         final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         frag_cinema_hot = new Frag_Cinema_Hot();
@@ -52,6 +63,58 @@ public class CinemaActivity extends BaseActivity {
         fragmentArrayList.add(frag_cinema_release);
         fragmentArrayList.add(frag_cinema_coming);
         viewPagerCinema.setAdapter(new ViewPagerCinemaAdapter(manager,fragmentArrayList));
+        if (type==1){
+            viewPagerCinema.setCurrentItem(0);
+            hotmovie.setChecked(true);
+        }else if (type==2){
+            viewPagerCinema.setCurrentItem(1);
+            releasemovie.setChecked(true);
+        }else {
+            viewPagerCinema.setCurrentItem(2);
+            comingsoonmovie.setChecked(true);
+        }
+        radioCinema.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.hotmovie:
+                        viewPagerCinema.setCurrentItem(0);
+                        break;
+                    case R.id.releasemovie:
+                        viewPagerCinema.setCurrentItem(1);
+                        break;
+                    case R.id.comingsoonmovie:
+                        viewPagerCinema.setCurrentItem(2);
+                        break;
+                }
+            }
+        });
+        viewPagerCinema.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                switch (i){
+                    case 0:
+                        hotmovie.setChecked(true);
+                        break;
+                    case 1:
+                        releasemovie.setChecked(true);
+                        break;
+                    case 2:
+                        comingsoonmovie.setChecked(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     @Override
