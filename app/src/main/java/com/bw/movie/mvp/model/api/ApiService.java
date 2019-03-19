@@ -1,5 +1,7 @@
 package com.bw.movie.mvp.model.api;
 
+import com.bw.movie.mvp.model.bean.CinemaIfoBean;
+import com.bw.movie.mvp.model.bean.CinemaListBean;
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
 import com.bw.movie.mvp.model.bean.FindNearCinemaBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
@@ -9,7 +11,7 @@ import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
-import com.bw.movie.mvp.model.bean.RegBean;
+import com.bw.movie.mvp.model.bean.ScheduleListBean;
 
 import java.util.HashMap;
 
@@ -61,4 +63,15 @@ public interface ApiService {
     @GET(Api.MOVIECOMMENT)
     Observable<MovieCommentBean> movieComment(@Query("page")int page, @Query("count")int count);
 
+    //根据电影ID查询当前排片该电影的影院列表
+    @GET(Api.CINEMALIST)
+    Observable<CinemaListBean> getCinemaList(@Query("movieId")int movieId);
+
+    //根据电影ID和影院ID查询电影排期列表
+    @GET(Api.SCHEDILELIST)
+    Observable<ScheduleListBean> getScheduleList(@Query("cinemasId")int cinemasId,@Query("movieId")int movieId);
+
+    //影院详情
+    @GET(Api.CINEMAINFO)
+    Observable<CinemaIfoBean> getCinemaInfo(@Query("cinemaId")int cinemaId);
 }
