@@ -4,7 +4,9 @@ import java.util.HashMap;
 
 public class Contract {
 
-    //登录模块需要的接口
+    /**
+     * 登录的接口
+     */
     public interface ILoginView{
 
         void onILoginSuccess(Object o);
@@ -21,12 +23,12 @@ public class Contract {
         void ILogin(String url, HashMap<String, String> hashMap, LoginCallBack loginCallBack);
     }
 
-
     public interface LoginCallBack{
         void onSuccess(Object o);
 
         void onFail(String errorInfo);
     }
+
 
     //首页电影模块需要的接口
     public interface ICinemaView{
@@ -110,20 +112,24 @@ public class Contract {
 
         void onIMovieDetailFail(String errorInfo);
 
+
     }
     public interface IMovieDetailPre{
 
         void onIMovieDetailPre(int movieID);
+        void onIMovieCommenPre(int page,int count);
 
     }
     public interface IMovieDetailModel{
         void onIMovieDetailModel(int movieID,MovieDetailBack movieDetailBack);
+        void onIMovieCommenModel(int page,int count,MovieDetailBack movieDetailBack);
     }
 
     public interface MovieDetailBack{
         void onSuccess(Object o);
 
         void onFail(String errorInfo);
+
     }
 
     //推荐影院fragment
