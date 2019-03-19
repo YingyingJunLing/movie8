@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RadioGroup android:id="@+id/film_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/frag_film_recommend_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_sel"
+            android:textColor="@drawable/text_sel"
+            android:button="@null"
+            android:padding="3dp"
+            android:text="@string/recommend"
+            android:textSize="16sp"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <RadioButton android:id="@+id/frag_film_near_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_sel"
+            android:textColor="@drawable/text_sel"
+            android:button="@null"
+            android:padding="3dp"
+            android:text="@string/near"
+            android:textSize="16sp"/>
+    </RadioGroup>
+    <FrameLayout android:id="@+id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></FrameLayout>
+</LinearLayout>
