@@ -55,14 +55,14 @@ public class MovieCommentBean
 
         private String commentContent;
         private String commentHeadPic;
-        private int commentId;
+        private String commentId;
         private long commentTime;
-        private int commentUserId;
+        private String commentUserId;
         private String commentUserName;
-        private int greatNum;
-        private int hotComment;
-        private int isGreat;
-        private int replyNum;
+        private String greatNum;
+        private String hotComment;
+        private String isGreat;
+        private String replyNum;
 
         public String getCommentContent() {
             return commentContent;
@@ -80,11 +80,11 @@ public class MovieCommentBean
             this.commentHeadPic = commentHeadPic;
         }
 
-        public int getCommentId() {
+        public String getCommentId() {
             return commentId;
         }
 
-        public void setCommentId(int commentId) {
+        public void setCommentId(String commentId) {
             this.commentId = commentId;
         }
 
@@ -96,11 +96,11 @@ public class MovieCommentBean
             this.commentTime = commentTime;
         }
 
-        public int getCommentUserId() {
+        public String getCommentUserId() {
             return commentUserId;
         }
 
-        public void setCommentUserId(int commentUserId) {
+        public void setCommentUserId(String commentUserId) {
             this.commentUserId = commentUserId;
         }
 
@@ -112,35 +112,35 @@ public class MovieCommentBean
             this.commentUserName = commentUserName;
         }
 
-        public int getGreatNum() {
+        public String getGreatNum() {
             return greatNum;
         }
 
-        public void setGreatNum(int greatNum) {
+        public void setGreatNum(String greatNum) {
             this.greatNum = greatNum;
         }
 
-        public int getHotComment() {
+        public String getHotComment() {
             return hotComment;
         }
 
-        public void setHotComment(int hotComment) {
+        public void setHotComment(String hotComment) {
             this.hotComment = hotComment;
         }
 
-        public int getIsGreat() {
+        public String getIsGreat() {
             return isGreat;
         }
 
-        public void setIsGreat(int isGreat) {
+        public void setIsGreat(String isGreat) {
             this.isGreat = isGreat;
         }
 
-        public int getReplyNum() {
+        public String getReplyNum() {
             return replyNum;
         }
 
-        public void setReplyNum(int replyNum) {
+        public void setReplyNum(String replyNum) {
             this.replyNum = replyNum;
         }
     }

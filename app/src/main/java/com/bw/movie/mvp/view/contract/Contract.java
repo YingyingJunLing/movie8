@@ -117,12 +117,12 @@ public class Contract {
     public interface IMovieDetailPre{
 
         void onIMovieDetailPre(int movieID);
-        void onIMovieCommenPre(int page,int count);
+        void onIMovieCommenPre(int movieId,int page,int count);
 
     }
     public interface IMovieDetailModel{
         void onIMovieDetailModel(int movieID,MovieDetailBack movieDetailBack);
-        void onIMovieCommenModel(int page,int count,MovieDetailBack movieDetailBack);
+        void onIMovieCommenModel(int movieId,int page,int count,MovieDetailBack movieDetailBack);
     }
 
     public interface MovieDetailBack{
