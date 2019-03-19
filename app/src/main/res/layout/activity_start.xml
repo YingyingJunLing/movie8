@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/start"
+    >
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="维度影院"
+        android:textSize="40sp"
+        android:textColor="#ff00ff"
+        android:layout_marginTop="1120dp"
+        android:layout_marginLeft="300dp"
+
+        />
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="一场不一样的视觉盛宴"
+        android:textSize="28sp"
+        android:textColor="#00ffff"
+        android:layout_marginTop="1200dp"
+        android:layout_marginLeft="240dp"
+        />
+
+
+</RelativeLayout>

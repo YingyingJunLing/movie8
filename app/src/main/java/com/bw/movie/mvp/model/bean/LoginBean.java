@@ -33,8 +33,12 @@ public class LoginBean {
     public static class ResultBean {
 
         private String sessionId;
-        private int userId;
+        private String userId;
         private UserInfoBean userInfo;
+        public ResultBean(String sessionId, String userId) {
+            this.sessionId = sessionId;
+            this.userId = userId;
+        }
 
         public String getSessionId() {
             return sessionId;
@@ -44,11 +48,11 @@ public class LoginBean {
             this.sessionId = sessionId;
         }
 
-        public int getUserId() {
+        public String getUserId() {
             return userId;
         }
 
-        public void setUserId(int userId) {
+        public void setUserId(String userId) {
             this.userId = userId;
         }
 
@@ -65,7 +69,7 @@ public class LoginBean {
              * birthday : 320256000000
              * headPic : http://mobile.bwstudent.com/images/movie/head_pic/bwjy.jpg
              * id : 460
-             * lastLoginTime : 1552387993000
+             * lastLogStringime : 1552387993000
              * nickName : 你的爸爸
              * phone : 15902460752
              * sex : 1
@@ -73,11 +77,16 @@ public class LoginBean {
 
             private long birthday;
             private String headPic;
-            private int id;
-            private long lastLoginTime;
+            private String id;
+            private long lastLogStringime;
             private String nickName;
             private String phone;
-            private int sex;
+            private String sex;
+
+            public UserInfoBean(String headPic, String nickName) {
+                this.headPic = headPic;
+                this.nickName = nickName;
+            }
 
             public long getBirthday() {
                 return birthday;
@@ -95,20 +104,20 @@ public class LoginBean {
                 this.headPic = headPic;
             }
 
-            public int getId() {
+            public String getId() {
                 return id;
             }
 
-            public void setId(int id) {
+            public void setId(String id) {
                 this.id = id;
             }
 
-            public long getLastLoginTime() {
-                return lastLoginTime;
+            public long getLastLogStringime() {
+                return lastLogStringime;
             }
 
-            public void setLastLoginTime(long lastLoginTime) {
-                this.lastLoginTime = lastLoginTime;
+            public void setLastLogStringime(long lastLogStringime) {
+                this.lastLogStringime = lastLogStringime;
             }
 
             public String getNickName() {
@@ -127,11 +136,11 @@ public class LoginBean {
                 this.phone = phone;
             }
 
-            public int getSex() {
+            public String getSex() {
                 return sex;
             }
 
-            public void setSex(int sex) {
+            public void setSex(String sex) {
                 this.sex = sex;
             }
         }
