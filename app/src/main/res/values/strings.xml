@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">wdmovie</string>
+    <string name="hotmovie">热门电影</string>
+    <string name="releasemovie">正在上映</string>
+    <string name="comingsoonmovie">即将上映</string>
+    <string name="detail">详情</string>
+    <string name="prevue">预告</string>
+    <string name="movie_picture">剧照</string>
+    <string name="movie_commit">影评</string>
+    <string name="buy">购票</string>
+    <string name="movie_detail">电影详情</string>
+    <string name="recommend">推荐影院</string>
+    <string name="near">附近影院</string>
 </resources>

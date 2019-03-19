@@ -19,7 +19,7 @@ public class App extends Application {
         if (!file.exists()){
             file.mkdir();
         }
-        Fresco.initialize(this,ImagePipelineConfig.newBuilder(App.this)
+        Fresco.initialize(App.this,ImagePipelineConfig.newBuilder(App.this)
                 .setMainDiskCacheConfig(
                         DiskCacheConfig.newBuilder(this)
                                 .setBaseDirectoryPath(file)
