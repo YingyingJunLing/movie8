@@ -23,4 +23,19 @@ public class MovieDetailPresenter extends BasePresenter<Contract.IMovieDetailVie
             }
         });
     }
+
+    @Override
+    public void onIMovieCommenPre(int page, int count) {
+        movieDetailModel.onIMovieCommenModel(page, count, new Contract.MovieDetailBack() {
+            @Override
+            public void onSuccess(Object o) {
+                getView().onIMovieDetailSuccess(o);
+            }
+
+            @Override
+            public void onFail(String errorInfo) {
+
+            }
+        });
+    }
 }

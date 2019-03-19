@@ -13,23 +13,32 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.NoActionBar">
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="design_width_in_dp"
-            android:value="760"/>
+            android:value="760" />
         <meta-data
             android:name="design_height_in_dp"
-            android:value="1922"/>
-        <activity android:name=".mvp.view.activity.MainActivity">
+            android:value="1922" />
+
+        <activity android:name=".mvp.view.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.view.activity.LoginActivity" />
+        <activity android:name=".mvp.view.activity.StartActivity" />
+        <activity android:name=".mvp.view.activity.GuideActivity" />
         <activity android:name=".mvp.view.activity.MovieDetailActivity" />
-        <activity android:name=".mvp.view.activity.CinemaActivity"></activity>
+        <activity android:name=".mvp.view.activity.CinemaActivity" />
+        <activity android:name=".mvp.view.activity.RegActivity" />
+        <activity android:name=".mvp.view.activity.MainActivity" />
+        <activity android:name=".mvp.view.activity.MyMessageActivity" />
+        <activity android:name=".mvp.view.activity.MyAttentionActivity" />
+        <activity android:name=".mvp.view.activity.MyRecordActivity" />
+        <activity android:name=".mvp.view.activity.MyFeedDBActivity" />
+        <activity android:name=".mvp.view.activity.MyVersionActivity"></activity>
     </application>
 
 </manifest>

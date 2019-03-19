@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 如果点击了 -->
+    <item android:state_checked="true" android:drawable="@drawable/yuan_true"></item>
+    <item android:drawable="@drawable/yuan_false"></item>
+</selector>
