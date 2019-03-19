@@ -1,7 +1,10 @@
 package com.bw.movie.mvp.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -29,6 +32,8 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     TextView movieDetailText;
     @BindView(R.id.movie_detail_img)
     SimpleDraweeView movieDetailImg;
+    @BindView(R.id.buy_btn)
+    Button buyBtn;
     private MovieDetailPresenter movieDetailPresenter;
     private int id;
 
@@ -63,12 +68,20 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     @Override
     public void onIMovieDetailSuccess(Object o) {
         Log.i("详情", o.toString());
-        if (o instanceof MoviesDetailBean){
+        if (o instanceof MoviesDetailBean) {
             MoviesDetailBean moviesDetailBean = (MoviesDetailBean) o;
             MoviesDetailBean.ResultBean result = moviesDetailBean.getResult();
-            Log.i("详情名字",result.getName());
-            movieDetailText.setText(result.getName());
-            FrescoUtils.setPic(result.getImageUrl(),movieDetailImg);
+            Log.i("详情名字", result.getName());
+            final String name = result.getName();
+            movieDetailText.setText(name);
+            FrescoUtils.setPic(result.getImageUrl(), movieDetailImg);
+            buyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MovieDetailActivity.this, CinemaListActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

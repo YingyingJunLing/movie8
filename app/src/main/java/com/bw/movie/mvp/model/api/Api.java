@@ -32,5 +32,10 @@ public class Api {
     public static final String RECOMMENDCINEMA="movieApi/cinema/v1/findRecommendCinemas";
     //附近影院
     public static final String FINDNEARCINEMA="movieApi/cinema/v1/findRecommendCinemas";
-
+    //根据电影ID查询当前排片该电影的影院列表
+    public static final String CINEMALIST="movieApi/movie/v1/findCinemasListByMovieId";
+    //根据电影ID和影院ID查询电影排期列表
+    public static final String SCHEDILELIST="movieApi/movie/v1/findMovieScheduleList";
+    //影院详情
+    public static final String CINEMAINFO="movieApi/cinema/v1/findCinemaInfo";
 }
