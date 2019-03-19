@@ -19,8 +19,8 @@ import java.util.List;
 public class MyFilmCommentAdapter extends RecyclerView.Adapter<MyFilmCommentAdapter.ViewHolder>
 {
     Context context;
-    List<MovieCommentBean.ResultBean> movieCommentBeanResult;
-    public MyFilmCommentAdapter(Context context, List<MovieCommentBean.ResultBean> movieCommentBeanResult) {
+    MovieCommentBean movieCommentBeanResult;
+    public MyFilmCommentAdapter(Context context, MovieCommentBean movieCommentBeanResult) {
         this.context = context ;
         this.movieCommentBeanResult = movieCommentBeanResult;
     }
@@ -36,18 +36,18 @@ public class MyFilmCommentAdapter extends RecyclerView.Adapter<MyFilmCommentAdap
     @Override
     public void onBindViewHolder(@NonNull MyFilmCommentAdapter.ViewHolder viewHolder, int i)
     {
-        viewHolder.film_comment_content.setText(movieCommentBeanResult.get(i).getHotComment());
-        viewHolder.film_comment_name.setText(movieCommentBeanResult.get(i).getCommentUserName());
-        viewHolder.film_comment_num.setText(movieCommentBeanResult.get(i).getGreatNum());
+        viewHolder.film_comment_content.setText(movieCommentBeanResult.getResult().get(i).getCommentContent());
+        viewHolder.film_comment_name.setText(movieCommentBeanResult.getResult().get(i).getCommentUserName());
+        viewHolder.film_comment_num.setText(movieCommentBeanResult.getResult().get(i).getGreatNum());
         Glide.with(context)
-                .load(movieCommentBeanResult.get(i).getCommentHeadPic())
+                .load(movieCommentBeanResult.getResult().get(i).getCommentHeadPic())
                 .into(viewHolder.film_comment_head);
 
     }
 
     @Override
     public int getItemCount() {
-        return movieCommentBeanResult.size();
+        return movieCommentBeanResult.getResult().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

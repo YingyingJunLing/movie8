@@ -78,6 +78,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getEvent(MoviesDetailBean.ResultBean resultBean) {
         id = resultBean.getId();
+
     }
 
     @Override
@@ -111,7 +112,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     @Override
     protected void getData() {
         movieDetailPresenter.onIMovieDetailPre(id);
-        movieDetailPresenter.onIMovieCommenPre(page,count);
+        movieDetailPresenter.onIMovieCommenPre(id,page,count);
     }
 
     @Override
@@ -124,26 +125,26 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             movieDetailText.setText(result.getName());
             FrescoUtils.setPic(result.getImageUrl(), movieDetailImg);
         }
-//        if(o instanceof MovieCommentBean)
-//        {
-//            movieCommentBean = (MovieCommentBean) o;
-//            if(movieCommentBean != null)
-//            {
-//                movieCommentBeanResult = movieCommentBean.getResult();
-//                myFilmCommentAdapter = new MyFilmCommentAdapter(MovieDetailActivity.this, movieCommentBeanResult);
-//
-////                myFilmCommentAdapter.setClickListen(new MyFilmCommentAdapter.CallBackCommentAppraise() {
-////                    @Override
-////                    public void setListen(View view, String commentId) {
-////                        Toast.makeText(MovieDetailActivity.this, commentId, Toast.LENGTH_SHORT).show();
-////                        appraise_img.setVisibility(View.VISIBLE);
-////                    }
-////                });
-//            }else{
-//                Toast.makeText(MovieDetailActivity.this,"为空了",Toast.LENGTH_SHORT).show();
-//            }
-//
-//        }
+        if(o instanceof MovieCommentBean)
+        {
+            movieCommentBean = (MovieCommentBean) o;
+            Log.e("movieCommentBean",movieCommentBean.toString());
+            if(movieCommentBean != null)
+            {
+
+                myFilmCommentAdapter = new MyFilmCommentAdapter(MovieDetailActivity.this, movieCommentBean);
+//                myFilmCommentAdapter.setClickListen(new MyFilmCommentAdapter.CallBackCommentAppraise() {
+//                    @Override
+//                    public void setListen(View view, String commentId) {
+//                        Toast.makeText(MovieDetailActivity.this, commentId, Toast.LENGTH_SHORT).show();
+//                        appraise_img.setVisibility(View.VISIBLE);
+//                    }
+//                });
+            }else{
+                Toast.makeText(MovieDetailActivity.this,"为空了",Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 
     @Override
@@ -214,7 +215,6 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 break;
                 //剧照
             case R.id.movie_picture_btn:
-
                 final View view3 = View.inflate(MovieDetailActivity.this, R.layout.still_dialog_item, null);
                 RecyclerView rec1 = view3.findViewById(R.id.still_dialog_rec);
                 rec1.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -234,9 +234,8 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             case R.id.movie_commit_btn:
                 view4 = View.inflate(MovieDetailActivity.this, R.layout.comment_dialog_item, null);
                 rec3 = view4.findViewById(R.id.comment_dialog_rec);
-               // final CircleImageView appraise_img = view4.findViewById(R.id.comment_appraise_img);
                 rec3.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.VERTICAL, false));
-              //  rec3.setAdapter(myFilmCommentAdapter);
+                rec3.setAdapter(myFilmCommentAdapter);
 //                final EditText editText = new EditText(getApplicationContext());
 //
 //                appraise_img.setOnClickListener(new View.OnClickListener() {

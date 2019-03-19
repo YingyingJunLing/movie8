@@ -1,5 +1,7 @@
 package com.bw.movie.mvp.model.modelimpl;
 
+import android.util.Log;
+
 import com.bw.movie.mvp.model.api.ApiService;
 import com.bw.movie.mvp.model.bean.MovieCommentBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
@@ -26,15 +28,16 @@ public class MovieDetailModel implements Contract.IMovieDetailModel {
                 });
     }
 
-    @Override
-    public void onIMovieCommenModel(int page, int count, final Contract.MovieDetailBack movieDetailBack) {
+
+    public void onIMovieCommenModel(int movieId,int page, int count, final Contract.MovieDetailBack movieDetailBack) {
         ApiService apiService = RetrofitUtils.getInstance().create(ApiService.class);
-        apiService.movieComment(page,count)
+        apiService.movieComment(movieId,page,count)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<MovieCommentBean>() {
                     @Override
                     public void accept(MovieCommentBean movieCommentBean) throws Exception {
+                        Log.e("movieCommentBean",movieCommentBean.toString());
                         movieDetailBack.onSuccess(movieCommentBean);
                     }
                 });

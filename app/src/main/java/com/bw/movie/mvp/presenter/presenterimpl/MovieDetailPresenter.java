@@ -24,9 +24,9 @@ public class MovieDetailPresenter extends BasePresenter<Contract.IMovieDetailVie
         });
     }
 
-    @Override
-    public void onIMovieCommenPre(int page, int count) {
-        movieDetailModel.onIMovieCommenModel(page, count, new Contract.MovieDetailBack() {
+
+    public void onIMovieCommenPre(int movieId,int page, int count) {
+        movieDetailModel.onIMovieCommenModel(movieId,page, count, new Contract.MovieDetailBack() {
             @Override
             public void onSuccess(Object o) {
                 getView().onIMovieDetailSuccess(o);

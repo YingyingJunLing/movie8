@@ -59,6 +59,6 @@ public interface ApiService {
     Observable<FindNearCinemaBean> getFindNear(@Query("page")int page, @Query("count")int count);
     //影院评论
     @GET(Api.MOVIECOMMENT)
-    Observable<MovieCommentBean> movieComment(@Query("page")int page, @Query("count")int count);
+    Observable<MovieCommentBean> movieComment(@Query("movieId")int movieId,@Query("page")int page, @Query("count")int count);
 
 }
