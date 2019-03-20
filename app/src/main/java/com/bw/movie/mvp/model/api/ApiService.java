@@ -10,7 +10,7 @@ import com.bw.movie.mvp.model.bean.FindNearCinemaBean;
 import com.bw.movie.mvp.model.bean.FollowMovieBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
-import com.bw.movie.mvp.model.bean.MovieCommentBean;
+import com.bw.movie.mvp.model.bean.MovieListBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
@@ -81,6 +81,7 @@ public interface ApiService {
     @GET(Api.CINEMAINFO)
     Observable<CinemaIfoBean> getCinemaInfo(@Query("cinemaId")int cinemaId);
 
+
     //电影的关注
     @GET(Api.FOLLOWMOVIE)
     Observable<FollowMovieBean> followMovie(@Query("cinemaId")int cinemaId,@HeaderMap HashMap<String ,String> hashMap);
@@ -95,5 +96,10 @@ public interface ApiService {
     Observable<AttentionCamera> attentionCamera(@Url String url, @HeaderMap HashMap<String ,String> hashMap, @Query("page")int page, @Query("count")int count);
 
 
+
+
+    //根据影院ID查询该影院当前排期的电影列表
+    @GET(Api.MOVIELIST)
+    Observable<MovieListBean> getMovieList(@Query("cinemaId")int cinemaId);
 
 }

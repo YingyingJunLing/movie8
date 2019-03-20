@@ -1,22 +1,29 @@
 package com.bw.movie.mvp.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.fresco.FrescoUtils;
+import com.bw.movie.mvp.model.bean.CinemaListBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
+import com.bw.movie.mvp.view.activity.MovieListActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 public class RecommendAdapter extends XRecyclerView.Adapter<RecommendAdapter.MyViewHolder> {
     private Context context;
     private List<RecommendCinemaBean.ResultBean> list;
+    private View view;
 
     public RecommendAdapter(Context context, List<RecommendCinemaBean.ResultBean> list) {
         this.context = context;
@@ -26,16 +33,27 @@ public class RecommendAdapter extends XRecyclerView.Adapter<RecommendAdapter.MyV
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = View.inflate(context, R.layout.film_item, null);
+        view = View.inflate(context, R.layout.film_item, null);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
         FrescoUtils.setPic(list.get(i).getLogo(),myViewHolder.film_simple);
         myViewHolder.file_name.setText(list.get(i).getName());
         myViewHolder.file_address.setText(list.get(i).getAddress());
         myViewHolder.file_long.setText(list.get(i).getFollowCinema()+".0km");
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("影院ID", list.get(i).getId()+"");
+                int cid = list.get(i).getId();
+                CinemaListBean.ResultBean resultBean = new CinemaListBean.ResultBean(cid);
+                Log.i("影院ID", resultBean.getId()+"");
+                EventBus.getDefault().postSticky(resultBean);
+                context.startActivity(new Intent(context,MovieListActivity.class));
+            }
+        });
     }
 
     @Override
