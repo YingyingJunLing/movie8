@@ -75,7 +75,7 @@ public class MyMessageActivity extends BaseActivity<Contract.IMyMessageView,MyMe
 
     @Override
     protected void getData() {
-        //myMessagePresenter.onIMyPre(hashMap);
+        myMessagePresenter.onIMyPre(hashMap);
     }
 
     @Override

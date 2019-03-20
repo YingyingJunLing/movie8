@@ -35,9 +35,9 @@ public class LoginBean {
         private String sessionId;
         private String userId;
         private UserInfoBean userInfo;
-        public ResultBean(String sessionId, String userId) {
-            this.sessionId = sessionId;
+        public ResultBean(String userId,String sessionId ) {
             this.userId = userId;
+            this.sessionId = sessionId;
         }
 
         public String getSessionId() {

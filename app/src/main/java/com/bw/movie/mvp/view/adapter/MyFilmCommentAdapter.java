@@ -14,6 +14,7 @@ import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.MovieCommentBean;
 import com.bw.movie.mvp.view.activity.MovieDetailActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MyFilmCommentAdapter extends RecyclerView.Adapter<MyFilmCommentAdapter.ViewHolder>
@@ -42,6 +43,9 @@ public class MyFilmCommentAdapter extends RecyclerView.Adapter<MyFilmCommentAdap
         Glide.with(context)
                 .load(movieCommentBeanResult.getResult().get(i).getCommentHeadPic())
                 .into(viewHolder.film_comment_head);
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(
+                new java.util.Date(movieCommentBeanResult.getResult().get(i).getCommentTime()));
+        viewHolder.film_comment_time.setText(date);
 
     }
 

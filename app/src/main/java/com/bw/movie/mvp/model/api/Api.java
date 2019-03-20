@@ -40,4 +40,12 @@ public class Api {
     public static final String CINEMAINFO="movieApi/cinema/v1/findCinemaInfo";
     //影院评论
     public static final String MOVIECOMMENT="movieApi/movie/v1/findAllMovieComment";
+    //电影关注
+    public static final String FOLLOWMOVIE="movieApi/movie/v1/verify/followMovie";
+    //取消电影关注
+    public static final String CANCELFOLLOWMOVIE="movieApi/movie/v1/verify/cancelFollowMovie";
+    //我的页面关注影片
+    public static final String MYATTENTIONMOCIE="movieApi/movie/v1/verify/findMoviePageList";
+    //我的页面关注影院
+    public static final String MYATTENTIONCAMERA="movieApi/cinema/v1/verify/findCinemaPageList";
 }
