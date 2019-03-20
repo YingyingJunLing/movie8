@@ -1,12 +1,12 @@
 package com.bw.movie.mvp.view.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.fresco.FrescoUtils;
@@ -46,6 +46,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
     RecyclerView movieListRecycle;
     private MovieListPresenter movieListPresenter;
     private int cid;
+    private int mid;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -85,22 +86,15 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                 final List<MovieListBean.ResultBean> result = movieListBean.getResult();
                 MovieListCoverFlowAdapter movieListCoverFlowAdapter = new MovieListCoverFlowAdapter(this, result);
                 movieListCoverFlow.setAdapter(movieListCoverFlowAdapter);
-                int mid = result.get(0).getId();
+                mid = result.get(0).getId();
                 movieListPresenter.onIMovieListCinemaMoviePre(cid, mid);
-                movieListCoverFlow.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                movieListCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
                     @Override
-                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                        super.onScrollStateChanged(recyclerView, newState);
-
-                    }
-
-                    @Override
-                    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-
+                    public void onItemSelected(int position) {
+                        mid = result.get(position).getId();
+                        movieListPresenter.onIMovieListCinemaMoviePre(cid, mid);
                     }
                 });
-
             }
         }
     }
@@ -122,7 +116,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
         Log.i("相关档期", o.toString());
         if (o instanceof ScheduleListBean) {
             ScheduleListBean scheduleListBean = (ScheduleListBean) o;
-            if (scheduleListBean.getMessage().equals("0000")) {
+            if (scheduleListBean.getResult().size()>0) {
                 List<ScheduleListBean.ResultBean> result = scheduleListBean.getResult();
                 movieListRecycle.setAdapter(new ScheuleAdapter(this, result));
             }

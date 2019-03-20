@@ -27,7 +27,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/**
+ * @author zhangbo
+ * 影院电影详情
+ */
 public class ScheduleListActivity extends BaseActivity<Contract.IScheduleListView, ScheduleListPresenter> implements Contract.IScheduleListView {
 
     @BindView(R.id.cinema_text_name)
@@ -94,7 +97,6 @@ public class ScheduleListActivity extends BaseActivity<Contract.IScheduleListVie
         if (o instanceof ScheduleListBean) {
             ScheduleListBean scheduleListBean = (ScheduleListBean) o;
             List<ScheduleListBean.ResultBean> result = scheduleListBean.getResult();
-            Log.i("电影ID和影院ID", result.get(1).getEndTime());
             scheduleRecycle.setAdapter(new ScheuleAdapter(this, result));
         }
     }

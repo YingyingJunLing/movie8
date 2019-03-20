@@ -14,6 +14,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
+/**
+ * @author zhangbo
+ * 影院电影详情
+ */
 public class MovieListCoverFlowAdapter extends RecyclerView.Adapter<MovieListCoverFlowAdapter.MyViewHolder> {
     private Context context;
     private List<MovieListBean.ResultBean> list;
