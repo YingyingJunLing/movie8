@@ -197,6 +197,8 @@ public class Contract {
     }
 
     public interface MyMessageCallBack{
+
+        
         void onSuccess(Object o);
 
         void onFail(String errorInfo);
