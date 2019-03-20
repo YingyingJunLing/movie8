@@ -30,4 +30,10 @@ public class LoginPresenter extends BasePresenter<Contract.ILoginView> implement
             }
         });
     }
+
+    public void onDestroy(){
+        if (loginModel!=null){
+            loginModel=null;
+        }
+    }
 }

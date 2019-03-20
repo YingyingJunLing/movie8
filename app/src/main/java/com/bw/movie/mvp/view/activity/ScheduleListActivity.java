@@ -135,6 +135,7 @@ public class ScheduleListActivity extends BaseActivity<Contract.IScheduleListVie
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        scheduleListPresenter.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 }

@@ -137,7 +137,11 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
         }else {
             Toast.makeText(RegActivity.this,"失败了",Toast.LENGTH_SHORT).show();
         }
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        regPresenter.onDestroy();
     }
 }

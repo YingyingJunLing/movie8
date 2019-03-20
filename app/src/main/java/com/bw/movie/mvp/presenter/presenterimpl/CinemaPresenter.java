@@ -55,4 +55,10 @@ public class CinemaPresenter extends BasePresenter<Contract.ICinemaView> impleme
             }
         });
     }
+
+    public void onDestory(){
+        if (cinemaModel!=null){
+            cinemaModel=null;
+        }
+    }
 }

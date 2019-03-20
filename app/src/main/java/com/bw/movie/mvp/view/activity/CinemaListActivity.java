@@ -82,6 +82,7 @@ public class CinemaListActivity extends BaseActivity<Contract.ICinemaListView, C
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        createPresenter().onDestory();
         EventBus.getDefault().unregister(this);
     }
 }

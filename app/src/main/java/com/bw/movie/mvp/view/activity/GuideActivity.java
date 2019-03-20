@@ -165,4 +165,10 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }

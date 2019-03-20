@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class RegPresenter extends BasePresenter<Contract.ILoginView> implements Contract.ILoginPre
 {
 
-    private final RegModel regModel;
+    private RegModel regModel;
 
     public RegPresenter() {
         regModel = new RegModel();
@@ -29,6 +29,11 @@ public class RegPresenter extends BasePresenter<Contract.ILoginView> implements 
 
             }
         });
+    }
 
+    public void onDestroy(){
+        if (regModel!=null){
+            regModel=null;
+        }
     }
 }

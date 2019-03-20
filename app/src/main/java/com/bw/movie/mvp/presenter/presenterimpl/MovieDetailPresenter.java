@@ -70,4 +70,10 @@ public class MovieDetailPresenter extends BasePresenter<Contract.IMovieDetailVie
             }
         });
     }
+
+    public void onDestroy(){
+        if (movieDetailModel!=null){
+            movieDetailModel=null;
+        }
+    }
 }

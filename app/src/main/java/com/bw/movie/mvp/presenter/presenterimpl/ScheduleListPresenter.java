@@ -66,4 +66,10 @@ public class ScheduleListPresenter extends BasePresenter<Contract.IScheduleListV
             }
         });
     }
+
+    public void onDestroy(){
+        if (scheduleListModel!=null){
+            scheduleListModel=null;
+        }
+    }
 }

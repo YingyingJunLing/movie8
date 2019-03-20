@@ -26,4 +26,10 @@ public class NearPresenter extends BasePresenter<Contract.INearView> implements 
             }
         });
     }
+
+    public void onDestroy(){
+        if (nearModel!=null){
+            nearModel=null;
+        }
+    }
 }

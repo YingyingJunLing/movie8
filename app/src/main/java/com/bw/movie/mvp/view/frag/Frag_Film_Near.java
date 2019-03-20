@@ -60,4 +60,10 @@ public class Frag_Film_Near extends BaseFragment<Contract.INearView,NearPresente
     public void onINearFail(String errorInfo) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        nearPresenter.onDestroy();
+    }
 }

@@ -217,6 +217,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        movieDetailPresenter.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 

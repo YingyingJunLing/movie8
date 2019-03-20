@@ -89,7 +89,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
                 public void onAvailable(Network network) {
                     super.onAvailable(network);
                     Log.i("connect", "onAvailable: 获取到网络连接");
-//                    Toast.makeText(context, "获取到网络连接", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "获取到网络连接", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
