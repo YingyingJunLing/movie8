@@ -57,6 +57,7 @@
         android:layout_marginRight="15dp"
         android:gravity="center">
         <Button
+            android:id="@+id/movie_datail_btn"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:gravity="center"
@@ -64,6 +65,7 @@
             android:background="@drawable/button_radius"
             android:text="@string/detail"/>
         <Button
+            android:id="@+id/movie_prevue_btn"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:gravity="center"
@@ -72,6 +74,7 @@
             android:background="@drawable/button_radius"
             android:text="@string/prevue"/>
         <Button
+            android:id="@+id/movie_picture_btn"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:gravity="center"
@@ -80,6 +83,7 @@
             android:background="@drawable/button_radius"
             android:text="@string/movie_picture"/>
         <Button
+            android:id="@+id/movie_commit_btn"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:gravity="center"
@@ -97,6 +101,7 @@
         android:layout_marginRight="20dp"
         android:gravity="center">
         <Button
+            android:id="@+id/movie_betail_fan"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@mipmap/com_icon_my_default"/>

@@ -4,7 +4,9 @@ import java.util.HashMap;
 
 public class Contract {
 
-    //登录模块需要的接口
+    /**
+     * 登录的接口
+     */
     public interface ILoginView{
 
         void onILoginSuccess(Object o);
@@ -21,12 +23,12 @@ public class Contract {
         void ILogin(String url, HashMap<String, String> hashMap, LoginCallBack loginCallBack);
     }
 
-
     public interface LoginCallBack{
         void onSuccess(Object o);
 
         void onFail(String errorInfo);
     }
+
 
     //首页电影模块需要的接口
     public interface ICinemaView{
@@ -110,20 +112,24 @@ public class Contract {
 
         void onIMovieDetailFail(String errorInfo);
 
+
     }
     public interface IMovieDetailPre{
 
         void onIMovieDetailPre(int movieID);
+        void onIMovieCommenPre(int movieId,int page,int count);
 
     }
     public interface IMovieDetailModel{
         void onIMovieDetailModel(int movieID,MovieDetailBack movieDetailBack);
+        void onIMovieCommenModel(int movieId,int page,int count,MovieDetailBack movieDetailBack);
     }
 
     public interface MovieDetailBack{
         void onSuccess(Object o);
 
         void onFail(String errorInfo);
+
     }
 
     //推荐影院fragment
@@ -171,4 +177,40 @@ public class Contract {
 
         void onFail(String errorInfo);
     }
+    /**
+     * 根据用户id查询用户信息
+     */
+    public interface IMyMessageView{
+
+        void onIMySuccess(Object o);
+
+        void onIMyFail(String errorInfo);
+
+    }
+    public interface IMyMessagePre{
+
+        void onIMyPre(HashMap<String, String > hashMap);
+
+    }
+    public interface IMyMessageModel{
+        void IMy(HashMap<String ,String > hashMap,MyMessageCallBack myMessageCallBack);
+    }
+
+    public interface MyMessageCallBack{
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+
+    /**
+     * 电影的评论
+     */
+    public interface IMovieCommentView{
+
+        void onIMovieCommenSuccess(Object o);
+
+        void onIMovieCommenFail(String errorInfo);
+
+    }
+
 }
