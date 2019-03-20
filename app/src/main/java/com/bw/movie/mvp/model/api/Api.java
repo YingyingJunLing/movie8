@@ -38,6 +38,19 @@ public class Api {
     public static final String SCHEDILELIST="movieApi/movie/v1/findMovieScheduleList";
     //影院详情
     public static final String CINEMAINFO="movieApi/cinema/v1/findCinemaInfo";
+
+    //影院评论
+    public static final String MOVIECOMMENT="movieApi/movie/v1/findAllMovieComment";
+    //电影关注
+    public static final String FOLLOWMOVIE="movieApi/movie/v1/verify/followMovie";
+    //取消电影关注
+    public static final String CANCELFOLLOWMOVIE="movieApi/movie/v1/verify/cancelFollowMovie";
+    //我的页面关注影片
+    public static final String MYATTENTIONMOCIE="movieApi/movie/v1/verify/findMoviePageList";
+    //我的页面关注影院
+    public static final String MYATTENTIONCAMERA="movieApi/cinema/v1/verify/findCinemaPageList";
+
     //根据影院ID查询该影院当前排期的电影列表
     public static final String MOVIELIST="movieApi/movie/v1/findMovieListByCinemaId";
+
 }

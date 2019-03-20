@@ -1,9 +1,13 @@
 package com.bw.movie.mvp.model.api;
 
+import com.bw.movie.mvp.model.bean.AttentionCamera;
+import com.bw.movie.mvp.model.bean.AttentionMovie;
+import com.bw.movie.mvp.model.bean.CancelFollowMovieBean;
 import com.bw.movie.mvp.model.bean.CinemaIfoBean;
 import com.bw.movie.mvp.model.bean.CinemaListBean;
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
 import com.bw.movie.mvp.model.bean.FindNearCinemaBean;
+import com.bw.movie.mvp.model.bean.FollowMovieBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.bean.MovieListBean;
@@ -11,6 +15,7 @@ import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
+import com.bw.movie.mvp.model.bean.RegBean;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
 
 import java.util.HashMap;
@@ -22,6 +27,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
 public interface ApiService {
@@ -75,7 +81,25 @@ public interface ApiService {
     @GET(Api.CINEMAINFO)
     Observable<CinemaIfoBean> getCinemaInfo(@Query("cinemaId")int cinemaId);
 
+
+    //电影的关注
+    @GET(Api.FOLLOWMOVIE)
+    Observable<FollowMovieBean> followMovie(@Query("cinemaId")int cinemaId,@HeaderMap HashMap<String ,String> hashMap);
+   //取消关注
+    @GET(Api.CANCELFOLLOWMOVIE)
+    Observable<CancelFollowMovieBean> cancelFollowMovie(@Query("cinemaId")int cinemaId, @HeaderMap HashMap<String ,String> hashMap);
+    //关注影片
+    @GET
+    Observable<AttentionMovie> attentionMovie(@Url String url, @HeaderMap HashMap<String ,String> hashMap, @Query("page")int page, @Query("count")int count);
+    //关注影院
+    @GET
+    Observable<AttentionCamera> attentionCamera(@Url String url, @HeaderMap HashMap<String ,String> hashMap, @Query("page")int page, @Query("count")int count);
+
+
+
+
     //根据影院ID查询该影院当前排期的电影列表
     @GET(Api.MOVIELIST)
     Observable<MovieListBean> getMovieList(@Query("cinemaId")int cinemaId);
+
 }

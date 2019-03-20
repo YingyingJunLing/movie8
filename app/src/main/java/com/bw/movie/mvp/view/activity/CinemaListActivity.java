@@ -1,6 +1,6 @@
 package com.bw.movie.mvp.view.activity;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;

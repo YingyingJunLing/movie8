@@ -115,14 +115,17 @@ public class Contract {
 
     }
     public interface IMovieDetailPre{
-
         void onIMovieDetailPre(int movieID);
         void onIMovieCommenPre(int movieId,int page,int count);
+        void onIFollowMovie(int movieId,HashMap<String ,String> hashMap);
+        void onICancelFollowMovie(int movieId,HashMap<String ,String> hashMap);
 
     }
     public interface IMovieDetailModel{
         void onIMovieDetailModel(int movieID,MovieDetailBack movieDetailBack);
         void onIMovieCommenModel(int movieId,int page,int count,MovieDetailBack movieDetailBack);
+        void onIFollowMovie(int movieId,HashMap<String ,String> hashMap,MovieDetailBack movieDetailBack);
+        void onICancelFollowMovie(int movieId,HashMap<String ,String> hashMap,MovieDetailBack movieDetailBack);
     }
 
     public interface MovieDetailBack{
@@ -182,7 +185,6 @@ public class Contract {
     public interface ICinemaListView{
 
         void onICinemaListSuccess(Object o);
-
         void onICinemaListFail(String errorInfo);
 
     }
@@ -230,6 +232,54 @@ public class Contract {
         void onFail(String errorInfo);
     }
 
+    /**
+     * 根据用户id查询用户信息
+     */
+    public interface IMyMessageView{
+
+        void onIMySuccess(Object o);
+
+        void onIMyFail(String errorInfo);
+
+    }
+    public interface IMyMessagePre{
+
+        void onIMyPre(HashMap<String, String > hashMap);
+
+    }
+    public interface IMyMessageModel{
+        void IMy(HashMap<String ,String > hashMap,MyMessageCallBack myMessageCallBack);
+    }
+
+    public interface MyMessageCallBack{
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+    /**
+     * 我的关注电影
+     */
+    public interface IAttentionView{
+
+        void onIAttentionSuccess(Object o);
+
+        void onIMyFail(String errorInfo);
+
+    }
+    public interface IAttentionPre{
+
+        void onIAttentionMoviePre(HashMap<String, String > hashMap,int page,int count);
+        void onIAttentionCameraPres(HashMap<String, String > hashMap,int page,int count);
+
+    }
+    public interface IAttentionModel{
+        void IAttentionMovie(HashMap<String ,String > hashMap,int page,int count,MyAttentionCallBack myAttentionCallBack);
+        void IIAttentionCameras(HashMap<String ,String > hashMap,int page,int count,MyAttentionCallBack myAttentionCallBack);
+    }
+
+    public interface MyAttentionCallBack{
+
+
     //根据影院ID查询该影院当前排期的电影列表
     public interface IMovieListView{
 
@@ -254,6 +304,7 @@ public class Contract {
     }
 
     public interface MovieListBack{
+
         void onSuccess(Object o);
 
         void onFail(String errorInfo);

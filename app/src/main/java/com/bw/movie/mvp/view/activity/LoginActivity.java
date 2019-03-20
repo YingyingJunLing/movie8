@@ -77,7 +77,8 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
         {
             //存值   先得到点击 存的值
             String uname = sp.getString("user", "");
-            String upass = sp.getString("pass", "");
+            String upass = sp.getString("pass", pwd);
+            Log.e("upass",upass);
             //吧得到的值赋值给根据id得到的
             loginEditPhone.setText(uname);
             loginEditPass.setText(upass);
@@ -168,7 +169,7 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
                     edit = sp.edit();
                     edit.putBoolean("jizhu", loginBoxRemember.isChecked());
                     edit.putString("user", mabile);
-                    edit.putString("pass", pass);
+                    edit.putString("pass", pwd);
                     //启动
                     edit.commit();
                     loginPresenter.onILoginPre(Api.LOGIN, hashMap);

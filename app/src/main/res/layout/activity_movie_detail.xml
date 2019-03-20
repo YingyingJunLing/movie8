@@ -30,11 +30,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
-        <CheckBox
+        <ImageView
+            android:id="@+id/collection_sel"
             android:layout_width="23dp"
             android:layout_height="20dp"
-            android:button="@null"
-            android:background="@drawable/collection_sel"/>
+            android:src="@drawable/com_icon_collection_default"
+            />
     </LinearLayout>
     <TextView android:id="@+id/movie_detail_text"
         android:layout_width="wrap_content"

@@ -7,7 +7,7 @@ public class MyMessageBean implements Serializable
 
 
     /**
-     * result : {"birthday":862588800000,"email":"2117252179@qq.com","headPic":"http://mobile.bwstudent.com/images/movie/head_pic/bwjy.jpg","id":611,"lastLoginTime":1552873960000,"nickName":"俊","phone":"15055718016","sex":1}
+     * result : {"birthday":862588800000,"email":"2117252179@qq.com","headPic":"http://mobile.bwstudent.com/images/movie/head_pic/bwjy.jpg","id":611,"lastLogStringime":1552873960000,"nickName":"俊","phone":"15055718016","sex":1}
      * message : 查询成功
      * status : 0000
      */
@@ -46,7 +46,7 @@ public class MyMessageBean implements Serializable
          * email : 2117252179@qq.com
          * headPic : http://mobile.bwstudent.com/images/movie/head_pic/bwjy.jpg
          * id : 611
-         * lastLoginTime : 1552873960000
+         * lastLogStringime : 1552873960000
          * nickName : 俊
          * phone : 15055718016
          * sex : 1
@@ -55,11 +55,11 @@ public class MyMessageBean implements Serializable
         private long birthday;
         private String email;
         private String headPic;
-        private int id;
-        private long lastLoginTime;
+        private String id;
+        private long lastLogStringime;
         private String nickName;
         private String phone;
-        private int sex;
+        private String sex;
 
         public long getBirthday() {
             return birthday;
@@ -85,20 +85,20 @@ public class MyMessageBean implements Serializable
             this.headPic = headPic;
         }
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
-        public long getLastLoginTime() {
-            return lastLoginTime;
+        public long getLastLogStringime() {
+            return lastLogStringime;
         }
 
-        public void setLastLoginTime(long lastLoginTime) {
-            this.lastLoginTime = lastLoginTime;
+        public void setLastLogStringime(long lastLogStringime) {
+            this.lastLogStringime = lastLogStringime;
         }
 
         public String getNickName() {
@@ -117,11 +117,11 @@ public class MyMessageBean implements Serializable
             this.phone = phone;
         }
 
-        public int getSex() {
+        public String getSex() {
             return sex;
         }
 
-        public void setSex(int sex) {
+        public void setSex(String sex) {
             this.sex = sex;
         }
     }
