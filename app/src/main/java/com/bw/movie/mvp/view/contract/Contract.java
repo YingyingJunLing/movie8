@@ -105,7 +105,7 @@ public class Contract {
         void onFail(String errorInfo);
     }
 
-    //商品详情activity
+    //详情activity
     public interface IMovieDetailView{
 
         void onIMovieDetailSuccess(Object o);
@@ -177,6 +177,58 @@ public class Contract {
 
         void onFail(String errorInfo);
     }
+
+    //影院详情activity
+    public interface ICinemaListView{
+
+        void onICinemaListSuccess(Object o);
+
+        void onICinemaListFail(String errorInfo);
+
+    }
+    public interface ICinemaListPre{
+
+        void onICinemaListPre(int movieID);
+
+    }
+    public interface ICinemaListModel{
+        void onICinemaListModel(int movieID,CinemaListBack cinemaListBack);
+    }
+
+    public interface CinemaListBack{
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+
+    //电影详情当期
+    public interface IScheduleListView{
+
+        void onIScheduleListSuccess(Object o);
+        void onIScheduleListCinemaSuccess(Object o);
+        void onIScheduleListMovieSuccess(Object o);
+
+        void onIScheduleListFail(String errorInfo);
+
+    }
+    public interface IScheduleListPre{
+
+        void onIScheduleListPre(int cinemasId,int movieID);
+        void onIScheduleListCinemaPre(int cinemasId);
+        void onIScheduleListMoviePre(int movieID);
+
+    }
+    public interface IScheduleListModel{
+        void onIScheduleListModel(int cinemasId,int movieID,ScheduleListBack scheduleListBack);
+        void onIScheduleListCinemaModel(int cinemasId,ScheduleListBack scheduleListBack);
+        void onIScheduleListMovieModel(int movieID,ScheduleListBack scheduleListBack);
+    }
+
+    public interface ScheduleListBack{
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
     /**
      * 根据用户id查询用户信息
      */
@@ -197,21 +249,8 @@ public class Contract {
     }
 
     public interface MyMessageCallBack{
-
-
         void onSuccess(Object o);
 
         void onFail(String errorInfo);
     }
-
-    /**
-     * 电影的评论
-     */
-    public interface IMovieCommentView{
-        void onIMovieCommenSuccess(Object o);
-
-        void onIMovieCommenFail(String errorInfo);
-
-    }
-
 }

@@ -11,6 +11,7 @@ import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
+import com.bw.movie.mvp.model.bean.RegBean;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
 
 import java.util.HashMap;

@@ -38,4 +38,6 @@ public class Api {
     public static final String SCHEDILELIST="movieApi/movie/v1/findMovieScheduleList";
     //影院详情
     public static final String CINEMAINFO="movieApi/cinema/v1/findCinemaInfo";
+    //影院评论
+    public static final String MOVIECOMMENT="movieApi/movie/v1/findAllMovieComment";
 }
