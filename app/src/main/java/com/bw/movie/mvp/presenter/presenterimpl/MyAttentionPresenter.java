@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class MyAttentionPresenter extends BasePresenter<Contract.IAttentionView> implements Contract.IAttentionPre{
 
 
-    private final MyAttentionModel myAttentionFilmModel;
+    private MyAttentionModel myAttentionFilmModel;
 
     public MyAttentionPresenter()
     {
@@ -47,5 +47,11 @@ public class MyAttentionPresenter extends BasePresenter<Contract.IAttentionView>
 
             }
         });
+    }
+
+    public void onDestroy(){
+        if (myAttentionFilmModel!=null){
+            myAttentionFilmModel=null;
+        }
     }
 }

@@ -26,21 +26,25 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class Frag_My extends BaseFragment<Contract.IMyView,MyPresenter> implements Contract.IMyView, View.OnClickListener {
 
-    private SharedPreferences sp;
     private String nickName;
     private String headPic;
+    private View view;
 
     @Override
     protected View initFragmentView(LayoutInflater inflater) {
         EventBus.getDefault().register(this);
-        View view = View.inflate(getActivity(), R.layout.frag_my, null);
+        view = View.inflate(getActivity(), R.layout.frag_my, null);
         return view;
     }
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void getLoginData( LoginBean.ResultBean.UserInfoBean userInfoBean) {
-         nickName = userInfoBean.getNickName();
-         headPic = userInfoBean.getHeadPic();
 
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void getLoginData( LoginBean.ResultBean resultBean) {
+
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void getUserInfo(LoginBean.ResultBean.UserInfoBean userInfoBean){
+        headPic = userInfoBean.getHeadPic();
+        nickName = userInfoBean.getNickName();
     }
 
     @Override

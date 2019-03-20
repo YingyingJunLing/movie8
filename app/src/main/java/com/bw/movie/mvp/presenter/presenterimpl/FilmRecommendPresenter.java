@@ -26,4 +26,10 @@ public class FilmRecommendPresenter extends BasePresenter<Contract.IRecommendVie
             }
         });
     }
+
+    public void onDestroy(){
+        if (filmRecommendModel!=null){
+            filmRecommendModel=null;
+        }
+    }
 }

@@ -154,4 +154,10 @@ public class MyAttentionActivity extends BaseActivity<Contract.IAttentionView,My
 
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myAttentionFilmPresenter.onDestroy();
+    }
 }

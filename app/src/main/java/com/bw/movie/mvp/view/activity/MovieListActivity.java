@@ -131,6 +131,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        movieListPresenter.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 }

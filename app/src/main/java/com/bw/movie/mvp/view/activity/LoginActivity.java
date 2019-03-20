@@ -58,7 +58,6 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
-
         setContentView(R.layout.activity_login);
     }
 
@@ -73,8 +72,7 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
         //7：判断是否点击记住秘密
         boolean b = sp.getBoolean("jizhu", false);
         //8：如果记住咯
-        if(b)
-        {
+        if(b) {
             //存值   先得到点击 存的值
             String uname = sp.getString("user", "");
             String upass = sp.getString("pass", pwd);
@@ -84,9 +82,7 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
             loginEditPass.setText(upass);
             loginBoxRemember.setChecked(b);  //跳转
             //startActivity(new Intent(LoginActivity.this,MainActivity.class));
-
         }
-
     }
 
     @Override
@@ -102,20 +98,16 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
     }
 
     @Override
-    protected void getData()
-    {
-
+    protected void getData() {
 
     }
 
     @Override
     public void onILoginSuccess(Object o) {
-        if(o!=null)
-        {
+        if(o!=null) {
             if (o instanceof LoginBean) {
                 LoginBean loginBean = (LoginBean) o;
-                if(loginBean != null)
-                {
+                if(loginBean != null) {
                     result = loginBean.getResult();
                     Log.e("result", result +"");
                     String headPic = result.getUserInfo().getHeadPic();
@@ -126,11 +118,11 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
                     sessionId = result.getSessionId();
                     LoginBean.ResultBean resultBean = new LoginBean.ResultBean(userId,sessionId);
                     EventBus.getDefault().postSticky(resultBean);
-                    if(loginBean.getStatus().equals("0000"))
-                    {
+                    if(loginBean.getStatus().equals("0000")) {
                         //跳转
                         Toast.makeText(this, loginBean.getMessage(), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        finish();
                     }
                 }
             }
@@ -182,4 +174,9 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        loginPresenter.onDestroy();
+        super.onDestroy();
+    }
 }

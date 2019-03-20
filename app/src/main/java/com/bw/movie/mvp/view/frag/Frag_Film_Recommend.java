@@ -62,4 +62,10 @@ public class Frag_Film_Recommend extends BaseFragment<Contract.IRecommendView,Fi
     public void onIRecommendFail(String errorInfo) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        filmRecommendPresenter.onDestroy();
+    }
 }

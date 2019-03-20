@@ -70,4 +70,10 @@ public class Frag_Cinema_release extends BaseFragment<Contract.ICinemaView,Cinem
     public void onICinemaFail(String errorInfo) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        cinemaPresenter.onDestory();
+    }
 }

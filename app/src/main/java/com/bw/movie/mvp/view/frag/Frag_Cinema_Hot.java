@@ -72,4 +72,10 @@ public class Frag_Cinema_Hot extends BaseFragment<Contract.ICinemaView,CinemaPre
     public void onICinemaFail(String errorInfo) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        cinemaPresenter.onDestory();
+    }
 }

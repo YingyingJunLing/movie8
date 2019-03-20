@@ -56,4 +56,10 @@ public class MovieListPresenter extends BasePresenter<Contract.IMovieListView> i
             }
         });
     }
+
+    public void onDestroy(){
+        if (movieListModel!=null){
+            movieListModel=null;
+        }
+    }
 }

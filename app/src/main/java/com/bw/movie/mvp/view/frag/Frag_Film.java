@@ -83,4 +83,10 @@ public class Frag_Film extends BaseFragment<Contract.IFilmView, FilmPresenter> i
     public void onIFilmFail(String errorInfo) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
 }

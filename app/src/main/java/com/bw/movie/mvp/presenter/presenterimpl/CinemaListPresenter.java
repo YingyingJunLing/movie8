@@ -26,4 +26,10 @@ public class CinemaListPresenter extends BasePresenter<Contract.ICinemaListView>
             }
         });
     }
+
+    public void onDestory(){
+        if (cinemaListModel!=null){
+            cinemaListModel=null;
+        }
+    }
 }

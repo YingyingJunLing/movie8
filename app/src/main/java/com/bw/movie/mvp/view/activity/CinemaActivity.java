@@ -126,4 +126,9 @@ public class CinemaActivity extends BaseActivity {
     protected void getData() {
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

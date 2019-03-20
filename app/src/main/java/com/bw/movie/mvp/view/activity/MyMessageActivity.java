@@ -105,4 +105,10 @@ public class MyMessageActivity extends BaseActivity<Contract.IMyMessageView,MyMe
     public void onIMyFail(String errorInfo) {
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myMessagePresenter.onDestroy();
+    }
 }

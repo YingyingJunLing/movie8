@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class MyMessagePresenter extends BasePresenter<Contract.IMyMessageView> implements Contract.IMyMessagePre {
 
-    private final MyMessageModel myMessageModel;
+    private MyMessageModel myMessageModel;
 
     public MyMessagePresenter()
     {
@@ -32,6 +32,11 @@ public class MyMessagePresenter extends BasePresenter<Contract.IMyMessageView> i
 
             }
         });
+    }
 
+    public void onDestroy(){
+        if (myMessageModel!=null){
+            myMessageModel=null;
+        }
     }
 }
