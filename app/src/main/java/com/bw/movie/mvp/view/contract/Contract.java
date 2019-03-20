@@ -198,7 +198,7 @@ public class Contract {
 
     public interface MyMessageCallBack{
 
-        
+
         void onSuccess(Object o);
 
         void onFail(String errorInfo);
@@ -208,7 +208,6 @@ public class Contract {
      * 电影的评论
      */
     public interface IMovieCommentView{
-
         void onIMovieCommenSuccess(Object o);
 
         void onIMovieCommenFail(String errorInfo);
