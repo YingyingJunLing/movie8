@@ -10,6 +10,7 @@ import com.bw.movie.mvp.model.bean.FindNearCinemaBean;
 import com.bw.movie.mvp.model.bean.FollowMovieBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
+import com.bw.movie.mvp.model.bean.MovieCommentBean;
 import com.bw.movie.mvp.model.bean.MovieListBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
@@ -67,7 +68,7 @@ public interface ApiService {
     Observable<FindNearCinemaBean> getFindNear(@Query("page")int page, @Query("count")int count);
     //影院评论
     @GET(Api.MOVIECOMMENT)
-    Observable<MovieCommentBean> movieComment(@Query("movieId")int movieId,@Query("page")int page, @Query("count")int count);
+    Observable<MovieCommentBean> movieComment(@Query("movieId")int movieId, @Query("page")int page, @Query("count")int count);
 
     //根据电影ID查询当前排片该电影的影院列表
     @GET(Api.CINEMALIST)

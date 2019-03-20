@@ -1,6 +1,7 @@
 package com.bw.movie.mvp.view.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +9,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +29,6 @@ import com.bw.movie.mvp.view.adapter.MyForecastAdapter;
 import com.bw.movie.mvp.view.adapter.MyStillAdapter;
 import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.contract.Contract;
-
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,7 +36,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +59,12 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     Button moviePictureBtn;
     @BindView(R.id.movie_commit_btn)
     Button movieCommitBtn;
+    @BindView(R.id.collection_sel)
+    ImageView collectionSel;
+    @BindView(R.id.movie_betail_fan)
+    Button movieBetailFan;
+    @BindView(R.id.buy_btn)
+    Button buyBtn;
     private MovieDetailPresenter movieDetailPresenter;
     private int id;
     private MoviesDetailBean moviesDetailBean;
@@ -69,8 +72,8 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     private AlertAndAnimationUtils alertAndAnimationUtils;
     private MovieCommentBean movieCommentBean;
     private RecyclerView rec3;
-    public int page=1;
-    public int count =10;
+    public int page = 1;
+    public int count = 10;
     private View view4;
     private MyFilmCommentAdapter myFilmCommentAdapter;
     private ImageView collection_sel;
@@ -84,6 +87,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     public void getEvent(MoviesDetailBean.ResultBean resultBean) {
         id = resultBean.getId();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getLoginData(LoginBean.ResultBean resultBean) {
         userId = resultBean.getUserId();
@@ -99,54 +103,42 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
         EventBus.getDefault().register(this);
         alertAndAnimationUtils = new AlertAndAnimationUtils();
         hashMap = new HashMap<>();
-        hashMap.put("userId",userId);
-        hashMap.put("sessionId",sessionId);
-        Log.e("hashMapsss",hashMap.toString());
+        hashMap.put("userId", userId);
+        hashMap.put("sessionId", sessionId);
+        Log.e("hashMapsss", hashMap.toString());
 
     }
 
 
     @Override
     protected void initView() {
-             Button fan =  findViewById(R.id.movie_betail_fan);
-             //复选框  关注 不关注
-              collection_sel = findViewById(R.id.collection_sel);
-             fan.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                       finish();
-                 }
-             });
-             collection_sel.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     if(followMovie == 1)
-                     {
-                         Glide.with(MovieDetailActivity.this)
-                                 .load(R.drawable.com_icon_collection_selected)
-                                 .into(collection_sel);
-                         movieDetailPresenter.onIFollowMovie(id,hashMap);
-                         followMovie =2;
-                     }else{
-                         Glide.with(MovieDetailActivity.this)
-                                 .load(R.drawable.com_icon_collection_default)
-                                 .into(collection_sel);
-                         movieDetailPresenter.onICancelFollowMovie(id,hashMap);
-                         followMovie =1;
-                     }
-                 }
-             });
-//           collection_sel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//               @Override
-//               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                   if(collection_sel .isChecked())
-//                   {
-//
-//                   }else {
-//
-//                   }
-//               }
-//           });
+        Button fan = findViewById(R.id.movie_betail_fan);
+        //复选框  关注 不关注
+        collection_sel = findViewById(R.id.collection_sel);
+        fan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        collection_sel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (followMovie == 1) {
+                    Glide.with(MovieDetailActivity.this)
+                            .load(R.drawable.com_icon_collection_selected)
+                            .into(collection_sel);
+                    movieDetailPresenter.onIFollowMovie(id, hashMap);
+                    followMovie = 2;
+                } else {
+                    Glide.with(MovieDetailActivity.this)
+                            .load(R.drawable.com_icon_collection_default)
+                            .into(collection_sel);
+                    movieDetailPresenter.onICancelFollowMovie(id, hashMap);
+                    followMovie = 1;
+                }
+            }
+        });
 
     }
 
@@ -159,7 +151,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     @Override
     protected void getData() {
         movieDetailPresenter.onIMovieDetailPre(id);
-        movieDetailPresenter.onIMovieCommenPre(id,page,count);
+        movieDetailPresenter.onIMovieCommenPre(id, page, count);
     }
 
     @Override
@@ -174,49 +166,43 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             Log.i("详情名字", result.getName());
             movieDetailText.setText(result.getName());
             followMovie = moviesDetailBean.getResult().getFollowMovie();
-           Log.e("followMovie",followMovie+"");
+            Log.e("followMovie", followMovie + "");
             FrescoUtils.setPic(result.getImageUrl(), movieDetailImg);
+            buyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MovieDetailActivity.this, CinemaListActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
         /**
          * 影视的评价
          */
-        if(o instanceof MovieCommentBean)
-        {
+        if (o instanceof MovieCommentBean) {
             movieCommentBean = (MovieCommentBean) o;
-            Log.e("movieCommentBean",movieCommentBean.toString());
-            if(movieCommentBean != null)
-            {
+            Log.e("movieCommentBean", movieCommentBean.toString());
+            if (movieCommentBean != null) {
 
                 myFilmCommentAdapter = new MyFilmCommentAdapter(MovieDetailActivity.this, movieCommentBean);
-//                myFilmCommentAdapter.setClickListen(new MyFilmCommentAdapter.CallBackCommentAppraise() {
-//                    @Override
-//                    public void setListen(View view, String commentId) {
-//                        Toast.makeText(MovieDetailActivity.this, commentId, Toast.LENGTH_SHORT).show();
-//                        appraise_img.setVisibility(View.VISIBLE);
-//                    }
-//                });
             }
         }
         /**
          * 关注电影
          */
-        if( o instanceof FollowMovieBean)
-        {
+        if (o instanceof FollowMovieBean) {
             FollowMovieBean followMovieBean = (FollowMovieBean) o;
-            if(followMovieBean != null)
-            {
-                Toast.makeText(MovieDetailActivity.this,followMovieBean.getMessage(),Toast.LENGTH_SHORT).show();
+            if (followMovieBean != null) {
+                Toast.makeText(MovieDetailActivity.this, followMovieBean.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
         /**
          * 取消关注
          */
-        if(o instanceof CancelFollowMovieBean)
-        {
+        if (o instanceof CancelFollowMovieBean) {
             CancelFollowMovieBean cancelFollowMovieBean = (CancelFollowMovieBean) o;
-            if(cancelFollowMovieBean !=null)
-            {
-                Toast.makeText(MovieDetailActivity.this,cancelFollowMovieBean.getMessage(),Toast.LENGTH_SHORT).show();
+            if (cancelFollowMovieBean != null) {
+                Toast.makeText(MovieDetailActivity.this, cancelFollowMovieBean.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -271,7 +257,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 alertAndAnimationUtils.AlertDialog(MovieDetailActivity.this, view1);
 
                 break;
-                //预告
+            //预告
             case R.id.movie_prevue_btn:
                 final View view2 = View.inflate(MovieDetailActivity.this, R.layout.forecast_dialog_item, null);
                 RecyclerView rec = view2.findViewById(R.id.forecast_dialog_rec);
@@ -288,7 +274,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 alertAndAnimationUtils.AlertDialog(MovieDetailActivity.this, view2);
 
                 break;
-                //剧照
+            //剧照
             case R.id.movie_picture_btn:
                 final View view3 = View.inflate(MovieDetailActivity.this, R.layout.still_dialog_item, null);
                 RecyclerView rec1 = view3.findViewById(R.id.still_dialog_rec);
@@ -305,21 +291,12 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 alertAndAnimationUtils.AlertDialog(MovieDetailActivity.this, view3);
 
                 break;
-                //影评
+            //影评
             case R.id.movie_commit_btn:
                 view4 = View.inflate(MovieDetailActivity.this, R.layout.comment_dialog_item, null);
                 rec3 = view4.findViewById(R.id.comment_dialog_rec);
                 rec3.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.VERTICAL, false));
                 rec3.setAdapter(myFilmCommentAdapter);
-//                final EditText editText = new EditText(getApplicationContext());
-//
-//                appraise_img.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        appraise_img.setVisibility(View.GONE);
-//
-//                    }
-//                });
                 ImageButton dis_dialog3 = view4.findViewById(R.id.dialog_dismiss_ibt);
                 //隐藏dialog
                 dis_dialog3.setOnClickListener(new View.OnClickListener() {
