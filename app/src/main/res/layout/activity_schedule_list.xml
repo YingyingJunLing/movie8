@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.view.activity.ScheduleListActivity"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:padding="10dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView android:id="@+id/cinema_text_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"/>
+                    <TextView android:id="@+id/cinema_text_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:textColor="#000"/>
+                </LinearLayout>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@mipmap/com_icon_navigation_default"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@mipmap/movie_bg_level"
+                android:padding="15dp">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/schedule_img"
+                    android:layout_width="150dp"
+                    android:layout_height="200dp"
+                    app:roundedCornerRadius="5dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView android:id="@+id/schedule_list_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="20sp"
+                        android:textColor="#fff"/>
+                    <TextView android:id="@+id/schedule_list_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:textColor="#fff"/>
+                    <TextView android:id="@+id/schedule_list_director"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:textColor="#fff"/>
+                    <TextView android:id="@+id/schedule_list_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:textColor="#fff"/>
+                    <TextView android:id="@+id/schedule_list_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="18sp"
+                        android:textColor="#fff"/>
+                </LinearLayout>
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/schedule_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
