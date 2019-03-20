@@ -32,7 +32,8 @@
         <activity android:name=".mvp.view.activity.MovieDetailActivity" />
         <activity android:name=".mvp.view.activity.CinemaActivity" />
         <activity android:name=".mvp.view.activity.CinemaListActivity" />
-        <activity android:name=".mvp.view.activity.ScheduleListActivity"></activity>
+        <activity android:name=".mvp.view.activity.ScheduleListActivity" />
+        <activity android:name=".mvp.view.activity.MovieListActivity"></activity>
     </application>
 
 </manifest>

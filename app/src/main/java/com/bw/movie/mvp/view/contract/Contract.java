@@ -223,4 +223,33 @@ public class Contract {
 
         void onFail(String errorInfo);
     }
+
+    //根据影院ID查询该影院当前排期的电影列表
+    public interface IMovieListView{
+
+        void onIMovieListSuccess(Object o);
+        void onIMovieListCinemaSuccess(Object o);
+        void onIMovieListCinemaMovieSuccess(Object o);
+
+        void onIMovieListFail(String errorInfo);
+
+    }
+    public interface IMovieListPre{
+
+        void onIMovieListPre(int cinemasId);
+        void onIMovieListCinemaPre(int cinemasId);
+        void onIMovieListCinemaMoviePre(int cinemasId,int movieId);
+
+    }
+    public interface IMovieListModel{
+        void onIMovieListModel(int cinemaId,MovieListBack movieListBack);
+        void onIMovieListCinemaModel(int cinemaId,MovieListBack movieListBack);
+        void onIMovieListCinemaMovieModel(int cinemasId,int movieId,MovieListBack movieListBack);
+    }
+
+    public interface MovieListBack{
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
 }

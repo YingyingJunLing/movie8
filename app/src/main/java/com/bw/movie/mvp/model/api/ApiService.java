@@ -6,6 +6,7 @@ import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
 import com.bw.movie.mvp.model.bean.FindNearCinemaBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
+import com.bw.movie.mvp.model.bean.MovieListBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
@@ -62,4 +63,8 @@ public interface ApiService {
     //影院详情
     @GET(Api.CINEMAINFO)
     Observable<CinemaIfoBean> getCinemaInfo(@Query("cinemaId")int cinemaId);
+
+    //根据影院ID查询该影院当前排期的电影列表
+    @GET(Api.MOVIELIST)
+    Observable<MovieListBean> getMovieList(@Query("cinemaId")int cinemaId);
 }
