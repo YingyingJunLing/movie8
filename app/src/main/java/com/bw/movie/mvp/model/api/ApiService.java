@@ -8,6 +8,7 @@ import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.bean.MovieListBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
+import com.bw.movie.mvp.model.bean.MyMessageBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
@@ -18,6 +19,7 @@ import io.reactivex.Observable;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -27,6 +29,12 @@ public interface ApiService {
     @POST
     @FormUrlEncoded
     Observable<LoginBean> login(@Url String url, @FieldMap HashMap<String, String> hashMap);
+
+    @POST
+    @FormUrlEncoded
+    Observable<RegBean> reg(@Url String url, @FieldMap HashMap<String, String> hashMap);
+    @GET(Api.MyMessage)
+    Observable<MyMessageBean> myMessage (@HeaderMap HashMap<String ,String> hashMap);
 
     //热门电影类表
     @GET(Api.HOTMOVIE)
@@ -51,6 +59,9 @@ public interface ApiService {
     //附近影院
     @GET(Api.FINDNEARCINEMA)
     Observable<FindNearCinemaBean> getFindNear(@Query("page")int page, @Query("count")int count);
+    //影院评论
+    @GET(Api.MOVIECOMMENT)
+    Observable<MovieCommentBean> movieComment(@Query("movieId")int movieId,@Query("page")int page, @Query("count")int count);
 
     //根据电影ID查询当前排片该电影的影院列表
     @GET(Api.CINEMALIST)

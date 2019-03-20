@@ -13,7 +13,7 @@ public class Api {
     //查询用户首页信息   get
     public static final String SELECTFIRST="movieApi/user/v1/verify/findUserHomeInfo";
     //根据id查询用户信息  get请求
-    public static final String SELECTBYID="movieApi/user/v1/verify/getUserInfoByUserId";
+    public static final String MyMessage="movieApi/user/v1/verify/getUserInfoByUserId";
     //用户签到  get
     public static final String QIAN="movieApi/user/v1/verify/userSignIn";
     //购票记录  GET

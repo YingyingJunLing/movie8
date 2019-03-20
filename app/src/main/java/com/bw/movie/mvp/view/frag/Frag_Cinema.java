@@ -30,12 +30,21 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView,CinemaPresent
     private RecommendMovieBean recommendMovieBean;
     private ComingSoonMovieBean comingSoonMovieBean;
 
+    /**
+     * 初始化布局
+     * @param inflater
+     * @return
+     */
     @Override
     protected View initFragmentView(LayoutInflater inflater) {
         view = View.inflate(getActivity(), R.layout.frag_cinema, null);
         return view;
     }
 
+    /**
+     * 初始化控件
+     * @param view 打气筒生成的View对象
+     */
     @Override
     protected void initFragmentChildView(View view) {
         frag_cinema_recycle = view.findViewById(R.id.frag_cinema_recycle);
@@ -44,17 +53,29 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView,CinemaPresent
         frag_cinema_recycle.setLayoutManager(linearLayoutManager);
     }
 
+    /**
+     * j加载数据
+     * @param savedInstanceState
+     */
     @Override
     protected void initFragmentData(Bundle savedInstanceState) {
         cinemaPresenter.onICinemaPre(1,10);
     }
 
+    /**
+     * 返回p层
+     * @return
+     */
     @Override
     protected CinemaPresenter createPresenter() {
         cinemaPresenter = new CinemaPresenter();
         return cinemaPresenter;
     }
 
+    /**
+     * 热门电影
+     * @param o
+     */
     @Override
     public void onICinemaSuccess(Object o) {
         if (o instanceof HotMovieBean){
@@ -62,6 +83,11 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView,CinemaPresent
             cinemaPresenter.onIReleaseMovie(1,10);
         }
     }
+
+    /**
+     * 正在上映
+     * @param o
+     */
 
     @Override
     public void onIReleaseMovieSuccess(Object o) {
@@ -71,6 +97,10 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView,CinemaPresent
         }
     }
 
+    /**
+     * 即将上映
+     * @param o
+     */
     @Override
     public void onIComingSoonMovieSuccess(Object o) {
         if (o instanceof ComingSoonMovieBean){
