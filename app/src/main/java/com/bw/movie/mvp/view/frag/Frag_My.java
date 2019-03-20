@@ -1,6 +1,5 @@
 package com.bw.movie.mvp.view.frag;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -100,10 +99,12 @@ public class Frag_My extends BaseFragment<Contract.IMyView,MyPresenter> implemen
             case  R.id.my_version_image:
                 startActivity(new Intent(getActivity(),MyVersionActivity.class));
                 break;
-
-
-
-
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

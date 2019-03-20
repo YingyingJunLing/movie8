@@ -1,8 +1,16 @@
 package com.bw.movie.mvp.view.base;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.bw.movie.mvp.presenter.base.BasePresenter;
 
@@ -71,5 +79,52 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     @Override
     public float getSizeInDp() {
         return 667;
+    }
+
+    public void NetworkDynamicJudgment(final Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            connectivityManager.requestNetwork(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() {
+                @Override
+                public void onAvailable(Network network) {
+                    super.onAvailable(network);
+                    Log.i("connect", "onAvailable: 获取到网络连接");
+//                    Toast.makeText(context, "获取到网络连接", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onUnavailable() {
+                    super.onUnavailable();
+                    Log.i("connect", "onUnavailable: 没有获取到网络连接");
+                    Toast.makeText(context, "没有获取到网络连接", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onLost(Network network) {
+                    super.onLost(network);
+                    Log.i("connect", "onLost: 当框架严重丢失网络或优雅故障结束时调用");
+                    Toast.makeText(context, "网络严重丢失", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
+                    super.onCapabilitiesChanged(network, networkCapabilities);
+                    Log.i("connect", "onCapabilitiesChanged: 当为此请求连接的框架所在的网络更改功能但仍满足所述需求时调用");
+                }
+
+                @Override
+                public void onLinkPropertiesChanged(Network network, LinkProperties linkProperties) {
+                    super.onLinkPropertiesChanged(network, linkProperties);
+                    Log.i("connect", "onLinkPropertiesChanged: 当为此请求连接的框架所在的网络发生更改时调用LinkProperties");
+                }
+
+                @Override
+                public void onLosing(Network network, int maxMsToLive) {
+                    super.onLosing(network, maxMsToLive);
+                    Log.i("connect", "onLosing: 网络正在断开");
+                    Toast.makeText(context, "网络断开中", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
