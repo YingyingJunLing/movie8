@@ -1,6 +1,7 @@
 package com.bw.movie.mvp.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
+import com.bw.movie.mvp.view.activity.ChooseSeatActivity;
 
 import java.util.List;
 
@@ -35,6 +37,12 @@ public class ScheuleAdapter extends RecyclerView.Adapter<ScheuleAdapter.MyViewHo
         myViewHolder.schedule_item_time.setText(list.get(i).getBeginTime()+"--"+list.get(i).getEndTime()+"end");
         Log.i("时间",list.get(i).getBeginTime()+"--"+list.get(i).getEndTime()+"end");
         myViewHolder.schedule_item_price.setText(list.get(i).getPrice()+"¥");
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context,ChooseSeatActivity.class));
+            }
+        });
     }
 
     @Override
