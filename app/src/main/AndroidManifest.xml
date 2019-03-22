@@ -7,8 +7,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -24,7 +25,7 @@
             android:value="760" />
         <meta-data
             android:name="design_height_in_dp"
-            android:value="1922" />
+            android:value="1334" />
 
         <activity android:name=".mvp.view.activity.LoginActivity">
             <intent-filter>
@@ -38,7 +39,7 @@
         <activity android:name=".mvp.view.activity.MyAttentionActivity" />
         <activity android:name=".mvp.view.activity.MyRecordActivity" />
         <activity android:name=".mvp.view.activity.MyFeedDBActivity" />
-        <activity android:name=".mvp.view.activity.MyVersionActivity"/>
+        <activity android:name=".mvp.view.activity.MyVersionActivity" />
         <activity android:name=".mvp.view.activity.RegActivity" />
         <activity android:name=".mvp.view.activity.StartActivity" />
         <activity android:name=".mvp.view.activity.GuideActivity" />
@@ -46,7 +47,8 @@
         <activity android:name=".mvp.view.activity.CinemaActivity" />
         <activity android:name=".mvp.view.activity.CinemaListActivity" />
         <activity android:name=".mvp.view.activity.ScheduleListActivity" />
-        <activity android:name=".mvp.view.activity.MovieListActivity"/>
+        <activity android:name=".mvp.view.activity.MovieListActivity" />
+        <activity android:name=".mvp.view.activity.ChooseSeatActivity"></activity>
     </application>
 
 </manifest>
