@@ -55,11 +55,11 @@ public class MovieCommentBean
 
         private String commentContent;
         private String commentHeadPic;
-        private String commentId;
+        private int commentId;
         private long commentTime;
         private String commentUserId;
         private String commentUserName;
-        private String greatNum;
+        private int greatNum;
         private String hotComment;
         private String isGreat;
         private String replyNum;
@@ -80,11 +80,11 @@ public class MovieCommentBean
             this.commentHeadPic = commentHeadPic;
         }
 
-        public String getCommentId() {
+        public int getCommentId() {
             return commentId;
         }
 
-        public void setCommentId(String commentId) {
+        public void setCommentId(int commentId) {
             this.commentId = commentId;
         }
 
@@ -112,11 +112,11 @@ public class MovieCommentBean
             this.commentUserName = commentUserName;
         }
 
-        public String getGreatNum() {
+        public int getGreatNum() {
             return greatNum;
         }
 
-        public void setGreatNum(String greatNum) {
+        public void setGreatNum(int greatNum) {
             this.greatNum = greatNum;
         }
 

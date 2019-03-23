@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.FilmRecommendPresenter;
 import com.bw.movie.mvp.view.adapter.RecommendAdapter;
 import com.bw.movie.mvp.view.base.BaseFragment;
@@ -22,6 +23,7 @@ public class Frag_Film_Recommend extends BaseFragment<Contract.IRecommendView,Fi
     private View view;
     private FilmRecommendPresenter filmRecommendPresenter;
     private XRecyclerView recommend_recycle;
+    private NetworkErrorUtils networkErrorUtils;
 
     @Override
     protected View initFragmentView(LayoutInflater inflater) {
@@ -31,6 +33,7 @@ public class Frag_Film_Recommend extends BaseFragment<Contract.IRecommendView,Fi
 
     @Override
     protected void initFragmentChildView(View view) {
+        networkErrorUtils = new NetworkErrorUtils(getActivity());
         recommend_recycle = view.findViewById(R.id.recommend_recycle);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);

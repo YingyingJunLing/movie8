@@ -13,6 +13,7 @@ import com.bw.movie.mvp.model.bean.CinemaIfoBean;
 import com.bw.movie.mvp.model.bean.CinemaListBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.ScheduleListPresenter;
 import com.bw.movie.mvp.view.adapter.ScheuleAdapter;
 import com.bw.movie.mvp.view.base.BaseActivity;
@@ -54,6 +55,7 @@ public class ScheduleListActivity extends BaseActivity<Contract.IScheduleListVie
     private ScheduleListPresenter scheduleListPresenter;
     private int mid;
     private int cid;
+    private NetworkErrorUtils networkErrorUtils;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class ScheduleListActivity extends BaseActivity<Contract.IScheduleListVie
 
     @Override
     protected void initView() {
+        networkErrorUtils = new NetworkErrorUtils(ScheduleListActivity.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         scheduleRecycle.setLayoutManager(linearLayoutManager);
@@ -87,6 +90,7 @@ public class ScheduleListActivity extends BaseActivity<Contract.IScheduleListVie
 
     @Override
     protected void getData() {
+
         scheduleListPresenter.onIScheduleListCinemaPre(cid);
         Log.i("影院ID", cid + "");
     }

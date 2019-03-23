@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.CinemaListBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.CinemaListPresenter;
 import com.bw.movie.mvp.view.adapter.CinemaListAdapter;
 import com.bw.movie.mvp.view.base.BaseActivity;
@@ -48,6 +49,8 @@ public class CinemaListActivity extends BaseActivity<Contract.ICinemaListView, C
 
     @Override
     protected void initView() {
+        NetworkErrorUtils networkErrorUtils = new NetworkErrorUtils(CinemaListActivity.this);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         cinemaListRecycle.setLayoutManager(linearLayoutManager);
@@ -61,6 +64,7 @@ public class CinemaListActivity extends BaseActivity<Contract.ICinemaListView, C
 
     @Override
     protected void getData() {
+
         cinemaListPresenter.onICinemaListPre(id);
     }
 

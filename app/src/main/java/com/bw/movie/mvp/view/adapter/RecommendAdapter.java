@@ -3,15 +3,21 @@ package com.bw.movie.mvp.view.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.fresco.FrescoUtils;
 import com.bw.movie.mvp.model.bean.CinemaListBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
+import com.bw.movie.mvp.model.utils.AlertAndAnimationUtils;
+import com.bw.movie.mvp.view.activity.MovieDetailActivity;
 import com.bw.movie.mvp.view.activity.MovieListActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -24,6 +30,7 @@ public class RecommendAdapter extends XRecyclerView.Adapter<RecommendAdapter.MyV
     private Context context;
     private List<RecommendCinemaBean.ResultBean> list;
     private View view;
+    private AlertAndAnimationUtils alertAndAnimationUtils;
 
     public RecommendAdapter(Context context, List<RecommendCinemaBean.ResultBean> list) {
         this.context = context;
@@ -39,6 +46,7 @@ public class RecommendAdapter extends XRecyclerView.Adapter<RecommendAdapter.MyV
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+        alertAndAnimationUtils = new AlertAndAnimationUtils();
         FrescoUtils.setPic(list.get(i).getLogo(),myViewHolder.film_simple);
         myViewHolder.file_name.setText(list.get(i).getName());
         myViewHolder.file_address.setText(list.get(i).getAddress());
@@ -54,6 +62,7 @@ public class RecommendAdapter extends XRecyclerView.Adapter<RecommendAdapter.MyV
                 context.startActivity(new Intent(context,MovieListActivity.class));
             }
         });
+
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.bw.movie.mvp.model.api.ApiService;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
+import com.bw.movie.mvp.model.bean.UpdatePassBean;
 import com.bw.movie.mvp.model.utils.RetrofitUtils;
 import com.bw.movie.mvp.view.activity.MainActivity;
 import com.bw.movie.mvp.view.contract.Contract;
@@ -29,6 +30,21 @@ public class MyMessageModel implements Contract.IMyMessageModel {
                     public void accept(MyMessageBean myMessageBean) throws Exception {
                         Log.e("myMessageBean",myMessageBean.toString());
                         myMessageCallBack.onSuccess(myMessageBean);
+                    }
+                });
+    }
+
+    @Override
+    public void onIUpdatePass(HashMap<String, String> hashMap, HashMap<String, String> map, final Contract.MyMessageCallBack myMessageCallBack) {
+        apiService = RetrofitUtils.getInstance().create(ApiService.class);
+        apiService.updateBean(hashMap,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<UpdatePassBean>() {
+                    @Override
+                    public void accept(UpdatePassBean updatePassBean) throws Exception {
+                        Log.e("myMessageBean",updatePassBean.toString());
+                        myMessageCallBack.onSuccess(updatePassBean);
                     }
                 });
     }

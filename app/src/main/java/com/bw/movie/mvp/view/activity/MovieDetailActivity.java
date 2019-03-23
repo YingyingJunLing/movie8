@@ -21,8 +21,10 @@ import com.bw.movie.mvp.model.bean.CancelFollowMovieBean;
 import com.bw.movie.mvp.model.bean.FollowMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.bean.MovieCommentBean;
+import com.bw.movie.mvp.model.bean.MovieCommentGreate;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.utils.AlertAndAnimationUtils;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.MovieDetailPresenter;
 import com.bw.movie.mvp.view.adapter.MyFilmCommentAdapter;
 import com.bw.movie.mvp.view.adapter.MyForecastAdapter;
@@ -36,6 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,6 +84,9 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     private String sessionId;
     private HashMap<String, String> hashMap;
     private int followMovie;
+    private NetworkErrorUtils networkErrorUtils;
+    private MovieCommentGreate movieCommentGreate;
+    private String commentId;
 
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -92,7 +98,6 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     public void getLoginData(LoginBean.ResultBean resultBean) {
         userId = resultBean.getUserId();
         sessionId = resultBean.getSessionId();
-
     }
 
 
@@ -112,6 +117,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
 
     @Override
     protected void initView() {
+        networkErrorUtils = new NetworkErrorUtils(MovieDetailActivity.this);
         Button fan = findViewById(R.id.movie_betail_fan);
         //复选框  关注 不关注
         collection_sel = findViewById(R.id.collection_sel);
@@ -144,12 +150,14 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
 
     @Override
     protected MovieDetailPresenter createPresenter() {
+
         movieDetailPresenter = new MovieDetailPresenter();
         return movieDetailPresenter;
     }
 
     @Override
     protected void getData() {
+
         movieDetailPresenter.onIMovieDetailPre(id);
         movieDetailPresenter.onIMovieCommenPre(id, page, count);
     }
@@ -181,11 +189,9 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
          */
         if (o instanceof MovieCommentBean) {
             movieCommentBean = (MovieCommentBean) o;
-            Log.e("movieCommentBean", movieCommentBean.toString());
-            if (movieCommentBean != null) {
 
+            if (movieCommentBean != null)
                 myFilmCommentAdapter = new MyFilmCommentAdapter(MovieDetailActivity.this, movieCommentBean);
-            }
         }
         /**
          * 关注电影
@@ -204,7 +210,14 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             if (cancelFollowMovieBean != null) {
                 Toast.makeText(MovieDetailActivity.this, cancelFollowMovieBean.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
+        }
+        if(o instanceof MovieCommentGreate)
+        {
+            movieCommentGreate = (MovieCommentGreate) o;
+            if(movieCommentGreate !=null)
+            {
+                Toast.makeText(MovieDetailActivity.this, movieCommentGreate.getMessage(),Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -307,6 +320,20 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                     }
                 });
                 alertAndAnimationUtils.AlertDialog(MovieDetailActivity.this, view4);
+                myFilmCommentAdapter.setOnClick(new MyFilmCommentAdapter.OnClick() {
+                    @Override
+                    public void getdata(int id, String great, int position) {
+                        if (great.equals("1")){
+                            //已点赞，需取消
+                            movieDetailPresenter.onIMovieCommentGreatePre(hashMap, id);
+                            myFilmCommentAdapter.getcancel(position);
+                        }else{
+                            //未点赞，需点赞
+                            movieDetailPresenter.onIMovieCommentGreatePre(hashMap, id);
+                            myFilmCommentAdapter.getlike(position);
+                        }
+                    }
+                });
 
                 break;
         }

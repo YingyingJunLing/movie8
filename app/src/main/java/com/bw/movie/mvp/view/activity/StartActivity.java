@@ -48,7 +48,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(5000);//使程序休眠五秒
+                    sleep(3000);//使程序休眠秒
                     Intent it = new Intent(getApplicationContext(), GuideActivity.class);//启动MainActivity
                     startActivity(it);
                     finish();//关闭当前活动

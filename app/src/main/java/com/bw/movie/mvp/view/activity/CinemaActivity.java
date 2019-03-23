@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -62,6 +64,13 @@ public class CinemaActivity extends BaseActivity {
         fragmentArrayList.add(frag_cinema_hot);
         fragmentArrayList.add(frag_cinema_release);
         fragmentArrayList.add(frag_cinema_coming);
+       Button fan =  findViewById(R.id.fan);
+       fan.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               finish();
+           }
+       });
         viewPagerCinema.setAdapter(new ViewPagerCinemaAdapter(manager,fragmentArrayList));
         if (type==1){
             viewPagerCinema.setCurrentItem(0);

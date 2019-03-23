@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">wdmovie</string>
+    <string name="app_name">维度影院</string>
     <string name="hotmovie">热门电影</string>
     <string name="releasemovie">正在上映</string>
     <string name="comingsoonmovie">即将上映</string>

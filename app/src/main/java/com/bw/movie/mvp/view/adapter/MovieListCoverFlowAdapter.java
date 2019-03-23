@@ -9,24 +9,30 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.fresco.FrescoUtils;
+import com.bw.movie.mvp.model.bean.FindCinemaInfoBean;
 import com.bw.movie.mvp.model.bean.MovieListBean;
+import com.bw.movie.mvp.model.utils.AlertAndAnimationUtils;
+import com.bw.movie.mvp.view.contract.Contract;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * @author zhangbo
  * 影院电影详情
  */
-public class MovieListCoverFlowAdapter extends RecyclerView.Adapter<MovieListCoverFlowAdapter.MyViewHolder> {
+public class MovieListCoverFlowAdapter extends RecyclerView.Adapter<MovieListCoverFlowAdapter.MyViewHolder>  {
     private Context context;
     private List<MovieListBean.ResultBean> list;
     private View view;
+
 
     public MovieListCoverFlowAdapter(Context context, List<MovieListBean.ResultBean> list) {
         this.context = context;
         this.list = list;
     }
+
 
     @NonNull
     @Override
@@ -36,9 +42,11 @@ public class MovieListCoverFlowAdapter extends RecyclerView.Adapter<MovieListCov
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+
         FrescoUtils.setPic(list.get(i).getImageUrl(),myViewHolder.cinema_img_simple);
         myViewHolder.cinema_nane_text.setText(list.get(i).getName());
+
     }
 
     @Override
@@ -51,6 +59,7 @@ public class MovieListCoverFlowAdapter extends RecyclerView.Adapter<MovieListCov
         return position;
     }
 
+
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private final SimpleDraweeView cinema_img_simple;
@@ -62,4 +71,7 @@ public class MovieListCoverFlowAdapter extends RecyclerView.Adapter<MovieListCov
             cinema_nane_text = itemView.findViewById(R.id.cinema_nane_text);
         }
     }
+
+
+
 }
