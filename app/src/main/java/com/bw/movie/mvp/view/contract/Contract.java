@@ -367,9 +367,9 @@ public class Contract {
 
         void onIMovieListCinemaMoviePre(int cinemasId, int movieId);
         //影院评价
-        void onICimemaCommentPre(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId, @Query("page")int page, @Query("count")int count);
+        void onICimemaCommentPre( HashMap<String ,String> hashMap,int cinemaId, int page, int count);
        //影院评论点赞
-       void onICimemaCommentGreatePre(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId);
+       void onICimemaCommentGreatePre( HashMap<String ,String> hashMap, int cinemaId);
 
     }
 
@@ -377,8 +377,8 @@ public class Contract {
         //影院的详情
         void IMyFeedBack(HashMap<String, String> hashMap, int cinemaId ,MyFeedBackCallBack myFeedBackCallBack);
         //影院评价列表
-        void onICimemaCommentModel(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId, @Query("page")int page, @Query("count")int count,MovieListBack movieListBack);
-        void onICimemaCommentGreateModel(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId,MovieListBack movieListBack);
+        void onICimemaCommentModel(HashMap<String ,String> hashMap, int cinemaId, int page,int count,MovieListBack movieListBack);
+        void onICimemaCommentGreateModel( HashMap<String ,String> hashMap, int cinemaId,MovieListBack movieListBack);
         void onIMovieListModel(int cinemaId, MovieListBack movieListBack);
 
         void onIMovieListCinemaModel(int cinemaId, MovieListBack movieListBack);

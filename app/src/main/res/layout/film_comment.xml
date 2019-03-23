@@ -78,26 +78,6 @@
         fresco:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginRight="10dp"
         />
-    <ImageView
-        android:id="@+id/film_comment_image"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@mipmap/com_icon_comm"
-        fresco:layout_constraintRight_toRightOf="@id/film_comment_num"
-        fresco:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginRight="5dp"
-        />
-    <TextView
-        android:id="@+id/film_comment_num_num"
-        android:layout_width="25dp"
-        android:layout_height="wrap_content"
-        fresco:layout_constraintRight_toRightOf="@id/film_comment_image"
-        fresco:layout_constraintBottom_toBottomOf="@id/film_comment_image"
-        android:layout_marginRight="14sp"
-        android:lines="1"
-        android:text="safggafs"
-        android:textSize="12sp"
-        android:textColor="#666666"
-        android:layout_marginBottom="2dp"
-        />
+
+
 </android.support.constraint.ConstraintLayout>

@@ -26,7 +26,7 @@ import com.bw.movie.mvp.presenter.presenterimpl.MovieListPresenter;
 import com.bw.movie.mvp.view.adapter.FindCinemaCommentAdapter;
 import com.bw.movie.mvp.view.adapter.FindCinemaInfoAdapter;
 import com.bw.movie.mvp.view.adapter.MovieListCoverFlowAdapter;
-import com.bw.movie.mvp.view.adapter.MyFilmCommentAdapter;
+import com.bw.movie.mvp.view.adapter.MyMovieCommentAdapter;
 import com.bw.movie.mvp.view.adapter.ScheuleAdapter;
 import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.contract.Contract;
@@ -141,7 +141,9 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                     @Override
                     public void onClick(View v) {
                         rec.setVisibility(View.GONE);
-
+                        int page=1;
+                        int count =10;
+                        movieListPresenter.onICimemaCommentPre(hashMap,cid,page,count);
                         rec2.setVisibility(View.VISIBLE);
                     }
                 });
@@ -225,28 +227,28 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
         if(o instanceof FindCinemaCommentBean)
         {
             FindCinemaCommentBean findCinemaCommentBean = (FindCinemaCommentBean) o;
-            findCinemaCommentAdapter = new FindCinemaCommentAdapter(MovieListActivity.this, findCinemaCommentBean);
-            rec2.setAdapter(findCinemaCommentAdapter);
-            findCinemaCommentAdapter.setOnClick(new MyFilmCommentAdapter.OnClick() {
-                @Override
-                public void getdata(int id, String great, int position) {
-                    findCinemaCommentAdapter.setOnClick(new MyFilmCommentAdapter.OnClick() {
-                        @Override
-                        public void getdata(int id, String great, int position) {
-                            if (great.equals("1")){
-                                //已点赞，需取消
-                               movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
-                                findCinemaCommentAdapter.getcancel(position);
-                            }else{
-                                //未点赞，需点赞
-                                movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
-                                findCinemaCommentAdapter.getlike(position);
+            if(findCinemaCommentBean.getResult().size()==0)
+            {
+                Toast.makeText(MovieListActivity.this,findCinemaCommentBean.getMessage(),Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            else{
+                Log.e("findCinemaCommentBean",findCinemaCommentBean+"");
+                findCinemaCommentAdapter = new FindCinemaCommentAdapter(MovieListActivity.this, findCinemaCommentBean);
+                rec2.setAdapter(findCinemaCommentAdapter);
+                        findCinemaCommentAdapter.setOnClick(new FindCinemaCommentAdapter.OnClick() {
+                            @Override
+                            public void getdatas(int id, int great, int position) {
+                                if (great==1){
+                                    //已点赞，需取消
+                                    movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
+                                }else{
+                                    movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
+                                    findCinemaCommentAdapter.getlike(position);
+                                }
                             }
-                        }
-                    });
-                }
-            });
-
+                        });
+            }
         }
 
     }

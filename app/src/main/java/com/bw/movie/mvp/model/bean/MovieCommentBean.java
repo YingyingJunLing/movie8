@@ -61,7 +61,7 @@ public class MovieCommentBean
         private String commentUserName;
         private int greatNum;
         private String hotComment;
-        private String isGreat;
+        private int isGreat;
         private String replyNum;
 
         public String getCommentContent() {
@@ -128,11 +128,11 @@ public class MovieCommentBean
             this.hotComment = hotComment;
         }
 
-        public String getIsGreat() {
+        public int getIsGreat() {
             return isGreat;
         }
 
-        public void setIsGreat(String isGreat) {
+        public void setIsGreat(int isGreat) {
             this.isGreat = isGreat;
         }
 
