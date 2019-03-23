@@ -70,6 +70,7 @@
         android:layout_marginRight="20dp"
         android:gravity="left">
         <Button
+            android:id="@+id/fan"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@mipmap/com_icon_my_default"/>

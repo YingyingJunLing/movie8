@@ -5,17 +5,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.fresco.FrescoUtils;
+import com.bw.movie.mvp.model.bean.CinemaCommentGreatBean;
 import com.bw.movie.mvp.model.bean.CinemaIfoBean;
 import com.bw.movie.mvp.model.bean.CinemaListBean;
+import com.bw.movie.mvp.model.bean.FindCinemaCommentBean;
+import com.bw.movie.mvp.model.bean.FindCinemaInfoBean;
+import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.bean.MovieListBean;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
+import com.bw.movie.mvp.model.utils.AlertAndAnimationUtils;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.MovieListPresenter;
+import com.bw.movie.mvp.view.adapter.FindCinemaCommentAdapter;
+import com.bw.movie.mvp.view.adapter.FindCinemaInfoAdapter;
 import com.bw.movie.mvp.view.adapter.MovieListCoverFlowAdapter;
+import com.bw.movie.mvp.view.adapter.MyMovieCommentAdapter;
 import com.bw.movie.mvp.view.adapter.ScheuleAdapter;
 import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.contract.Contract;
@@ -25,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,6 +59,17 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
     private MovieListPresenter movieListPresenter;
     private int cid;
     private int mid;
+    private NetworkErrorUtils networkErrorUtils;
+    private String userId;
+    private String sessionId;
+    private HashMap<String, String> hashMap;
+    private AlertAndAnimationUtils alertAndAnimationUtils;
+    private TextView ping;
+    private TextView xiang;
+    private RecyclerView rec2;
+    private RecyclerView rec;
+    private FindCinemaCommentAdapter findCinemaCommentAdapter;
+    private CinemaCommentGreatBean cinemaCommentGreatBean;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -59,9 +82,17 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
     public void getCinema(CinemaListBean.ResultBean resultBean) {
         cid = resultBean.getId();
     }
+    //得到userId    sessionId
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void getLoginData(LoginBean.ResultBean resultBean) {
+        userId = resultBean.getUserId();
+        sessionId = resultBean.getSessionId();
+
+    }
 
     @Override
     protected void initView() {
+        networkErrorUtils = new NetworkErrorUtils(MovieListActivity.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         movieListRecycle.setLayoutManager(linearLayoutManager);
@@ -75,7 +106,59 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
 
     @Override
     protected void getData() {
+        hashMap = new HashMap<>();
+        hashMap.put("userId",userId);
+        hashMap.put("sessionId",sessionId);
+        alertAndAnimationUtils = new AlertAndAnimationUtils();
         movieListPresenter.onIMovieListCinemaPre(cid);
+        movieListLogo.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.e("lallalala","点击l");
+                final View view2 = View.inflate(MovieListActivity.this, R.layout.recommend_dialog_item, null);
+                rec = view2.findViewById(R.id.recomm_dialog_rec_ping);
+                rec2 = view2.findViewById(R.id.recommend_dialog_xiang);
+                rec.setVisibility(View.VISIBLE);
+                rec2.setVisibility(View.GONE);
+                movieListPresenter.onIFindCimeraInfoPre(hashMap,cid);
+                ImageButton dis_dialog1 = view2.findViewById(R.id.dialog_dismiss_ibt);
+                xiang = view2.findViewById(R.id.recommend_xiang);
+                ping = view2.findViewById(R.id.recommend_ping);
+                rec.setLayoutManager(new LinearLayoutManager(MovieListActivity.this, LinearLayoutManager.VERTICAL, false));
+                rec2.setLayoutManager(new LinearLayoutManager(MovieListActivity.this, LinearLayoutManager.VERTICAL, false));
+                //详情点击事件
+                xiang.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        movieListPresenter.onIFindCimeraInfoPre(hashMap,cid);
+                        rec.setVisibility(View.VISIBLE);
+                        rec2.setVisibility(View.GONE);
+                    }
+                });
+                //评价点击事件
+                ping.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rec.setVisibility(View.GONE);
+                        int page=1;
+                        int count =10;
+                        movieListPresenter.onICimemaCommentPre(hashMap,cid,page,count);
+                        rec2.setVisibility(View.VISIBLE);
+                    }
+                });
+
+                //隐藏dialog
+                dis_dialog1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertAndAnimationUtils.hideDialog();
+                    }
+                });
+                alertAndAnimationUtils.AlertDialog(MovieListActivity.this, view2);
+
+            }
+        });
     }
 
     @Override
@@ -97,6 +180,17 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                 });
             }
         }
+    }
+
+    @Override
+    public void onIFindCimeraInfoSuccess(Object o) {
+        if(o instanceof FindCinemaInfoBean)
+        {
+            FindCinemaInfoBean findCinemaInfoBean = (FindCinemaInfoBean) o;
+            FindCinemaInfoAdapter findCinemaInfoAdapter = new FindCinemaInfoAdapter(MovieListActivity.this, findCinemaInfoBean);
+            rec.setAdapter(findCinemaInfoAdapter);
+        }
+
     }
 
     @Override
@@ -126,6 +220,49 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
     @Override
     public void onIMovieListFail(String errorInfo) {
 
+    }
+
+    @Override
+    public void onICimemaCommentSuccess(Object o) {
+        if(o instanceof FindCinemaCommentBean)
+        {
+            FindCinemaCommentBean findCinemaCommentBean = (FindCinemaCommentBean) o;
+            if(findCinemaCommentBean.getResult().size()==0)
+            {
+                Toast.makeText(MovieListActivity.this,findCinemaCommentBean.getMessage(),Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            else{
+                Log.e("findCinemaCommentBean",findCinemaCommentBean+"");
+                findCinemaCommentAdapter = new FindCinemaCommentAdapter(MovieListActivity.this, findCinemaCommentBean);
+                rec2.setAdapter(findCinemaCommentAdapter);
+                        findCinemaCommentAdapter.setOnClick(new FindCinemaCommentAdapter.OnClick() {
+                            @Override
+                            public void getdatas(int id, int great, int position) {
+                                if (great==1){
+                                    //已点赞，需取消
+                                    movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
+                                }else{
+                                    movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
+                                    findCinemaCommentAdapter.getlike(position);
+                                }
+                            }
+                        });
+            }
+        }
+
+    }
+
+    @Override
+    public void onICimemaCommentGreateSuccess(Object o) {
+        if(o instanceof CinemaCommentGreatBean)
+        {
+            cinemaCommentGreatBean = (CinemaCommentGreatBean) o;
+            if(cinemaCommentGreatBean !=null)
+            {
+                Toast.makeText(MovieListActivity.this, cinemaCommentGreatBean.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mvp.view.activity.MyFeedDBActivity">
-
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="意见反馈"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="12dp"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            />
+        <EditText
+            android:id="@+id/my_feed_edit"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="12dp"
+            android:layout_width="306dp"
+            android:layout_height="64dp"
+            android:textSize="14sp"
+            android:background="@drawable/circle_radius"
+            android:hint="写下您对产品的感受吧，工作人员会在第一时间评估处理"
+            />
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="45dp"
+            android:layout_height="25dp"
+            android:id="@+id/my_feed_commit"
+            android:gravity="center"
+            android:text="提交"
+            android:textSize="14sp"
+            android:layout_marginLeft="270dp"
+            android:background="@drawable/my_record_jbbtn"
+            />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/fan"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#00000000"
+        android:src="@mipmap/com_icon_my" />
+</RelativeLayout>

@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.CinemaPresenter;
 import com.bw.movie.mvp.view.adapter.CinemaComingAdapter;
 import com.bw.movie.mvp.view.base.BaseFragment;
@@ -21,6 +22,7 @@ public class Frag_Cinema_Coming extends BaseFragment<Contract.ICinemaView,Cinema
     private View view;
     private CinemaPresenter cinemaPresenter;
     private XRecyclerView cinema_coming_recycle;
+    private NetworkErrorUtils networkErrorUtils;
 
     @Override
     protected View initFragmentView(LayoutInflater inflater) {
@@ -30,6 +32,7 @@ public class Frag_Cinema_Coming extends BaseFragment<Contract.ICinemaView,Cinema
 
     @Override
     protected void initFragmentChildView(View view) {
+        networkErrorUtils = new NetworkErrorUtils(getActivity());
         cinema_coming_recycle = view.findViewById(R.id.cinema_coming_recycle);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
@@ -38,6 +41,7 @@ public class Frag_Cinema_Coming extends BaseFragment<Contract.ICinemaView,Cinema
 
     @Override
     protected void initFragmentData(Bundle savedInstanceState) {
+
         cinemaPresenter.onIComingSoonMovie(1,10);
     }
 

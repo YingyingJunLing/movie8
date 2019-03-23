@@ -3,25 +3,33 @@ package com.bw.movie.mvp.model.api;
 import com.bw.movie.mvp.model.bean.AttentionCamera;
 import com.bw.movie.mvp.model.bean.AttentionMovie;
 import com.bw.movie.mvp.model.bean.CancelFollowMovieBean;
+import com.bw.movie.mvp.model.bean.CinemaCommentGreatBean;
 import com.bw.movie.mvp.model.bean.CinemaIfoBean;
 import com.bw.movie.mvp.model.bean.CinemaListBean;
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
+import com.bw.movie.mvp.model.bean.FindCinemaCommentBean;
+import com.bw.movie.mvp.model.bean.FindCinemaInfoBean;
 import com.bw.movie.mvp.model.bean.FindNearCinemaBean;
 import com.bw.movie.mvp.model.bean.FollowMovieBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.bean.MovieCommentBean;
+import com.bw.movie.mvp.model.bean.MovieCommentGreate;
 import com.bw.movie.mvp.model.bean.MovieListBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
+import com.bw.movie.mvp.model.bean.MyRecordBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
+import com.bw.movie.mvp.model.bean.RecordFeedBackBean;
 import com.bw.movie.mvp.model.bean.RegBean;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
+import com.bw.movie.mvp.model.bean.UpdatePassBean;
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -36,13 +44,17 @@ public interface ApiService {
     @POST
     @FormUrlEncoded
     Observable<LoginBean> login(@Url String url, @FieldMap HashMap<String, String> hashMap);
-
+   //注册
     @POST
     @FormUrlEncoded
     Observable<RegBean> reg(@Url String url, @FieldMap HashMap<String, String> hashMap);
+    //我的信息
     @GET(Api.MyMessage)
     Observable<MyMessageBean> myMessage (@HeaderMap HashMap<String ,String> hashMap);
-
+    //修改密码
+    @POST(Api.UPDATEPASS)
+    @FormUrlEncoded
+    Observable<UpdatePassBean> updateBean(@HeaderMap HashMap<String ,String> hashMap,@FieldMap HashMap<String, String> map);
     //热门电影类表
     @GET(Api.HOTMOVIE)
     Observable<HotMovieBean> getHotMovie(@Query("page")int page,@Query("count")int count);
@@ -95,12 +107,28 @@ public interface ApiService {
     //关注影院
     @GET
     Observable<AttentionCamera> attentionCamera(@Url String url, @HeaderMap HashMap<String ,String> hashMap, @Query("page")int page, @Query("count")int count);
-
-
-
-
     //根据影院ID查询该影院当前排期的电影列表
     @GET(Api.MOVIELIST)
     Observable<MovieListBean> getMovieList(@Query("cinemaId")int cinemaId);
+    //.用户购票记录查询列表
+    @GET(Api.MYRECORD)
+    Observable<MyRecordBean> myRecord(@HeaderMap HashMap<String ,String> hashMap, @Query("page")int page, @Query("count")int count,@Query("status")String status);
 
+    //电影评论点赞
+    @POST(Api.MOVIECOMMENTGREATE)
+    @FormUrlEncoded
+    Observable<MovieCommentGreate> movieCommentGreate(@HeaderMap HashMap<String ,String> hashMap, @Field("commentId") int commentId);
+    //意见反馈
+    @POST(Api.RECORDFEEDBACk)
+    Observable<RecordFeedBackBean> feedBack(@HeaderMap HashMap<String ,String> hashMap, @Query("content")String content);
+    //查询影院的详情
+ @GET(Api.FINDCINEMAINFO)
+ Observable<FindCinemaInfoBean> findCinemaInfo(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId);
+ //查看影院的评价列表
+ @GET(Api.FINDCINEMACOMMENT)
+ Observable<FindCinemaCommentBean> cinemaComment(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId,@Query("page")int page, @Query("count")int count);
+ //影院评论点赞
+ @POST(Api.CINEMACOMMENTGREATE)
+ @FormUrlEncoded
+ Observable<CinemaCommentGreatBean> cinemaCommentGreate(@HeaderMap HashMap<String ,String> hashMap, @Field("commentId") int commentId);
 }

@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.CinemaPresenter;
 import com.bw.movie.mvp.view.adapter.CinemaHotAdapter;
 import com.bw.movie.mvp.view.base.BaseFragment;
@@ -22,6 +23,7 @@ public class Frag_Cinema_Hot extends BaseFragment<Contract.ICinemaView,CinemaPre
     private View view;
     private CinemaPresenter cinemaPresenter;
     private XRecyclerView cinema_hot_recycle;
+    private NetworkErrorUtils networkErrorUtils;
 
     @Override
     protected View initFragmentView(LayoutInflater inflater) {
@@ -31,6 +33,7 @@ public class Frag_Cinema_Hot extends BaseFragment<Contract.ICinemaView,CinemaPre
 
     @Override
     protected void initFragmentChildView(View view) {
+        networkErrorUtils = new NetworkErrorUtils(getActivity());
         cinema_hot_recycle = view.findViewById(R.id.cinema_hot_recycle);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
@@ -39,6 +42,7 @@ public class Frag_Cinema_Hot extends BaseFragment<Contract.ICinemaView,CinemaPre
 
     @Override
     protected void initFragmentData(Bundle savedInstanceState) {
+
         cinemaPresenter.onICinemaPre(1,10);
     }
 

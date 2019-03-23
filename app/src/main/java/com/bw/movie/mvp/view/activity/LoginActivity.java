@@ -1,14 +1,19 @@
 package com.bw.movie.mvp.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +21,7 @@ import com.bw.movie.Base64.EncryptUtil;
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.api.Api;
 import com.bw.movie.mvp.model.bean.LoginBean;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.LoginPresenter;
 import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.contract.Contract;
@@ -55,6 +61,9 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
     private LoginBean.ResultBean result;
     private String userId;
     private String sessionId;
+    private ImageView image_eye;
+    public int  i =1;
+    private NetworkErrorUtils networkErrorUtils;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -63,9 +72,12 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
 
     @Override
     protected void initView() {
+        networkErrorUtils = new NetworkErrorUtils(LoginActivity.this);
+
         loginEditPass =  findViewById(R.id.login_edit_pass);
         loginEditPhone = findViewById(R.id.login_edit_phone);
         loginBoxRemember =   findViewById(R.id.login_box_remember);
+        image_eye = findViewById(R.id.login_image_pass_eye);
         loginEditPass.setEnabled(true);
         loginEditPhone.setEnabled(true);
         sp = getSharedPreferences("login", Context.MODE_PRIVATE);
@@ -82,8 +94,24 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
             loginEditPass.setText(upass);
             loginBoxRemember.setChecked(b);  //跳转
             //startActivity(new Intent(LoginActivity.this,MainActivity.class));
+
         }
+        image_eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(i ==1)
+                {//从密码不可见模式变为密码可见模式
+                    loginEditPass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    i =2;
+                 }else{
+                    //从密码可见模式变为密码不可见模式
+                    loginEditPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    i =1;
+                }
+            }
+        });
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +192,7 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
                     edit.putString("pass", pwd);
                     //启动
                     edit.commit();
+
                     loginPresenter.onILoginPre(Api.LOGIN, hashMap);
 
                 }else{

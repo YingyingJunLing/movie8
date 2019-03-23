@@ -13,6 +13,7 @@ import com.bw.movie.R;
 import com.bw.movie.mvp.model.api.Api;
 
 import com.bw.movie.mvp.model.bean.RegBean;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.RegPresenter;
 import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.contract.Contract;
@@ -54,6 +55,7 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
     private String sex;
     private String pass;
     private RegBean regBean;
+    private NetworkErrorUtils networkErrorUtils;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
 
     @Override
     protected void initView() {
+        networkErrorUtils = new NetworkErrorUtils(RegActivity.this);
 
 
     }
@@ -132,6 +135,7 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
 
         if (name !=null  && data!=null &&email!=null && mobile !=null &&pass !=null && sex !=null)
         {
+
             regPresenter.onILoginPre(Api.REG,hashMap);
 
         }else {

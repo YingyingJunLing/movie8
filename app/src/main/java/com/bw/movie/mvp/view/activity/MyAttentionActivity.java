@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.AttentionCamera;
@@ -14,6 +15,7 @@ import com.bw.movie.mvp.model.bean.AttentionCamera;
 import com.bw.movie.mvp.model.bean.AttentionMovie;
 import com.bw.movie.mvp.model.bean.LoginBean;
 
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.MyAttentionPresenter;
 import com.bw.movie.mvp.view.adapter.AttentionCameraAdapter;
 import com.bw.movie.mvp.view.adapter.AttentionFilmAdapter;
@@ -49,6 +51,7 @@ public class MyAttentionActivity extends BaseActivity<Contract.IAttentionView,My
     private String sessionId;
     private AttentionFilmAdapter attentionFilmAdapter;
     private AttentionCameraAdapter attentionCameraAdapter;
+    private NetworkErrorUtils networkErrorUtils;
 
 
     @Override
@@ -70,7 +73,9 @@ public class MyAttentionActivity extends BaseActivity<Contract.IAttentionView,My
     @Override
     protected void initView()
     {
+        networkErrorUtils = new NetworkErrorUtils(MyAttentionActivity.this);
         initLinear();
+       ImageView fan =  findViewById(R.id.fan);
         myAttentionCameraRec.setVisibility(View.GONE);
         myAttentionMovieRec.setVisibility(View.VISIBLE);
         myAttentionCamera.setOnClickListener(this);
@@ -79,6 +84,12 @@ public class MyAttentionActivity extends BaseActivity<Contract.IAttentionView,My
         hashMap.put("userId",userId);
         hashMap.put("sessionId",sessionId);
         Log.e("map",hashMap+"");
+        fan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
     }
@@ -108,6 +119,7 @@ public class MyAttentionActivity extends BaseActivity<Contract.IAttentionView,My
     @Override
     protected void getData()
     {
+
         myAttentionFilmPresenter.onIAttentionMoviePre(hashMap,page,count);
     }
 

@@ -1,6 +1,11 @@
 package com.bw.movie.mvp.view.contract;
 
+import com.bw.movie.mvp.view.activity.MovieListActivity;
+
 import java.util.HashMap;
+
+import retrofit2.http.HeaderMap;
+import retrofit2.http.Query;
 
 public class Contract {
 
@@ -130,24 +135,30 @@ public class Contract {
     }
 
     public interface IMovieDetailPre {
+        //详情
         void onIMovieDetailPre(int movieID);
-
+        //评论
         void onIMovieCommenPre(int movieId, int page, int count);
-
+          //点赞
         void onIFollowMovie(int movieId, HashMap<String, String> hashMap);
-
+        //取消点赞
         void onICancelFollowMovie(int movieId, HashMap<String, String> hashMap);
+        //电影评论点赞
+        void onIMovieCommentGreatePre(HashMap<String, String> hashMap,int commentId);
 
     }
 
     public interface IMovieDetailModel {
+        //电影详情
         void onIMovieDetailModel(int movieID, MovieDetailBack movieDetailBack);
-
+        //电影的评论
         void onIMovieCommenModel(int movieId, int page, int count, MovieDetailBack movieDetailBack);
-
+        //电影的点赞
         void onIFollowMovie(int movieId, HashMap<String, String> hashMap, MovieDetailBack movieDetailBack);
-
+          //电影取消点赞
         void onICancelFollowMovie(int movieId, HashMap<String, String> hashMap, MovieDetailBack movieDetailBack);
+        //电影评论点赞
+        void onIMovieCommentGreateModel(HashMap<String, String> hashMap,int commentId,MovieDetailBack movieDetailBack);
     }
 
     public interface MovieDetailBack {
@@ -275,6 +286,7 @@ public class Contract {
     public interface IMyMessageView {
 
         void onIMySuccess(Object o);
+        void onIUpdatePass(Object o);
 
         void onIMyFail(String errorInfo);
 
@@ -283,11 +295,13 @@ public class Contract {
     public interface IMyMessagePre {
 
         void onIMyPre(HashMap<String, String> hashMap);
+        void onIUpdatePassPre(HashMap<String, String > hashMap,HashMap<String, String > map);
 
     }
 
     public interface IMyMessageModel {
         void IMy(HashMap<String, String> hashMap, MyMessageCallBack myMessageCallBack);
+        void onIUpdatePass(HashMap<String, String > hashMap,HashMap<String, String > map,MyMessageCallBack myMessageCallBack);
     }
 
     public interface MyMessageCallBack {
@@ -327,30 +341,44 @@ public class Contract {
         void onFail(String errorInfo);
     }
 
-    //根据影院ID查询该影院当前排期的电影列表
+    //根据影院ID查询该影院当前排期的电影列表    //查询影院的详情
     public interface IMovieListView {
 
         void onIMovieListSuccess(Object o);
+        void onIFindCimeraInfoSuccess(Object o);
 
         void onIMovieListCinemaSuccess(Object o);
 
         void onIMovieListCinemaMovieSuccess(Object o);
 
         void onIMovieListFail(String errorInfo);
+        void onICimemaCommentSuccess(Object o);
+        void onICimemaCommentGreateSuccess(Object o);
+
 
     }
 
     public interface IMovieListPre {
+        void onIFindCimeraInfoPre(HashMap<String, String> hashMap, int cinemaId);
 
         void onIMovieListPre(int cinemasId);
 
         void onIMovieListCinemaPre(int cinemasId);
 
         void onIMovieListCinemaMoviePre(int cinemasId, int movieId);
+        //影院评价
+        void onICimemaCommentPre( HashMap<String ,String> hashMap,int cinemaId, int page, int count);
+       //影院评论点赞
+       void onICimemaCommentGreatePre( HashMap<String ,String> hashMap, int cinemaId);
 
     }
 
     public interface IMovieListModel {
+        //影院的详情
+        void IMyFeedBack(HashMap<String, String> hashMap, int cinemaId ,MyFeedBackCallBack myFeedBackCallBack);
+        //影院评价列表
+        void onICimemaCommentModel(HashMap<String ,String> hashMap, int cinemaId, int page,int count,MovieListBack movieListBack);
+        void onICimemaCommentGreateModel( HashMap<String ,String> hashMap, int cinemaId,MovieListBack movieListBack);
         void onIMovieListModel(int cinemaId, MovieListBack movieListBack);
 
         void onIMovieListCinemaModel(int cinemaId, MovieListBack movieListBack);
@@ -364,4 +392,57 @@ public class Contract {
 
         void onFail(String errorInfo);
     }
+
+    //用户购票记录查询列表
+    public interface IMyRecotdView {
+
+        void onIMyRecotdSuccess(Object o);
+
+        void onIMyRecotdFail(String errorInfo);
+
+    }
+
+    public interface IMyRecotdPre {
+
+        void onIMyRecotdPre(HashMap<String, String> hashMap, int page, int count,String status);
+
+    }
+
+    public interface IMyRecotdModel {
+        void IMyRecotd(HashMap<String, String> hashMap, int page, int count, String status,MyRecotdCallBack myRecotdCallBack);
+
+    }
+
+    public interface MyRecotdCallBack {
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+    //用户反馈
+    public interface IMyFeedBackView {
+
+        void onIMyFeedBackSuccess(Object o);
+
+        void onIMyFeedBackFail(String errorInfo);
+
+    }
+
+    public interface IMyFeedBackPre {
+
+        void onIMyFeedBackPre(HashMap<String, String> hashMap, String comment);
+
+    }
+
+    public interface IMyFeedBackModel {
+        void IMyFeedBack(HashMap<String, String> hashMap, String comment ,MyFeedBackCallBack myFeedBackCallBack);
+
+    }
+
+    public interface MyFeedBackCallBack {
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+
+
 }

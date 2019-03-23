@@ -21,10 +21,12 @@ import com.bw.movie.mvp.model.bean.CancelFollowMovieBean;
 import com.bw.movie.mvp.model.bean.FollowMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.bean.MovieCommentBean;
+import com.bw.movie.mvp.model.bean.MovieCommentGreate;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.utils.AlertAndAnimationUtils;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.MovieDetailPresenter;
-import com.bw.movie.mvp.view.adapter.MyFilmCommentAdapter;
+import com.bw.movie.mvp.view.adapter.MyMovieCommentAdapter;
 import com.bw.movie.mvp.view.adapter.MyForecastAdapter;
 import com.bw.movie.mvp.view.adapter.MyStillAdapter;
 import com.bw.movie.mvp.view.base.BaseActivity;
@@ -75,12 +77,15 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     public int page = 1;
     public int count = 10;
     private View view4;
-    private MyFilmCommentAdapter myFilmCommentAdapter;
+    private MyMovieCommentAdapter myMovieCommentAdapter;
     private ImageView collection_sel;
     private String userId;
     private String sessionId;
     private HashMap<String, String> hashMap;
     private int followMovie;
+    private NetworkErrorUtils networkErrorUtils;
+    private MovieCommentGreate movieCommentGreate;
+    private String commentId;
 
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -92,7 +97,6 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     public void getLoginData(LoginBean.ResultBean resultBean) {
         userId = resultBean.getUserId();
         sessionId = resultBean.getSessionId();
-
     }
 
 
@@ -106,12 +110,12 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
         hashMap.put("userId", userId);
         hashMap.put("sessionId", sessionId);
         Log.e("hashMapsss", hashMap.toString());
-
     }
 
 
     @Override
     protected void initView() {
+        networkErrorUtils = new NetworkErrorUtils(MovieDetailActivity.this);
         Button fan = findViewById(R.id.movie_betail_fan);
         //复选框  关注 不关注
         collection_sel = findViewById(R.id.collection_sel);
@@ -144,12 +148,14 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
 
     @Override
     protected MovieDetailPresenter createPresenter() {
+
         movieDetailPresenter = new MovieDetailPresenter();
         return movieDetailPresenter;
     }
 
     @Override
     protected void getData() {
+
         movieDetailPresenter.onIMovieDetailPre(id);
         movieDetailPresenter.onIMovieCommenPre(id, page, count);
     }
@@ -166,6 +172,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             Log.i("详情名字", result.getName());
             movieDetailText.setText(result.getName());
             followMovie = moviesDetailBean.getResult().getFollowMovie();
+
             Log.e("followMovie", followMovie + "");
             FrescoUtils.setPic(result.getImageUrl(), movieDetailImg);
             buyBtn.setOnClickListener(new View.OnClickListener() {
@@ -181,11 +188,21 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
          */
         if (o instanceof MovieCommentBean) {
             movieCommentBean = (MovieCommentBean) o;
-            Log.e("movieCommentBean", movieCommentBean.toString());
-            if (movieCommentBean != null) {
 
-                myFilmCommentAdapter = new MyFilmCommentAdapter(MovieDetailActivity.this, movieCommentBean);
-            }
+            if (movieCommentBean != null)
+                myMovieCommentAdapter = new MyMovieCommentAdapter(MovieDetailActivity.this, movieCommentBean);
+
+            myMovieCommentAdapter.setOnClick(new MyMovieCommentAdapter.OnClick() {
+                @Override
+                public void getdata(int id, int great, int position) {
+                    if (great == 1){
+                        movieDetailPresenter.onIMovieCommentGreatePre(hashMap, id);
+                    }else{
+                        movieDetailPresenter.onIMovieCommentGreatePre(hashMap, id);
+                        myMovieCommentAdapter.getlike(position);
+                    }
+                }
+            });
         }
         /**
          * 关注电影
@@ -204,7 +221,14 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             if (cancelFollowMovieBean != null) {
                 Toast.makeText(MovieDetailActivity.this, cancelFollowMovieBean.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
+        }
+        if(o instanceof MovieCommentGreate)
+        {
+            movieCommentGreate = (MovieCommentGreate) o;
+            if(movieCommentGreate !=null)
+            {
+                Toast.makeText(MovieDetailActivity.this, movieCommentGreate.getMessage(),Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -297,7 +321,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 view4 = View.inflate(MovieDetailActivity.this, R.layout.comment_dialog_item, null);
                 rec3 = view4.findViewById(R.id.comment_dialog_rec);
                 rec3.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.VERTICAL, false));
-                rec3.setAdapter(myFilmCommentAdapter);
+                rec3.setAdapter(myMovieCommentAdapter);
                 ImageButton dis_dialog3 = view4.findViewById(R.id.dialog_dismiss_ibt);
                 //隐藏dialog
                 dis_dialog3.setOnClickListener(new View.OnClickListener() {
@@ -307,6 +331,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                     }
                 });
                 alertAndAnimationUtils.AlertDialog(MovieDetailActivity.this, view4);
+
 
                 break;
         }

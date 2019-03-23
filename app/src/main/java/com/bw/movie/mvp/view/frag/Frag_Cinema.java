@@ -17,6 +17,7 @@ import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
 import com.bw.movie.mvp.model.bean.HotMovieBean;
 import com.bw.movie.mvp.model.bean.LocationBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
+import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.CinemaPresenter;
 import com.bw.movie.mvp.view.activity.LocationActivity;
 import com.bw.movie.mvp.view.adapter.CinemaRecycleAdapter;
@@ -44,6 +45,7 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
     private HotMovieBean hotMovieBean;
     private RecommendMovieBean recommendMovieBean;
     private ComingSoonMovieBean comingSoonMovieBean;
+    private NetworkErrorUtils networkErrorUtils;
     private ImageView loactionImg;
     private TextView textAddress;
     private RecyclerView fragCinemaRecycle;
@@ -74,7 +76,7 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
      */
     @Override
     protected void initFragmentChildView(View view) {
-
+        networkErrorUtils = new NetworkErrorUtils(getActivity());
         frag_cinema_recycle = view.findViewById(R.id.frag_cinema_recycle);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
@@ -106,6 +108,7 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
      */
     @Override
     protected void initFragmentData(Bundle savedInstanceState) {
+        cinemaPresenter.onICinemaPre(1,10);
         cinemaPresenter.onICinemaPre(1, 10);
     }
 

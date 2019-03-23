@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.bw.movie"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -69,6 +69,8 @@ dependencies {
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
     //屏幕适配
     implementation 'me.jessyan:autosize:1.1.2'
+    implementation 'fm.jiecao:jiecaovideoplayer:4.8.3'
+    //视频框架依赖
     implementation project(':SeatTable')
     implementation files('libs/AMap_Location_V4.5.0_20190121.jar')
     implementation files('libs/AMap_Search_V6.5.0_20180930.jar')
