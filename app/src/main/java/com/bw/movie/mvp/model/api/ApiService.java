@@ -29,6 +29,7 @@ import com.bw.movie.mvp.model.bean.UpdatePassBean;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -115,7 +116,8 @@ public interface ApiService {
 
     //电影评论点赞
     @POST(Api.MOVIECOMMENTGREATE)
-    Observable<MovieCommentGreate> movieCommentGreate(@HeaderMap HashMap<String ,String> hashMap, @Query("commentId")int commentId);
+    @FormUrlEncoded
+    Observable<MovieCommentGreate> movieCommentGreate(@HeaderMap HashMap<String ,String> hashMap, @Field("commentId") int commentId);
     //意见反馈
     @POST(Api.RECORDFEEDBACk)
     Observable<RecordFeedBackBean> feedBack(@HeaderMap HashMap<String ,String> hashMap, @Query("content")String content);
@@ -127,5 +129,6 @@ public interface ApiService {
  Observable<FindCinemaCommentBean> cinemaComment(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId,@Query("page")int page, @Query("count")int count);
  //影院评论点赞
  @POST(Api.CINEMACOMMENTGREATE)
- Observable<CinemaCommentGreatBean> cinemaCommentGreate(@HeaderMap HashMap<String ,String> hashMap, @Query("commentId")int commentId);
+ @FormUrlEncoded
+ Observable<CinemaCommentGreatBean> cinemaCommentGreate(@HeaderMap HashMap<String ,String> hashMap, @Field("commentId") int commentId);
 }

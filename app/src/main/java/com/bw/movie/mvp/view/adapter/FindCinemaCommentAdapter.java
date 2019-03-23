@@ -57,7 +57,8 @@ public class FindCinemaCommentAdapter extends RecyclerView.Adapter<FindCinemaCom
             @Override
             public void onClick(View v) {
                 if (mOnClick!=null){
-                    mOnClick.getdata(findCinemaCommentBean.getResult().get(i).getCommentId(),findCinemaCommentBean.getResult().get(i).getIsGreat()+"",i);
+                    mOnClick.getdatas(findCinemaCommentBean.getResult().get(i).getCommentId(),findCinemaCommentBean.getResult().get(i).getIsGreat(),i);
+
                 }
             }
         });
@@ -93,14 +94,13 @@ public class FindCinemaCommentAdapter extends RecyclerView.Adapter<FindCinemaCom
         findCinemaCommentBean.getResult().get(position).setGreatNum( findCinemaCommentBean.getResult().get(position).getGreatNum()+1);
         notifyDataSetChanged();
     }
-    //取消点赞改变
-    public void getcancel(int position){
-        findCinemaCommentBean.getResult().get(position).setIsGreat(2);
-        findCinemaCommentBean.getResult().get(position).setGreatNum( findCinemaCommentBean.getResult().get(position).getGreatNum()-1);
-        notifyDataSetChanged();
-    }
-    private MyFilmCommentAdapter.OnClick mOnClick;
-    public void setOnClick(MyFilmCommentAdapter.OnClick mOnClick){
+
+    private OnClick mOnClick;
+    public void setOnClick(OnClick mOnClick){
         this.mOnClick=mOnClick;
     }
+    public interface OnClick{
+        void getdatas(int id,int great,int position);
+    }
+
 }
