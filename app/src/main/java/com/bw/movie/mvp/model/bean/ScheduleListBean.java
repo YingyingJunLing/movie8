@@ -60,6 +60,13 @@ public class ScheduleListBean {
         private int seatsUseCount;
         private int status;
 
+        public ResultBean(String beginTime, String endTime, double price, String screeningHall) {
+            this.beginTime = beginTime;
+            this.endTime = endTime;
+            this.price = price;
+            this.screeningHall = screeningHall;
+        }
+
         public String getBeginTime() {
             return beginTime;
         }
