@@ -10,7 +10,10 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.bw.movie.R;
+import com.bw.movie.mvp.model.bean.LocationBean;
 import com.bw.movie.mvp.view.adapter.CinemaRecycleAdapter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,6 +46,12 @@ public class LocationActivity extends AppCompatActivity implements AMapLocationL
         // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
         //启动定位
         mlocationClient.startLocation();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        },2000);
     }
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
@@ -50,9 +59,11 @@ public class LocationActivity extends AppCompatActivity implements AMapLocationL
             if (amapLocation.getErrorCode() == 0) {
                 //定位成功回调信息，设置相关消息
                 amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                String city = amapLocation.getCity();
                 double latitude = amapLocation.getLatitude();//获取纬度
                 double longitude = amapLocation.getLongitude();//获取经度
-                String city = amapLocation.getCity();
+                LocationBean locationBean = new LocationBean(city, latitude, longitude);
+                EventBus.getDefault().post(locationBean);
                 Log.i("城市+纬度+经度",city+"++++"+latitude+"++++"+longitude);
                 amapLocation.getAccuracy();//获取精度信息
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

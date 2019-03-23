@@ -74,4 +74,5 @@ dependencies {
     implementation files('libs/AMap_Search_V6.5.0_20180930.jar')
     implementation files('libs/Android_Map3D_SDK_V6.7.0_20190213.jar')
     implementation files('libs/Volley.jar')
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
 }

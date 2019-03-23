@@ -13,6 +13,8 @@ import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
 import com.bw.movie.mvp.view.activity.ChooseSeatActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 public class ScheuleAdapter extends RecyclerView.Adapter<ScheuleAdapter.MyViewHolder> {
@@ -37,9 +39,11 @@ public class ScheuleAdapter extends RecyclerView.Adapter<ScheuleAdapter.MyViewHo
         myViewHolder.schedule_item_time.setText(list.get(i).getBeginTime()+"--"+list.get(i).getEndTime()+"end");
         Log.i("时间",list.get(i).getBeginTime()+"--"+list.get(i).getEndTime()+"end");
         myViewHolder.schedule_item_price.setText(list.get(i).getPrice()+"¥");
+        final ScheduleListBean.ResultBean resultBean = new ScheduleListBean.ResultBean(list.get(i).getBeginTime(), list.get(i).getEndTime(), list.get(i).getPrice(), list.get(i).getScreeningHall());
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EventBus.getDefault().postSticky(resultBean);
                 context.startActivity(new Intent(context,ChooseSeatActivity.class));
             }
         });
