@@ -1,11 +1,6 @@
 package com.bw.movie.mvp.view.contract;
 
-import com.bw.movie.mvp.view.activity.MovieListActivity;
-
 import java.util.HashMap;
-
-import retrofit2.http.HeaderMap;
-import retrofit2.http.Query;
 
 public class Contract {
 
@@ -444,5 +439,28 @@ public class Contract {
         void onFail(String errorInfo);
     }
 
+    //选座支付
+    public interface ISeatPayView {
 
+        void onISeatPaySuccess(Object o);
+
+        void onISeatPayFail(String errorInfo);
+
+    }
+
+    public interface ISeatPayPre {
+
+        void onISeatPayPre(HashMap<String, String> hashMap, int scheduleId, int amount, String sign);
+
+    }
+
+    public interface ISeatPayModel {
+        void onISeatPayModel(HashMap<String, String> hashMap, int scheduleId, int amount, String sign, SeatPayBack seatPayBack);
+    }
+
+    public interface SeatPayBack {
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
 }

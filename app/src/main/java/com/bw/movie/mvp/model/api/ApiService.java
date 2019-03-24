@@ -2,6 +2,7 @@ package com.bw.movie.mvp.model.api;
 
 import com.bw.movie.mvp.model.bean.AttentionCamera;
 import com.bw.movie.mvp.model.bean.AttentionMovie;
+import com.bw.movie.mvp.model.bean.BuyMovieBean;
 import com.bw.movie.mvp.model.bean.CancelFollowMovieBean;
 import com.bw.movie.mvp.model.bean.CinemaCommentGreatBean;
 import com.bw.movie.mvp.model.bean.CinemaIfoBean;
@@ -122,13 +123,17 @@ public interface ApiService {
     @POST(Api.RECORDFEEDBACk)
     Observable<RecordFeedBackBean> feedBack(@HeaderMap HashMap<String ,String> hashMap, @Query("content")String content);
     //查询影院的详情
- @GET(Api.FINDCINEMAINFO)
- Observable<FindCinemaInfoBean> findCinemaInfo(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId);
- //查看影院的评价列表
- @GET(Api.FINDCINEMACOMMENT)
- Observable<FindCinemaCommentBean> cinemaComment(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId,@Query("page")int page, @Query("count")int count);
- //影院评论点赞
- @POST(Api.CINEMACOMMENTGREATE)
- @FormUrlEncoded
- Observable<CinemaCommentGreatBean> cinemaCommentGreate(@HeaderMap HashMap<String ,String> hashMap, @Field("commentId") int commentId);
+    @GET(Api.FINDCINEMAINFO)
+    Observable<FindCinemaInfoBean> findCinemaInfo(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId);
+    //查看影院的评价列表
+    @GET(Api.FINDCINEMACOMMENT)
+    Observable<FindCinemaCommentBean> cinemaComment(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId,@Query("page")int page, @Query("count")int count);
+    //影院评论点赞
+    @POST(Api.CINEMACOMMENTGREATE)
+    @FormUrlEncoded
+    Observable<CinemaCommentGreatBean> cinemaCommentGreate(@HeaderMap HashMap<String ,String> hashMap, @Field("commentId") int commentId);
+    //购票下单
+    @POST(Api.BUYMOVIE)
+    @FormUrlEncoded
+    Observable<BuyMovieBean> getBuyMovie(@HeaderMap HashMap<String ,String> hashMap ,@Field("scheduleId") int scheduleId,@Field("amount") int amount,@Field("sign") String sign);
 }

@@ -62,6 +62,6 @@ public class Api {
     public static final String FINDCINEMACOMMENT="movieApi/cinema/v1/findAllCinemaComment";
     //影院评论点赞
     public static final String CINEMACOMMENTGREATE="movieApi/cinema/v1/verify/cinemaCommentGreat";
-
-
+    //购票下单
+    public static final String BUYMOVIE="movieApi/movie/v1/verify/buyMovieTicket";
 }

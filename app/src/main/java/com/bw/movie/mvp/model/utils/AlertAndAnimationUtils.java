@@ -33,6 +33,7 @@ public class AlertAndAnimationUtils {
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         //将属性设置给窗体
         dialogWindow.setAttributes(lp);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.show();//显示对话框
     }
 
