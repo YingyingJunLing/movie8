@@ -67,14 +67,8 @@
         <activity android:name=".mvp.view.activity.CinemaListActivity" />
         <activity android:name=".mvp.view.activity.ScheduleListActivity" />
         <activity android:name=".mvp.view.activity.MovieListActivity" />
-        <activity android:name=".mvp.view.activity.MyFeedDBSuccessActivity"></activity>
-        <activity android:name=".mvp.view.activity.ChooseSeatActivity" />
-        <activity android:name=".mvp.view.activity.LocationActivity"></activity>
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="121bb76322f28454315aab4bb2fa79f5">
-        </meta-data>
-        <service android:name="com.amap.api.location.APSService">
-
-        </service>
+        <activity android:name=".mvp.view.activity.MyFeedDBSuccessActivity" />
+        <activity android:name=".mvp.view.activity.MySysMsgActivity"></activity>
     </application>
 
 </manifest>

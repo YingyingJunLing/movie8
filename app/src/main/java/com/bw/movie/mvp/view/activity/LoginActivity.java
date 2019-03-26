@@ -68,6 +68,7 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -93,7 +94,8 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
             loginEditPhone.setText(uname);
             loginEditPass.setText(upass);
             loginBoxRemember.setChecked(b);  //跳转
-            //startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            //能够自动跳转
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
 
         }
         image_eye.setOnClickListener(new View.OnClickListener() {
@@ -113,11 +115,6 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-    }
 
     @Override
     protected LoginPresenter createPresenter() {
