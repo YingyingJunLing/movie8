@@ -71,4 +71,10 @@ dependencies {
     implementation 'me.jessyan:autosize:1.1.2'
     implementation 'fm.jiecao:jiecaovideoplayer:4.8.3'
     //视频框架依赖
+    implementation project(':SeatTable')
+    implementation files('libs/AMap_Location_V4.5.0_20190121.jar')
+    implementation files('libs/AMap_Search_V6.5.0_20180930.jar')
+    implementation files('libs/Android_Map3D_SDK_V6.7.0_20190213.jar')
+    implementation files('libs/Volley.jar')
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
 }
