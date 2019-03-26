@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -48,7 +52,8 @@
         <activity android:name=".mvp.view.activity.CinemaListActivity" />
         <activity android:name=".mvp.view.activity.ScheduleListActivity" />
         <activity android:name=".mvp.view.activity.MovieListActivity" />
-        <activity android:name=".mvp.view.activity.MyFeedDBSuccessActivity"></activity>
+        <activity android:name=".mvp.view.activity.MyFeedDBSuccessActivity" />
+        <activity android:name=".mvp.view.activity.MySysMsgActivity"></activity>
     </application>
 
 </manifest>
