@@ -141,4 +141,5 @@ public interface ApiService {
     @POST(Api.WECHATLOGIN)
     @FormUrlEncoded
     Observable<LoginBean> getWeChatLogin(@Field("code") String code);
+    //微信支付
 }
