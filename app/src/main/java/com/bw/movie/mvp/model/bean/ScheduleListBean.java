@@ -60,7 +60,8 @@ public class ScheduleListBean {
         private int seatsUseCount;
         private int status;
 
-        public ResultBean(String beginTime, String endTime, double price, String screeningHall) {
+        public ResultBean(int id, String beginTime, String endTime, double price, String screeningHall) {
+            this.id = id;
             this.beginTime = beginTime;
             this.endTime = endTime;
             this.price = price;

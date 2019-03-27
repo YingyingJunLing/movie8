@@ -5,9 +5,6 @@ import com.bw.movie.mvp.view.activity.MovieListActivity;
 import java.io.File;
 import java.util.HashMap;
 
-import retrofit2.http.HeaderMap;
-import retrofit2.http.Query;
-
 public class Contract {
 
     /**
@@ -505,5 +502,52 @@ public class Contract {
         void onFail(String errorInfo);
     }
 
+    //选座支付
+    public interface ISeatPayView {
 
+        void onISeatPaySuccess(Object o);
+
+        void onISeatPayFail(String errorInfo);
+
+    }
+
+    public interface ISeatPayPre {
+
+        void onISeatPayPre(HashMap<String, String> hashMap, int scheduleId, int amount, String sign);
+
+    }
+
+    public interface ISeatPayModel {
+        void onISeatPayModel(HashMap<String, String> hashMap, int scheduleId, int amount, String sign, SeatPayBack seatPayBack);
+    }
+
+    public interface SeatPayBack {
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+    //微信登录
+    public interface IWeChatLoginView {
+
+        void onIWeChatLoginSuccess(Object o);
+
+        void onIWeChatLoginFail(String errorInfo);
+
+    }
+
+    public interface IWeChatLoginPre {
+
+        void onIWeChatLoginPre(String code);
+
+    }
+
+    public interface IWeChatLoginModel {
+        void onIWeChatLoginModel(String code,WeChatLoginCallBack weChatLoginCallBack);
+    }
+
+    public interface WeChatLoginCallBack {
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
 }

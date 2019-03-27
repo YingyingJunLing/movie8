@@ -69,5 +69,8 @@ public class Api {
     //修改昵称
     public static final String UPDATENAME="movieApi/user/v1/verify/modifyUserInfo";
 
-
+    //购票下单
+    public static final String BUYMOVIE="movieApi/movie/v1/verify/buyMovieTicket";
+    //微信支付
+    public static final String WECHATLOGIN="movieApi/user/v1/weChatBindingLogin";
 }

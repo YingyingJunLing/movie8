@@ -4,48 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/movie_bg_xhdpi"
+        android:gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="30dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="#20dadada">
+            <TextView android:id="@+id/choose_seat_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:layout_marginRight="30dp"/>
+            <TextView android:id="@+id/choose_seat_time_hall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#fff"/>
+        </LinearLayout>
+    </RelativeLayout>
     <com.qfdqc.views.seattable.SeatTable
         android:id="@+id/seatView"
         android:background="#ffffff"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="100dp"
         android:orientation="horizontal"
         android:background="@drawable/choose_seat_linear"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="-20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="-15dp"
         android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
+            android:textSize="15sp"
             android:text="合计:"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¥"
             android:textColor="#aaa"
-            android:textSize="50dp"/>
+            android:textSize="20sp"/>
         <TextView android:id="@+id/total_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="70dp"
+            android:textSize="30sp"
             android:text="0.00"
             android:textColor="#a9144d"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"/>
-        <ImageView android:id="@+id/choose_true_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/choose_true"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"/>
+        <ImageView android:id="@+id/choose_true_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/choose_true"
+            android:layout_marginRight="5dp"/>
         <ImageView android:id="@+id/choose_false_img"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/choose_false"/>
     </LinearLayout>
 </RelativeLayout>
