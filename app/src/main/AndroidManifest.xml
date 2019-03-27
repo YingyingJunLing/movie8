@@ -60,6 +60,7 @@
         <activity android:name=".mvp.view.activity.ScheduleListActivity" />
         <activity android:name=".mvp.view.activity.MovieListActivity" />
         <activity android:name=".mvp.view.activity.MyFeedDBSuccessActivity" />
+        <activity android:name=".mvp.view.activity.MySysMsgActivity"></activity>
         <activity android:name=".mvp.view.activity.ChooseSeatActivity" />
         <activity android:name=".mvp.view.activity.LocationActivity" />
         <activity android:exported="true"

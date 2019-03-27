@@ -139,14 +139,16 @@
         android:id="@+id/login_button_login"
         android:layout_width="280dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="120dp"
-        android:background="@drawable/be"
+        android:layout_marginBottom="168dp"
         android:text="登录"
         android:textColor="#f1ebec"
         android:textSize="18sp"
+        android:background="@drawable/be"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_goneMarginRight="50dp" />
 
         />
 
@@ -159,4 +161,5 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="40dp"
         tools:ignore="MissingConstraints" />
+>>>>>>> app/src/main/res/layout/activity_login.xml
 </android.support.constraint.ConstraintLayout>

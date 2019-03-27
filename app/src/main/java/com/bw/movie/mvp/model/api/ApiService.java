@@ -25,17 +25,23 @@ import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.model.bean.RecordFeedBackBean;
 import com.bw.movie.mvp.model.bean.RegBean;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
+import com.bw.movie.mvp.model.bean.SysMsgListBean;
+import com.bw.movie.mvp.model.bean.UpdateHeadPicBean;
+import com.bw.movie.mvp.model.bean.UpdateNameBean;
 import com.bw.movie.mvp.model.bean.UpdatePassBean;
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
@@ -123,6 +129,27 @@ public interface ApiService {
     @POST(Api.RECORDFEEDBACk)
     Observable<RecordFeedBackBean> feedBack(@HeaderMap HashMap<String ,String> hashMap, @Query("content")String content);
     //查询影院的详情
+    @GET(Api.FINDCINEMAINFO)
+     Observable<FindCinemaInfoBean> findCinemaInfo(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId);
+    //查看影院的评价列表
+    @GET(Api.FINDCINEMACOMMENT)
+    Observable<FindCinemaCommentBean> cinemaComment(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId,@Query("page")int page, @Query("count")int count);
+    //影院评论点赞
+    @POST(Api.CINEMACOMMENTGREATE)
+    @FormUrlEncoded
+    Observable<CinemaCommentGreatBean> cinemaCommentGreate(@HeaderMap HashMap<String ,String> hashMap, @Field("commentId") int commentId);
+    //查询系统列表
+    @GET(Api.SYSMSGLIST)
+    Observable<SysMsgListBean> sysMsgList(@HeaderMap HashMap<String ,String> hashMap,  @Query("page")int page, @Query("count")int count);
+    //上传头像
+    @POST(Api.UPDATAHEADPIC)
+    @Multipart
+    Observable<UpdateHeadPicBean> updateHeadPic(@HeaderMap HashMap<String ,String> hashMap,@Part MultipartBody.Part parts);
+    //修改用户信息
+    @POST(Api.UPDATENAME)
+    @FormUrlEncoded
+    Observable<UpdateNameBean> updateNameBean(@HeaderMap HashMap<String ,String> hashMap, @FieldMap HashMap<String, String> map);
+
     @GET(Api.FINDCINEMAINFO)
     Observable<FindCinemaInfoBean> findCinemaInfo(@HeaderMap HashMap<String ,String> hashMap, @Query("cinemaId")int cinemaId);
     //查看影院的评价列表

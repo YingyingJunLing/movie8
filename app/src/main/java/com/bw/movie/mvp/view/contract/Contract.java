@@ -1,5 +1,8 @@
 package com.bw.movie.mvp.view.contract;
 
+import com.bw.movie.mvp.view.activity.MovieListActivity;
+
+import java.io.File;
 import java.util.HashMap;
 
 public class Contract {
@@ -282,6 +285,7 @@ public class Contract {
 
         void onIMySuccess(Object o);
         void onIUpdatePass(Object o);
+        void onIUpdateNmae(Object o);
 
         void onIMyFail(String errorInfo);
 
@@ -290,13 +294,17 @@ public class Contract {
     public interface IMyMessagePre {
 
         void onIMyPre(HashMap<String, String> hashMap);
+
         void onIUpdatePassPre(HashMap<String, String > hashMap,HashMap<String, String > map);
+        void onIUpdateNmaePre(HashMap<String, String > hashMap,HashMap<String, String > map);
 
     }
 
     public interface IMyMessageModel {
         void IMy(HashMap<String, String> hashMap, MyMessageCallBack myMessageCallBack);
         void onIUpdatePass(HashMap<String, String > hashMap,HashMap<String, String > map,MyMessageCallBack myMessageCallBack);
+        void onIUpdateNmae(HashMap<String, String > hashMap,HashMap<String, String > map,MyMessageCallBack myMessageCallBack);
+
     }
 
     public interface MyMessageCallBack {
@@ -304,6 +312,34 @@ public class Contract {
 
         void onFail(String errorInfo);
     }
+    /**
+     * 查询系统消息
+     */
+    public interface IMySysMsgView {
+
+        void onISysMsg(Object o);
+
+        void onIMySysMsgFail(String errorInfo);
+
+    }
+
+    public interface IMySysMsgPre {
+        void onISysMsgPre(HashMap<String, String> hashMap,int page,int count);
+
+
+    }
+
+    public interface IMySysMsgModel {
+
+        void onISysMsgModel(HashMap<String, String> hashMap,int page,int count,MySysMsgCallBack mySysMsgCallBack);
+    }
+
+    public interface MySysMsgCallBack {
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+
 
     /**
      * 我的关注电影
@@ -434,6 +470,33 @@ public class Contract {
     }
 
     public interface MyFeedBackCallBack {
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
+    /**
+     * 上传头像
+     */
+    public interface IUpdateHeadPicView {
+
+        void onIUpdateHeadPicSuccess(Object o);
+
+        void onIUpdateHeadPicFail(String errorInfo);
+
+    }
+
+    public interface IUpdateHeadPicPre {
+
+        void onIUpdateHeadPicPre(HashMap<String, String> hashMap, File file);
+
+    }
+
+    public interface IUpdateHeadPicModel {
+        void IUpdateHeadPiBack(HashMap<String, String> hashMap, File file ,UpdateHeadPiclBack updateHeadPiclBack);
+
+    }
+
+    public interface UpdateHeadPiclBack {
         void onSuccess(Object o);
 
         void onFail(String errorInfo);

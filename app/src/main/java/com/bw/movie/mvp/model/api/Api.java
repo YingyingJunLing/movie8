@@ -62,6 +62,13 @@ public class Api {
     public static final String FINDCINEMACOMMENT="movieApi/cinema/v1/findAllCinemaComment";
     //影院评论点赞
     public static final String CINEMACOMMENTGREATE="movieApi/cinema/v1/verify/cinemaCommentGreat";
+    //查询系统列表
+    public static final String SYSMSGLIST="movieApi/tool/v1/verify/findAllSysMsgList";
+    //上传头像
+    public static final String UPDATAHEADPIC="movieApi/user/v1/verify/uploadHeadPic";
+    //修改昵称
+    public static final String UPDATENAME="movieApi/user/v1/verify/modifyUserInfo";
+
     //购票下单
     public static final String BUYMOVIE="movieApi/movie/v1/verify/buyMovieTicket";
     //微信支付
