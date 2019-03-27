@@ -64,4 +64,6 @@ public class Api {
     public static final String CINEMACOMMENTGREATE="movieApi/cinema/v1/verify/cinemaCommentGreat";
     //购票下单
     public static final String BUYMOVIE="movieApi/movie/v1/verify/buyMovieTicket";
+    //微信支付
+    public static final String WECHATLOGIN="movieApi/user/v1/weChatBindingLogin";
 }

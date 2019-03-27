@@ -12,11 +12,24 @@ android {
         packagingOptions {
             exclude 'META-INF/rxjava.properties'
         }
+        flavorDimensions "default"
+    }
+    signingConfigs {
+        debug {
+            storeFile file('movie.keystore')
+            keyAlias "bw_movie"
+            storePassword "123456"
+            keyPassword "123456"
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        pro {
         }
     }
 }
@@ -77,4 +90,6 @@ dependencies {
     implementation files('libs/Android_Map3D_SDK_V6.7.0_20190213.jar')
     implementation files('libs/Volley.jar')
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
+    //微信登录
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 }

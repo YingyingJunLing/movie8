@@ -15,4 +15,5 @@
     <string name="WeChat_pay">微信支付</string>
     <string name="zhifubao_pay">支付宝支付</string>
     <string name="pay_price">需支付0.0元</string>
+    <string name="pay_result_callback_msg">支付</string>
 </resources>

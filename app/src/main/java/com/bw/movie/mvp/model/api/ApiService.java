@@ -136,4 +136,9 @@ public interface ApiService {
     @POST(Api.BUYMOVIE)
     @FormUrlEncoded
     Observable<BuyMovieBean> getBuyMovie(@HeaderMap HashMap<String ,String> hashMap ,@Field("scheduleId") int scheduleId,@Field("amount") int amount,@Field("sign") String sign);
+
+    //微信登录
+    @POST(Api.WECHATLOGIN)
+    @FormUrlEncoded
+    Observable<LoginBean> getWeChatLogin(@Field("code") String code);
 }
