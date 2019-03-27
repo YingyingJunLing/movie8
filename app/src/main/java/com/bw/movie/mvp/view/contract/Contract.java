@@ -463,4 +463,28 @@ public class Contract {
 
         void onFail(String errorInfo);
     }
+    //微信登录
+    public interface IWeChatLoginView {
+
+        void onIWeChatLoginSuccess(Object o);
+
+        void onIWeChatLoginFail(String errorInfo);
+
+    }
+
+    public interface IWeChatLoginPre {
+
+        void onIWeChatLoginPre(String code);
+
+    }
+
+    public interface IWeChatLoginModel {
+        void onIWeChatLoginModel(String code,WeChatLoginCallBack weChatLoginCallBack);
+    }
+
+    public interface WeChatLoginCallBack {
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
 }
