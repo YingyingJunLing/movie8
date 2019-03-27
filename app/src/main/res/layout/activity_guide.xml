@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.view.activity.GuideActivity">
+
+   <android.support.v4.view.ViewPager
+       android:layout_gravity="center"
+       android:layout_marginTop="350dp"
+       android:layout_width="match_parent"
+       android:layout_height="410dp"
+       android:id="@+id/pager"
+       ></android.support.v4.view.ViewPager>
+    <TextView
+        android:layout_marginTop="120dp"
+        android:id="@+id/text1"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="啦啦啦"
+        android:textSize="28sp"
+        android:textColor="#333333"
+        />
+    <TextView
+        android:layout_marginTop="42dp"
+        android:id="@id/text2"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="啦啦啦"
+        android:textSize="28sp"
+        android:textColor="#333333"
+        />
+
+    <Button
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:text="立即体验"
+        android:textSize="28sp"
+        android:id="@+id/jump"
+        android:visibility="gone"
+        />
+    <RadioGroup
+        android:layout_marginTop="158dp"
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        ></RadioGroup>
+
+</LinearLayout>

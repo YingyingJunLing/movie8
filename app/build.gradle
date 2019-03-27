@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.bw.movie"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        packagingOptions {
+            exclude 'META-INF/rxjava.properties'
+        }
+        flavorDimensions "default"
+    }
+    signingConfigs {
+        debug {
+            storeFile file('movie.keystore')
+            keyAlias "bw_movie"
+            storePassword "123456"
+            keyPassword "123456"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        pro {
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //xedittext
+    implementation 'com.xw.repo:xedittext:2.1.0@aar'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.facebook.fresco:fresco:1.12.1'
+    implementation 'com.facebook.fresco:drawee:1.12.1'
+    implementation 'com.facebook.fresco:imagepipeline:1.12.1'
+    //okhttp3的依赖
+    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation 'com.squareup.okio:okio:1.12.0'
+    //BottomTabBar依赖
+    implementation 'com.hjm:BottomTabBar:1.1.1'
+    //recyclerListView依赖
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.jcodecraeer:xrecyclerview:1.3.2'
+    //gson的依赖
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //glide的依赖
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    //imageloader的依赖
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.youth.banner:banner:1.4.9'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.4.0"
+    implementation 'com.android.support:cardview-v7:28+'
+    //rxjava2
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    //logging-interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+    implementation 'com.jcodecraeer:xrecyclerview:1.5.9'
+    implementation 'com.recker.flybanner:flybanner:1.3'
+    //tab
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+    //屏幕适配
+    implementation 'me.jessyan:autosize:1.1.2'
+    implementation 'fm.jiecao:jiecaovideoplayer:4.8.3'
+    //视频框架依赖
+    implementation project(':SeatTable')
+    implementation files('libs/AMap_Location_V4.5.0_20190121.jar')
+    implementation files('libs/AMap_Search_V6.5.0_20180930.jar')
+    implementation files('libs/Android_Map3D_SDK_V6.7.0_20190213.jar')
+    implementation files('libs/Volley.jar')
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
+    //微信登录
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+}
