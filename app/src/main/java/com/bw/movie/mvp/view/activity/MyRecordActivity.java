@@ -86,7 +86,7 @@ public class MyRecordActivity extends BaseActivity<Contract.IMyRecotdView,MyReco
         {
 
             myRecordBean = (MyRecordBean) o;
-            myRecordAdapter = new MyRecordAdapter(MyRecordActivity.this, myRecordBean);
+            myRecordAdapter = new MyRecordAdapter(MyRecordActivity.this, myRecordBean,hashMap);
             my_record_recy.setAdapter(myRecordAdapter);
         }
 

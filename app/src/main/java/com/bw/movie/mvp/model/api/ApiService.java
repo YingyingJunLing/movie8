@@ -20,6 +20,7 @@ import com.bw.movie.mvp.model.bean.MovieListBean;
 import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
 import com.bw.movie.mvp.model.bean.MyRecordBean;
+import com.bw.movie.mvp.model.bean.PayBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.model.bean.RecordFeedBackBean;
@@ -142,4 +143,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<LoginBean> getWeChatLogin(@Field("code") String code);
     //微信支付
+    @POST(Api.PAY)
+    @FormUrlEncoded
+    Observable<PayBean> getPay(@HeaderMap HashMap<String ,String> hashMap, @Field("payType") int payType,@Field("orderId") String orderId);
 }
