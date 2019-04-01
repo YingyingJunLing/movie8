@@ -101,6 +101,7 @@ public class WXEntryActivity extends BaseActivity<Contract.IWeChatLoginView,WeCh
                 startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
                 finish();
             }
+
         }
     }
 
