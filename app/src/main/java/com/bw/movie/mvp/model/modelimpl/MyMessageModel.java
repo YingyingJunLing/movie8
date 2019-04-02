@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.bw.movie.mvp.model.api.ApiService;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
+import com.bw.movie.mvp.model.bean.UpdateNameBean;
 import com.bw.movie.mvp.model.bean.UpdatePassBean;
 import com.bw.movie.mvp.model.utils.RetrofitUtils;
 import com.bw.movie.mvp.view.activity.MainActivity;
@@ -47,5 +48,21 @@ public class MyMessageModel implements Contract.IMyMessageModel {
                         myMessageCallBack.onSuccess(updatePassBean);
                     }
                 });
+    }
+
+    @Override
+    public void onIUpdateNmae(HashMap<String, String> hashMap, HashMap<String, String> map, final Contract.MyMessageCallBack myMessageCallBack) {
+        apiService = RetrofitUtils.getInstance().create(ApiService.class);
+        apiService.updateNameBean(hashMap,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<UpdateNameBean>() {
+                    @Override
+                    public void accept(UpdateNameBean updateNameBean) throws Exception {
+                        Log.e("myMessageBean",updateNameBean.toString());
+                        myMessageCallBack.onSuccess(updateNameBean);
+                    }
+                });
+
     }
 }

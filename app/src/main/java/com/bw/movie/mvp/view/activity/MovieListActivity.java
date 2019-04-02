@@ -1,17 +1,25 @@
 package com.bw.movie.mvp.view.activity;
 
+
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+
 import android.view.View;
+
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.fresco.FrescoUtils;
+import com.bw.movie.mvp.model.bean.AddCimeraCommentBean;
+
 import com.bw.movie.mvp.model.bean.CinemaCommentGreatBean;
 import com.bw.movie.mvp.model.bean.CinemaIfoBean;
 import com.bw.movie.mvp.model.bean.CinemaListBean;
@@ -26,7 +34,7 @@ import com.bw.movie.mvp.presenter.presenterimpl.MovieListPresenter;
 import com.bw.movie.mvp.view.adapter.FindCinemaCommentAdapter;
 import com.bw.movie.mvp.view.adapter.FindCinemaInfoAdapter;
 import com.bw.movie.mvp.view.adapter.MovieListCoverFlowAdapter;
-import com.bw.movie.mvp.view.adapter.MyMovieCommentAdapter;
+
 import com.bw.movie.mvp.view.adapter.ScheuleAdapter;
 import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.contract.Contract;
@@ -38,6 +46,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,18 +122,28 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
         movieListPresenter.onIMovieListCinemaPre(cid);
         movieListLogo.setOnClickListener(new View.OnClickListener() {
 
+            private TextView movie_comment_send;
+            private RelativeLayout comment_movie;
+
             @Override
             public void onClick(View v) {
-                Log.e("lallalala","点击l");
+
                 final View view2 = View.inflate(MovieListActivity.this, R.layout.recommend_dialog_item, null);
                 rec = view2.findViewById(R.id.recomm_dialog_rec_ping);
                 rec2 = view2.findViewById(R.id.recommend_dialog_xiang);
+
                 rec.setVisibility(View.VISIBLE);
                 rec2.setVisibility(View.GONE);
                 movieListPresenter.onIFindCimeraInfoPre(hashMap,cid);
                 ImageButton dis_dialog1 = view2.findViewById(R.id.dialog_dismiss_ibt);
+                //详情
                 xiang = view2.findViewById(R.id.recommend_xiang);
+                //评价
                 ping = view2.findViewById(R.id.recommend_ping);
+                //点击评论发送按钮
+                movie_comment_send = view2.findViewById(R.id.movie_comment_send);
+                //隐藏的评论布局
+                comment_movie = view2.findViewById(R.id.comment_movie);
                 rec.setLayoutManager(new LinearLayoutManager(MovieListActivity.this, LinearLayoutManager.VERTICAL, false));
                 rec2.setLayoutManager(new LinearLayoutManager(MovieListActivity.this, LinearLayoutManager.VERTICAL, false));
                 //详情点击事件
@@ -134,17 +153,42 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                         movieListPresenter.onIFindCimeraInfoPre(hashMap,cid);
                         rec.setVisibility(View.VISIBLE);
                         rec2.setVisibility(View.GONE);
+
                     }
                 });
                 //评价点击事件
                 ping.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        ImageView comment_publish=  view2.findViewById(R.id.comment_publish);
                         rec.setVisibility(View.GONE);
+                        comment_publish.setVisibility(View.VISIBLE);
                         int page=1;
                         int count =10;
                         movieListPresenter.onICimemaCommentPre(hashMap,cid,page,count);
                         rec2.setVisibility(View.VISIBLE);
+                        comment_publish.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                             final EditText   movie_comment_content = view2.findViewById(R.id.movie_comment_content);
+                                comment_movie.setVisibility(View.VISIBLE);
+                                //发送点击事件
+                                movie_comment_send.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        String s = movie_comment_content.getText().toString();
+                                        Log.e("lallallal",s);
+                                        HashMap<String,String> map = new HashMap<>();
+                                        map.put("cinemaId", String.valueOf(cid));
+                                        map.put("commentContent",s);
+                                        Log.e("mapsss", map +"");
+                                        movieListPresenter.onIAddCinemaCommentPre(hashMap,map);
+                                    }
+                                });
+
+                            }
+                        });
                     }
                 });
 
@@ -227,6 +271,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
         if(o instanceof FindCinemaCommentBean)
         {
             FindCinemaCommentBean findCinemaCommentBean = (FindCinemaCommentBean) o;
+
             if(findCinemaCommentBean.getResult().size()==0)
             {
                 Toast.makeText(MovieListActivity.this,findCinemaCommentBean.getMessage(),Toast.LENGTH_SHORT).show();
@@ -261,6 +306,18 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
             if(cinemaCommentGreatBean !=null)
             {
                 Toast.makeText(MovieListActivity.this, cinemaCommentGreatBean.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onIAddCinemaComment(Object o) {
+        //添加影片的评论
+        if(o instanceof AddCimeraCommentBean)
+        {
+            AddCimeraCommentBean addCimeraCommentBean = (AddCimeraCommentBean) o;
+            if(addCimeraCommentBean !=null){
+                Toast.makeText(MovieListActivity.this,addCimeraCommentBean.getMessage(),Toast.LENGTH_SHORT).show();
             }
         }
     }

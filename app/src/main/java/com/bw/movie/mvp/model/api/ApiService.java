@@ -1,5 +1,7 @@
 package com.bw.movie.mvp.model.api;
 
+import com.bw.movie.mvp.model.bean.AddCimeraCommentBean;
+import com.bw.movie.mvp.model.bean.AddMovieCommentBean;
 import com.bw.movie.mvp.model.bean.AttentionCamera;
 import com.bw.movie.mvp.model.bean.AttentionMovie;
 import com.bw.movie.mvp.model.bean.BuyMovieBean;
@@ -28,17 +30,24 @@ import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.model.bean.RecordFeedBackBean;
 import com.bw.movie.mvp.model.bean.RegBean;
 import com.bw.movie.mvp.model.bean.ScheduleListBean;
+import com.bw.movie.mvp.model.bean.SysMsgListBean;
+import com.bw.movie.mvp.model.bean.UpdateHeadPicBean;
+import com.bw.movie.mvp.model.bean.UpdateNameBean;
 import com.bw.movie.mvp.model.bean.UpdatePassBean;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
@@ -155,4 +164,23 @@ public interface ApiService {
     //模糊查询
     @GET(Api.FINDALLCINEMAS)
     Observable<FindAllCinemasBean> getFindAll(@Query("page")int page, @Query("count")int count,@Query("cinemaName")String cinemaName);
+ //修改用户信息
+ @POST(Api.UPDATEMESSAGE)
+ @FormUrlEncoded
+ Observable<UpdateNameBean> updateNameBean(@HeaderMap HashMap<String ,String> hashMap, @FieldMap HashMap<String, String> map);
+ //查询系统列表
+ @GET(Api.SYSMSGLIST)
+ Observable<SysMsgListBean> sysMsgList(@HeaderMap HashMap<String ,String> hashMap, @Query("page")int page, @Query("count")int count);
+ //上传头像
+ @POST(Api.UPDATAHEADPIC)
+ @Multipart
+ Observable<UpdateHeadPicBean> updateHeadPic(@HeaderMap HashMap<String ,String> hashMap, @Part MultipartBody.Part parts);
+ //添加影片用户评价
+ @POST(Api.ADDMOVIECOMMENT)
+ @FormUrlEncoded
+ Observable<AddMovieCommentBean>  addMovieComment(@HeaderMap HashMap<String ,String> hashMap, @FieldMap Map<String, String> map);
+ //添加影院用户评价
+ @POST(Api.ADDCAMERACOMMENT)
+ @FormUrlEncoded
+ Observable<AddCimeraCommentBean>  addCameraComment(@HeaderMap HashMap<String ,String> hashMap, @FieldMap Map<String, String> map);
 }

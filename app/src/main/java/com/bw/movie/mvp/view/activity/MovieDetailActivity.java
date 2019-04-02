@@ -1,22 +1,30 @@
 package com.bw.movie.mvp.view.activity;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
 import com.bw.movie.fresco.FrescoUtils;
+import com.bw.movie.mvp.model.bean.AddMovieCommentBean;
 import com.bw.movie.mvp.model.bean.CancelFollowMovieBean;
 import com.bw.movie.mvp.model.bean.FollowMovieBean;
 import com.bw.movie.mvp.model.bean.LoginBean;
@@ -38,6 +46,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,7 +95,9 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     private NetworkErrorUtils networkErrorUtils;
     private MovieCommentGreate movieCommentGreate;
     private String commentId;
-
+    private ImageView comment_publish;
+    private HashMap<String, String> map;
+    private TextView movie_comment_send;
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getEvent(MoviesDetailBean.ResultBean resultBean) {
@@ -117,6 +128,8 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     protected void initView() {
         networkErrorUtils = new NetworkErrorUtils(MovieDetailActivity.this);
         Button fan = findViewById(R.id.movie_betail_fan);
+
+
         //复选框  关注 不关注
         collection_sel = findViewById(R.id.collection_sel);
         fan.setOnClickListener(new View.OnClickListener() {
@@ -203,6 +216,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                     }
                 }
             });
+
         }
         /**
          * 关注电影
@@ -228,6 +242,15 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             if(movieCommentGreate !=null)
             {
                 Toast.makeText(MovieDetailActivity.this, movieCommentGreate.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        //添加影片的评论
+        if(o instanceof AddMovieCommentBean)
+        {
+            AddMovieCommentBean addMovieCommentBean = (AddMovieCommentBean) o;
+            if(addMovieCommentBean !=null){
+                Toast.makeText(MovieDetailActivity.this,addMovieCommentBean.getMessage(),Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -320,6 +343,36 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             case R.id.movie_commit_btn:
                 view4 = View.inflate(MovieDetailActivity.this, R.layout.comment_dialog_item, null);
                 rec3 = view4.findViewById(R.id.comment_dialog_rec);
+             final RelativeLayout comment_movie= view4.findViewById(R.id.comment_movie);
+                movie_comment_send= view4.findViewById(R.id.movie_comment_send);
+                comment_publish= view4.findViewById(R.id.comment_publish);
+                //添加评论
+                comment_publish.setOnClickListener(new View.OnClickListener() {
+
+                    private EditText movie_comment_content;
+
+                    @Override
+                    public void onClick(View v) {
+
+                        comment_movie.setVisibility(View.VISIBLE);
+                        movie_comment_content = view4.findViewById(R.id.movie_comment_content);
+                        //发送点击事件
+                        movie_comment_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                String s = movie_comment_content.getText().toString();
+                                Log.e("lallallal",s);
+                                map = new HashMap<>();
+                                map.put("movieId", String.valueOf(id));
+                                map.put("commentContent",s);
+                                Log.e("mapsss", map +"");
+                                movieDetailPresenter.onIAddmovieCommentPre(hashMap,map);
+                            }
+                        });
+                    }
+                });
+
                 rec3.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.VERTICAL, false));
                 rec3.setAdapter(myMovieCommentAdapter);
                 ImageButton dis_dialog3 = view4.findViewById(R.id.dialog_dismiss_ibt);
@@ -331,8 +384,6 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                     }
                 });
                 alertAndAnimationUtils.AlertDialog(MovieDetailActivity.this, view4);
-
-
                 break;
         }
     }
