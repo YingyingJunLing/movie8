@@ -104,6 +104,21 @@ public class MovieListPresenter extends BasePresenter<Contract.IMovieListView> i
         });
     }
 
+    @Override
+    public void onIAddCinemaCommentPre(HashMap<String, String> hashMap, HashMap<String, String> map) {
+        movieListModel.onIAddCinemaCommentPre(hashMap,map, new Contract.MovieListBack() {
+            @Override
+            public void onSuccess(Object o) {
+                getView().onIAddCinemaComment(o);
+            }
+
+            @Override
+            public void onFail(String errorInfo) {
+
+            }
+        });
+    }
+
     public void onDestroy(){
         if (movieListModel!=null){
             movieListModel=null;

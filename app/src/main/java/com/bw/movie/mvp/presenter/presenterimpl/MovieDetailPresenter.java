@@ -5,6 +5,7 @@ import com.bw.movie.mvp.presenter.base.BasePresenter;
 import com.bw.movie.mvp.view.contract.Contract;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MovieDetailPresenter extends BasePresenter<Contract.IMovieDetailView> implements Contract.IMovieDetailPre {
     private MovieDetailModel movieDetailModel;
@@ -74,6 +75,21 @@ public class MovieDetailPresenter extends BasePresenter<Contract.IMovieDetailVie
     @Override
     public void onIMovieCommentGreatePre(HashMap<String, String> hashMap, int commentId) {
         movieDetailModel.onIMovieCommentGreateModel(hashMap, commentId, new Contract.MovieDetailBack() {
+            @Override
+            public void onSuccess(Object o) {
+                getView().onIMovieDetailSuccess(o);
+            }
+
+            @Override
+            public void onFail(String errorInfo) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onIAddmovieCommentPre(HashMap<String, String> hashMap, HashMap<String, String> map) {
+        movieDetailModel.onIAddmovieCommentModel(hashMap, map, new Contract.MovieDetailBack() {
             @Override
             public void onSuccess(Object o) {
                 getView().onIMovieDetailSuccess(o);

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context=".mvp.view.activity.MySysMsgActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="系统消息"
+        android:layout_marginTop="30dp"
+        android:textColor="#333333"
+        android:layout_marginLeft="20dp"
+        android:textSize="14sp"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sysMsg_recy"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        ></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
