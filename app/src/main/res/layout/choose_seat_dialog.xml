@@ -72,12 +72,11 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:orientation="vertical">
-                <RadioButton
+                <RadioButton android:id="@+id/pay_type_1"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:checked="true"
                     android:layout_weight="1"/>
-                <RadioButton
+                <RadioButton android:id="@+id/pay_type_2"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"/>

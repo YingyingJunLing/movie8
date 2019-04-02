@@ -1,5 +1,8 @@
 package com.bw.movie.mvp.view.frag;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +55,10 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
     private TextView textAddress;
     private RecyclerView fragCinemaRecycle;
     private String city;
+    private LinearLayout search_linear_frame;
+    private ImageView search_img_frame;
+    private EditText search_edit_frame;
+    private TextView search_text_frame;
 
     /**
      * 初始化布局
@@ -78,6 +87,10 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
     protected void initFragmentChildView(View view) {
         networkErrorUtils = new NetworkErrorUtils(getActivity());
         frag_cinema_recycle = view.findViewById(R.id.frag_cinema_recycle);
+        search_linear_frame = view.findViewById(R.id.search_linear_frame);
+        search_img_frame = view.findViewById(R.id.search_img_frame);
+        search_edit_frame = view.findViewById(R.id.search_edit_frame);
+        search_text_frame = view.findViewById(R.id.search_text_frame);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         frag_cinema_recycle.setLayoutManager(linearLayoutManager);
@@ -87,6 +100,23 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), LocationActivity.class));
+            }
+        });
+        search_img_frame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search_linear_frame.setLayoutParams(new LinearLayout.LayoutParams(400,48));
+                search_edit_frame.setVisibility(View.VISIBLE);
+                search_text_frame.setVisibility(View.VISIBLE);
+            }
+        });
+        search_text_frame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                search_linear_frame.setLayoutParams(new LinearLayout.LayoutParams(60,48));
+                search_edit_frame.setVisibility(View.GONE);
+                search_text_frame.setVisibility(View.GONE);
             }
         });
     }
