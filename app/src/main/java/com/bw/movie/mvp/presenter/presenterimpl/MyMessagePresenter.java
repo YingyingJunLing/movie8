@@ -50,6 +50,21 @@ public class MyMessagePresenter extends BasePresenter<Contract.IMyMessageView> i
         });
     }
 
+    @Override
+    public void onIUpdateNmaePre(HashMap<String, String> hashMap, HashMap<String, String> map) {
+        myMessageModel.onIUpdateNmae(hashMap, map, new Contract.MyMessageCallBack() {
+            @Override
+            public void onSuccess(Object o) {
+                getView().onIUpdateNmae(o);
+            }
+
+            @Override
+            public void onFail(String errorInfo) {
+
+            }
+        });
+    }
+
     public void onDestroy(){
         if (myMessageModel!=null){
             myMessageModel=null;

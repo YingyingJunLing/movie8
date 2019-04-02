@@ -16,6 +16,7 @@ import com.bw.movie.Base64.EncryptUtil;
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
+import com.bw.movie.mvp.model.bean.UpdateNameBean;
 import com.bw.movie.mvp.model.bean.UpdatePassBean;
 import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.MyMessagePresenter;
@@ -127,6 +128,51 @@ public class MyMessageActivity extends BaseActivity<Contract.IMyMessageView,MyMe
 
             }
         });
+        //修改信息
+        //修改信息点击事件
+        myMessage_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View passView = View.inflate(MyMessageActivity.this, R.layout.alert_name, null);
+                final EditText alert_edit_nickname = passView.findViewById(R.id.alert_edit_nickname);
+                final EditText alert_edit_sex = passView.findViewById(R.id.alert_edit_sex);
+                final EditText alert_edit_eamil = passView.findViewById(R.id.alert_edit_eamil);
+
+                final AlertDialog.Builder builder1 = new AlertDialog
+                        .Builder(MyMessageActivity.this)
+                        .setView(passView);
+
+                //点击对话框以外的区域是否让对话框消失
+                builder1.setCancelable(false);
+                //确定事件
+                builder1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                        final String oldPwd = alert_edit_nickname.getText().toString().trim();
+                        final String pass1 =alert_edit_sex.getText().toString().trim();
+                        final String pass2 = alert_edit_eamil.getText().toString().trim();
+                        HashMap<String, String>  params = new HashMap<>();
+                        params.put("nickName", oldPwd);
+                        params.put("sex", pass1);
+                        params.put("email",pass2);
+                        Log.e("params", params +"");
+                        myMessagePresenter.onIUpdateNmaePre(hashMap, params);
+                        dialog.dismiss();
+                    }
+                });
+                builder1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder1.show();
+
+
+            }
+        });
 
         hashMap = new HashMap<>();
         hashMap.put("userId",userId);
@@ -187,6 +233,18 @@ public class MyMessageActivity extends BaseActivity<Contract.IMyMessageView,MyMe
                 Toast.makeText(MyMessageActivity.this,updatePassBean.getMessage(),Toast.LENGTH_SHORT).show();
             }
 
+        }
+    }
+
+    @Override
+    public void onIUpdateNmae(Object o) {
+        if(o instanceof UpdateNameBean)
+        {
+            UpdateNameBean updateNameBean = (UpdateNameBean) o;
+            if(updateNameBean !=null)
+            {
+                Toast.makeText(MyMessageActivity.this,updateNameBean.getMessage(),Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
