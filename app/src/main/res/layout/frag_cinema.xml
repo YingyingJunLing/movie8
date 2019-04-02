@@ -46,10 +46,41 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
-                <ImageView
-                    android:layout_width="24dp"
+                <LinearLayout android:id="@+id/search_linear_frame"
+                    android:layout_width="30dp"
                     android:layout_height="24dp"
-                    android:src="@mipmap/com_icon_search_default" />
+                    android:background="@drawable/linear_radius"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView android:id="@+id/search_img_frame"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@mipmap/com_icon_search_default"
+                        android:layout_marginLeft="5dp"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                    <EditText android:id="@+id/search_edit_frame"
+                        android:layout_width="140dp"
+                        android:layout_height="20dp"
+                        android:textColor="#fff"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:visibility="gone"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                    <TextView android:id="@+id/search_text_frame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search"
+                        android:textColor="#fff"
+                        android:textSize="12sp"
+                        android:visibility="gone"
+                        android:layout_marginRight="5dp"/>
+                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

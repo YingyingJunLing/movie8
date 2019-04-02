@@ -10,6 +10,7 @@ import com.bw.movie.mvp.model.bean.CinemaCommentGreatBean;
 import com.bw.movie.mvp.model.bean.CinemaIfoBean;
 import com.bw.movie.mvp.model.bean.CinemaListBean;
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
+import com.bw.movie.mvp.model.bean.FindAllCinemasBean;
 import com.bw.movie.mvp.model.bean.FindCinemaCommentBean;
 import com.bw.movie.mvp.model.bean.FindCinemaInfoBean;
 import com.bw.movie.mvp.model.bean.FindNearCinemaBean;
@@ -23,6 +24,7 @@ import com.bw.movie.mvp.model.bean.MoviesDetailBean;
 import com.bw.movie.mvp.model.bean.MyMessageBean;
 import com.bw.movie.mvp.model.bean.MyRecordBean;
 import com.bw.movie.mvp.model.bean.PayBean;
+import com.bw.movie.mvp.model.bean.PayStatusBean;
 import com.bw.movie.mvp.model.bean.RecommendCinemaBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.model.bean.RecordFeedBackBean;
@@ -155,6 +157,13 @@ public interface ApiService {
     @POST(Api.PAY)
     @FormUrlEncoded
     Observable<PayBean> getPay(@HeaderMap HashMap<String ,String> hashMap, @Field("payType") int payType,@Field("orderId") String orderId);
+    //支付宝支付
+    @POST(Api.PAY)
+    @FormUrlEncoded
+    Observable<PayStatusBean> getPayStatus(@HeaderMap HashMap<String ,String> hashMap, @Field("payType") int payType, @Field("orderId") String orderId);
+    //模糊查询
+    @GET(Api.FINDALLCINEMAS)
+    Observable<FindAllCinemasBean> getFindAll(@Query("page")int page, @Query("count")int count,@Query("cinemaName")String cinemaName);
  //修改用户信息
  @POST(Api.UPDATEMESSAGE)
  @FormUrlEncoded
@@ -174,5 +183,4 @@ public interface ApiService {
  @POST(Api.ADDCAMERACOMMENT)
  @FormUrlEncoded
  Observable<AddCimeraCommentBean>  addCameraComment(@HeaderMap HashMap<String ,String> hashMap, @FieldMap Map<String, String> map);
-
 }

@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +62,7 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
     private String sessionId;
     private HashMap<String, String> hashMap;
     private String sign;
+    private boolean b;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -77,6 +81,8 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
         final View view = View.inflate(this, R.layout.choose_seat_dialog, null);
         final AlertAndAnimationUtils alertAndAnimationUtils = new AlertAndAnimationUtils();
         final TextView pay_price = view.findViewById(R.id.pay_price);
+        final RadioButton pay_type_1 = view.findViewById(R.id.pay_type_1);
+        final RadioButton pay_type_2 = view.findViewById(R.id.pay_type_2);
         seatTableView = (SeatTable) findViewById(R.id.seatView);
         seatTableView.setScreenName(screeningHall);//设置屏幕名称
         seatTableView.setMaxSelected(3);//设置最多选中
@@ -87,13 +93,33 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
         pay_price.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("签名加密前",userId+scheduleId+size+"movie");
-                sign = Md5.MD5(userId+scheduleId+size+"movie");
-                Log.i("签名加密后",sign);
-                seatPayPresenter.onISeatPayPre(hashMap,scheduleId,size,sign);
-                Intent intent = new Intent(ChooseSeatActivity.this, MyRecordActivity.class);
-                startActivity(intent);
-                finish();
+                pay_type_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked==true){
+                            b = true;
+                        }
+                    }
+                });
+                pay_type_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked==true){
+                            b = true;
+                        }
+                    }
+                });
+                if (b == true){
+                    Log.i("签名加密前",userId+scheduleId+size+"movie");
+                    sign = Md5.MD5(userId+scheduleId+size+"movie");
+                    Log.i("签名加密后",sign);
+                    seatPayPresenter.onISeatPayPre(hashMap,scheduleId,size,sign);
+                    Intent intent = new Intent(ChooseSeatActivity.this, MyRecordActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Toast.makeText(ChooseSeatActivity.this,"请选择支付方式",Toast.LENGTH_LONG).show();
+                }
             }
         });
         chooseTrueImg.setOnClickListener(new View.OnClickListener() {

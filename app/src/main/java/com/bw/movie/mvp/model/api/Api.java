@@ -68,6 +68,8 @@ public class Api {
     public static final String WECHATLOGIN="movieApi/user/v1/weChatBindingLogin";
     //微信支付
     public static final String PAY="movieApi/movie/v1/verify/pay";
+    //模糊查询
+    public static final String FINDALLCINEMAS="movieApi/cinema/v1/findAllCinemas";
     //查询系统列表
     public static final String SYSMSGLIST="movieApi/tool/v1/verify/findAllSysMsgList";
     //上传头像

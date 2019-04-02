@@ -110,7 +110,6 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
             loginEditPhone.setText(uname);
             loginEditPass.setText(upass);
             loginBoxRemember.setChecked(b);  //跳转
-            //startActivity(new Intent(LoginActivity.this,MainActivity.class));
 
         }
         image_eye.setOnClickListener(new View.OnClickListener() {
