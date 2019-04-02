@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.bw.movie.mvp.model.api.Api;
 import com.bw.movie.mvp.model.api.ApiService;
+import com.bw.movie.mvp.model.bean.AddMovieCommentBean;
 import com.bw.movie.mvp.model.bean.CancelFollowMovieBean;
 import com.bw.movie.mvp.model.bean.FollowMovieBean;
 import com.bw.movie.mvp.model.bean.MovieCommentBean;
@@ -13,6 +14,7 @@ import com.bw.movie.mvp.model.utils.RetrofitUtils;
 import com.bw.movie.mvp.view.contract.Contract;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -93,5 +95,22 @@ public class MovieDetailModel implements Contract.IMovieDetailModel {
                         movieDetailBack.onSuccess(movieCommentGreate);
                     }
                 });
+    }
+
+    //添加用户评论
+    @Override
+    public void onIAddmovieCommentModel(HashMap<String, String> hashMap, HashMap<String, String> map, final Contract.MovieDetailBack movieDetailBack) {
+        ApiService apiService = RetrofitUtils.getInstance().create(ApiService.class);
+        apiService.addMovieComment(hashMap,map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<AddMovieCommentBean>() {
+                    @Override
+                    public void accept(AddMovieCommentBean addMovieCommentBean) throws Exception {
+                        Log.e("movieCommentBean",addMovieCommentBean.toString());
+                        movieDetailBack.onSuccess(addMovieCommentBean);
+                    }
+                });
+
     }
 }

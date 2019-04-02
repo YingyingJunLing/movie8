@@ -1,6 +1,7 @@
 package com.bw.movie.mvp.model.modelimpl;
 
 import com.bw.movie.mvp.model.api.ApiService;
+import com.bw.movie.mvp.model.bean.AddCimeraCommentBean;
 import com.bw.movie.mvp.model.bean.CinemaCommentGreatBean;
 import com.bw.movie.mvp.model.bean.CinemaIfoBean;
 import com.bw.movie.mvp.model.bean.FindCinemaCommentBean;
@@ -97,6 +98,20 @@ public class MovieListModel implements Contract.IMovieListModel{
                     @Override
                     public void accept(ScheduleListBean scheduleListBean) throws Exception {
                         movieListBack.onSuccess(scheduleListBean);
+                    }
+                });
+    }
+
+    @Override
+    public void onIAddCinemaCommentPre(HashMap<String, String> hashMap, HashMap<String, String> map, final Contract.MovieListBack movieListBack) {
+        ApiService apiService = RetrofitUtils.getInstance().create(ApiService.class);
+        apiService.addCameraComment(hashMap,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<AddCimeraCommentBean>() {
+                    @Override
+                    public void accept(AddCimeraCommentBean addCimeraCommentBean) throws Exception {
+                        movieListBack.onSuccess(addCimeraCommentBean);
                     }
                 });
     }
