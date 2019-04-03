@@ -145,16 +145,9 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             public void onClick(View v) {
                 if(followMovie ==1)
                 {
-                    Glide.with(MovieDetailActivity.this)
-                            .load(R.drawable.com_icon_collection_selected)
-                            .into(collection_sel);
                     movieDetailPresenter.onIFollowMovie(id, hashMap);
                     followMovie =2;
                 }else{
-                    Glide.with(MovieDetailActivity.this)
-                            .load(R.drawable.com_icon_collection_default)
-                            .into(collection_sel);
-
                     movieDetailPresenter.onICancelFollowMovie(id, hashMap);
                     followMovie =1;
                 }
@@ -172,7 +165,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     protected void getData() {
 
         movieDetailPresenter.onIMovieDetailPre(id);
-        movieDetailPresenter.onIMovieCommenPre(id, page, count);
+
     }
 
     @Override
@@ -186,16 +179,23 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             result = moviesDetailBean.getResult();
             Log.i("详情名字", result.getName());
             movieDetailText.setText(result.getName());
-            followMovie = moviesDetailBean.getResult().getFollowMovie();
+            if(moviesDetailBean.getResult().getFollowMovie() == 1)
+            {
+                Glide.with(MovieDetailActivity.this)
+                        .load(R.drawable.com_icon_collection_selected)
+                        .into(collection_sel);
+            }else{
+                Glide.with(MovieDetailActivity.this)
+                        .load(R.drawable.com_icon_collection_default)
+                        .into(collection_sel);
+            }
             FrescoUtils.setPic(result.getImageUrl(), movieDetailImg);
-
             buyBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MobclickAgent.onEvent(MovieDetailActivity.this, "buyBtn");//参数二为当前统计的事件ID
-                        Intent intent = new Intent(MovieDetailActivity.this, CinemaListActivity.class);
+                    MobclickAgent.onEvent(MovieDetailActivity.this, "buyBtn");
+                    Intent intent = new Intent(MovieDetailActivity.this, CinemaListActivity.class);
                         startActivity(intent);
-
                 }
             });
         }
@@ -207,6 +207,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             list = movieCommentBean.getResult();
             if (movieCommentBean != null)
                 myMovieCommentAdapter = new MyMovieCommentAdapter(MovieDetailActivity.this,list);
+               rec3.setAdapter(myMovieCommentAdapter);
             myMovieCommentAdapter.setOnClick(new MyMovieCommentAdapter.OnClick() {
                 @Override
                 public void getdata(int id, int great, int position) {
@@ -405,12 +406,10 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             case R.id.movie_commit_btn:
                 if(ClickUtils.isFastClick())
                 {
-
                     view4 = View.inflate(MovieDetailActivity.this, R.layout.comment_dialog_item, null);
                     rec3 = view4.findViewById(R.id.comment_dialog_rec);
                     rec3.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.VERTICAL, false));
-                    rec3.setAdapter(myMovieCommentAdapter);
-
+                    movieDetailPresenter.onIMovieCommenPre(id, page, count);
                     comment_movie = view4.findViewById(R.id.comment_movie);
                     movie_comment_send= view4.findViewById(R.id.movie_comment_send);
                     comment_publish= view4.findViewById(R.id.comment_publish);
