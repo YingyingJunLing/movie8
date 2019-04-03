@@ -22,6 +22,8 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 import java.io.File;
 
@@ -45,5 +47,4 @@ public class App extends Application {
                 .build()
         );
     }
-
 }

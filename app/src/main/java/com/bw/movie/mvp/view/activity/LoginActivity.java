@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.bw.movie.Base64.EncryptUtil;
 import com.bw.movie.R;
-import com.bw.movie.app.App;
 import com.bw.movie.mvp.model.api.Api;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
@@ -28,6 +27,7 @@ import com.bw.movie.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -83,7 +83,6 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
         wxapi = WXAPIFactory.createWXAPI(this, "wxb3852e6a6b7d9516", true);
         //将应用的appid注册到微信
         wxapi.registerApp("wxb3852e6a6b7d9516");
-
     }
 
     @Override

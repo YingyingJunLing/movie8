@@ -24,6 +24,7 @@ import com.bw.movie.mvp.model.bean.LocationBean;
 import com.bw.movie.mvp.model.bean.RecommendMovieBean;
 import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.CinemaPresenter;
+import com.bw.movie.mvp.view.activity.FindAllCinemaActivity;
 import com.bw.movie.mvp.view.activity.LocationActivity;
 import com.bw.movie.mvp.view.adapter.CinemaRecycleAdapter;
 import com.bw.movie.mvp.view.base.BaseFragment;
@@ -59,6 +60,7 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
     private ImageView search_img_frame;
     private EditText search_edit_frame;
     private TextView search_text_frame;
+    private String edit;
 
     /**
      * 初始化布局
@@ -103,17 +105,21 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
             }
         });
         search_img_frame.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 search_linear_frame.setLayoutParams(new LinearLayout.LayoutParams(400,48));
                 search_edit_frame.setVisibility(View.VISIBLE);
                 search_text_frame.setVisibility(View.VISIBLE);
+                edit = search_text_frame.getText().toString();
             }
         });
         search_text_frame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), FindAllCinemaActivity.class);
+                intent.putExtra(edit,"edit");
+                startActivity(intent);
                 search_linear_frame.setLayoutParams(new LinearLayout.LayoutParams(60,48));
                 search_edit_frame.setVisibility(View.GONE);
                 search_text_frame.setVisibility(View.GONE);
@@ -125,7 +131,7 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
     public void onResume() {
         super.onResume();
         if (city==null){
-            textAddress.setText("定位中...");
+            textAddress.setText("北京");
         }else {
             textAddress.setText(city);
         }

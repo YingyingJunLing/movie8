@@ -550,4 +550,29 @@ public class Contract {
 
         void onFail(String errorInfo);
     }
+
+    //模糊查询影院
+    public interface IFindAllView {
+
+        void onIFindAllSuccess(Object o);
+
+        void onIFindAllFail(String errorInfo);
+
+    }
+
+    public interface IFindAllPre {
+
+        void onIFindAllPre(int page, int count,String cinemaName);
+
+    }
+
+    public interface IFindAllModel {
+        void onIFindAllModel(int page, int count,String cinemaName, FindAllBack findAllBack);
+    }
+
+    public interface FindAllBack {
+        void onSuccess(Object o);
+
+        void onFail(String errorInfo);
+    }
 }
