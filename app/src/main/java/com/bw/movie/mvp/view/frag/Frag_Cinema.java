@@ -4,10 +4,12 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,15 +112,17 @@ public class Frag_Cinema extends BaseFragment<Contract.ICinemaView, CinemaPresen
             public void onClick(View v) {
                 search_linear_frame.setLayoutParams(new LinearLayout.LayoutParams(400,48));
                 search_edit_frame.setVisibility(View.VISIBLE);
+                search_edit_frame.setTextColor(Color.WHITE);
                 search_text_frame.setVisibility(View.VISIBLE);
-                edit = search_text_frame.getText().toString();
             }
         });
         search_text_frame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edit = search_edit_frame.getText().toString();
+                Log.i("EDIT",edit);
                 Intent intent = new Intent(getActivity(), FindAllCinemaActivity.class);
-                intent.putExtra(edit,"edit");
+                intent.putExtra("edit",edit);
                 startActivity(intent);
                 search_linear_frame.setLayoutParams(new LinearLayout.LayoutParams(60,48));
                 search_edit_frame.setVisibility(View.GONE);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
+import android.util.Log;
 import android.view.View;
 
 import com.bw.movie.R;
@@ -23,6 +24,7 @@ public class FindAllCinemaActivity extends BaseActivity<Contract.IFindAllView, F
 
     private XRecyclerView findAllXrecycle;
     private FindAllPresenter findAllPresenter;
+    private String edit;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -31,6 +33,9 @@ public class FindAllCinemaActivity extends BaseActivity<Contract.IFindAllView, F
 
     @Override
     protected void initView() {
+        Intent intent = getIntent();
+        edit = intent.getStringExtra("edit");
+        Log.i("EDIT", edit);
         findAllXrecycle = findViewById(R.id.find_all_xrecycle);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
@@ -45,7 +50,6 @@ public class FindAllCinemaActivity extends BaseActivity<Contract.IFindAllView, F
 
     @Override
     protected void getData() {
-        String edit = new Intent().getStringExtra("edit");
         findAllPresenter.onIFindAllPre(1, 10, edit);
     }
 
