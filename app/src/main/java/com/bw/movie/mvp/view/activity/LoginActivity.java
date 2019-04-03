@@ -20,6 +20,7 @@ import com.bw.movie.R;
 import com.bw.movie.app.App;
 import com.bw.movie.mvp.model.api.Api;
 import com.bw.movie.mvp.model.bean.LoginBean;
+import com.bw.movie.mvp.model.utils.ClickUtils;
 import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.LoginPresenter;
 import com.bw.movie.mvp.view.base.BaseActivity;
@@ -28,6 +29,7 @@ import com.bw.movie.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -115,19 +117,24 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
         image_eye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (i == 1) {//从密码不可见模式变为密码可见模式
-                    loginEditPass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    i = 2;
-                } else {
-                    //从密码可见模式变为密码不可见模式
-                    loginEditPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    i = 1;
+                if(ClickUtils.isFastClick())
+                {
+                    if (i == 1) {//从密码不可见模式变为密码可见模式
+                        loginEditPass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        i = 2;
+                    } else {
+                        //从密码可见模式变为密码不可见模式
+                        loginEditPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        i = 1;
+                    }
                 }
+
             }
         });
         weixinLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(LoginActivity.this, "weixinLogin");//参数二为当前统计的事件ID
                 SendAuth.Req req = new SendAuth.Req();
                 req.scope = "snsapi_userinfo";
                 req.state = "diandi_wx_login";
@@ -197,6 +204,7 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
                 startActivity(intent);
                 break;
             case R.id.login_button_login:
+                MobclickAgent.onEvent(this, "login_button_login");//参数二为当前统计的事件ID
                 pwd = loginEditPass.getText().toString().trim();
                 pass = EncryptUtil.encrypt(pwd);
                 Log.e("pass", pass);
@@ -227,5 +235,18 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
     protected void onDestroy() {
         loginPresenter.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

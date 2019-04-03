@@ -13,7 +13,9 @@ android {
             exclude 'META-INF/rxjava.properties'
         }
         flavorDimensions "default"
+
     }
+
     signingConfigs {
         debug {
             storeFile file('movie.keystore')
@@ -93,5 +95,12 @@ dependencies {
     //微信登录
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     //支付宝
-    implementation (name: 'alipaySdk-15.6.0-20190226104053', ext: 'aar')
+    implementation(name: 'alipaySdk-15.6.0-20190226104053', ext: 'aar')
+    implementation files('libs/umeng-analytics-8.0.2.jar')
+    implementation files('libs/umeng-common-2.0.2.jar')
+
+
+
+
+
 }

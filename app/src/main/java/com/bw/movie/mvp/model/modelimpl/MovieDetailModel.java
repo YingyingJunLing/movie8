@@ -6,6 +6,7 @@ import com.bw.movie.mvp.model.api.Api;
 import com.bw.movie.mvp.model.api.ApiService;
 import com.bw.movie.mvp.model.bean.AddMovieCommentBean;
 import com.bw.movie.mvp.model.bean.CancelFollowMovieBean;
+import com.bw.movie.mvp.model.bean.CommentReplyBean;
 import com.bw.movie.mvp.model.bean.FollowMovieBean;
 import com.bw.movie.mvp.model.bean.MovieCommentBean;
 import com.bw.movie.mvp.model.bean.MovieCommentGreate;
@@ -112,5 +113,20 @@ public class MovieDetailModel implements Contract.IMovieDetailModel {
                     }
                 });
 
+    }
+
+    @Override
+    public void onICommentReplayPre(HashMap<String, String> hashMap, HashMap<String, String> map, final Contract.MovieDetailBack movieDetailBack) {
+        ApiService apiService = RetrofitUtils.getInstance().create(ApiService.class);
+        apiService.commentReplay(hashMap,map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<CommentReplyBean>() {
+                    @Override
+                    public void accept(CommentReplyBean commentReplyBean) throws Exception {
+                        Log.e("movieCommentBean",commentReplyBean.toString());
+                        movieDetailBack.onSuccess(commentReplyBean);
+                    }
+                });
     }
 }

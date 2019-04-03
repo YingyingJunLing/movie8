@@ -62,7 +62,7 @@ public class MovieCommentBean
         private int greatNum;
         private String hotComment;
         private int isGreat;
-        private String replyNum;
+        private int replyNum;
 
         public String getCommentContent() {
             return commentContent;
@@ -136,11 +136,11 @@ public class MovieCommentBean
             this.isGreat = isGreat;
         }
 
-        public String getReplyNum() {
+        public int getReplyNum() {
             return replyNum;
         }
 
-        public void setReplyNum(String replyNum) {
+        public void setReplyNum(int replyNum) {
             this.replyNum = replyNum;
         }
     }

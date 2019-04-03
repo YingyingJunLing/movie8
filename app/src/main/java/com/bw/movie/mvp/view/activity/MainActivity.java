@@ -12,6 +12,7 @@ import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.frag.Frag_Cinema;
 import com.bw.movie.mvp.view.frag.Frag_Film;
 import com.bw.movie.mvp.view.frag.Frag_My;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,12 +56,15 @@ public class MainActivity extends BaseActivity {
                 FragmentTransaction transaction = manager.beginTransaction();
                 switch (checkedId){
                     case R.id.cinema_btn:
+                        MobclickAgent.onEvent(MainActivity.this, "cinema_btn");//参数二为当前统计的事件ID
                         transaction.show(frag_cinema).hide(frag_film).hide(frag_my);
                         break;
                     case R.id.film_btn:
+                        MobclickAgent.onEvent(MainActivity.this, "film_btn");//参数二为当前统计的事件ID
                         transaction.show(frag_film).hide(frag_cinema).hide(frag_my);
                         break;
                     case R.id.my_btn:
+                        MobclickAgent.onEvent(MainActivity.this, "my_btn");//参数二为当前统计的事件ID
                         transaction.show(frag_my).hide(frag_film).hide(frag_cinema);
                         break;
                 }
@@ -82,6 +86,18 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }
