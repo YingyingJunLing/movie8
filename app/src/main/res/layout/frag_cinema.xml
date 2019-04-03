@@ -62,9 +62,10 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"/>
                     <EditText android:id="@+id/search_edit_frame"
-                        android:layout_width="140dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:textColor="#fff"
+                        android:layout_weight="1"
                         android:layout_marginTop="8dp"
                         android:textSize="12sp"
                         android:visibility="gone"/>

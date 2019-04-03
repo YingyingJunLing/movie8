@@ -16,8 +16,8 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -30,6 +30,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".mvp.view.activity.FindAllCinemaActivity"></activity>
 
         <meta-data
             android:name="design_width_in_dp"
@@ -62,23 +63,25 @@
         <activity android:name=".mvp.view.activity.MyFeedDBSuccessActivity" />
         <activity android:name=".mvp.view.activity.ChooseSeatActivity" />
         <activity android:name=".mvp.view.activity.LocationActivity" />
-        <activity android:exported="true"
-            android:launchMode="singleTop"
-            android:name=".wxapi.WXEntryActivity" >
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="wxb3852e6a6b7d9516"/>
-            </intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wxb3852e6a6b7d9516" />
+            </intent-filter>
         </activity>
         <activity android:name=".mvp.view.activity.MySysMsgActivity" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="121bb76322f28454315aab4bb2fa79f5"></meta-data>
+            android:value="121bb76322f28454315aab4bb2fa79f5" />
 
-        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name="com.amap.api.location.APSService" />
     </application>
 
 </manifest>

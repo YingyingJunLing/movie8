@@ -12,6 +12,7 @@ import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.frag.Frag_Cinema;
 import com.bw.movie.mvp.view.frag.Frag_Film;
 import com.bw.movie.mvp.view.frag.Frag_My;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
