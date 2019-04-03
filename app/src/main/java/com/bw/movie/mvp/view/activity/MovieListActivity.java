@@ -176,14 +176,12 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                                 movie_comment_send.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-
                                         String s = movie_comment_content.getText().toString();
-                                        Log.e("lallallal",s);
                                         HashMap<String,String> map = new HashMap<>();
                                         map.put("cinemaId", String.valueOf(cid));
                                         map.put("commentContent",s);
-                                        Log.e("mapsss", map +"");
                                         movieListPresenter.onIAddCinemaCommentPre(hashMap,map);
+                                        comment_movie.setVisibility(View.VISIBLE);
                                     }
                                 });
 
@@ -278,7 +276,6 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                 finish();
             }
             else{
-                Log.e("findCinemaCommentBean",findCinemaCommentBean+"");
                 findCinemaCommentAdapter = new FindCinemaCommentAdapter(MovieListActivity.this, findCinemaCommentBean);
                 rec2.setAdapter(findCinemaCommentAdapter);
                         findCinemaCommentAdapter.setOnClick(new FindCinemaCommentAdapter.OnClick() {
@@ -287,6 +284,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                                 if (great==1){
                                     //已点赞，需取消
                                     movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
+
                                 }else{
                                     movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
                                     findCinemaCommentAdapter.getlike(position);
