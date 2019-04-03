@@ -78,4 +78,6 @@ public class Api {
     public static final String ADDMOVIECOMMENT="movieApi/movie/v1/verify/movieComment";
     //添加影院评论
     public static final String ADDCAMERACOMMENT="movieApi/cinema/v1/verify/cinemaComment";
+    //.添加用户对评论的回复
+    public static final String COMMENTREPLAY="movieApi/movie/v1/verify/commentReply";
 }

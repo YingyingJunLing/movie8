@@ -19,10 +19,12 @@ import com.bw.movie.mvp.model.bean.PayBean;
 import com.bw.movie.mvp.model.bean.PayStatusBean;
 import com.bw.movie.mvp.model.utils.AlertAndAnimationUtils;
 import com.bw.movie.mvp.model.utils.RetrofitUtils;
+import com.bw.movie.mvp.view.activity.MainActivity;
 import com.bw.movie.mvp.view.activity.MyRecordActivity;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.analytics.MobclickAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -81,6 +83,7 @@ public class MyRecordAdapter extends RecyclerView.Adapter<MyRecordAdapter.ViewHo
         viewHolder.my_record_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(context, "my_record_status");//参数二为当前统计的事件ID
                 final View view = View.inflate(context, R.layout.choose_seat_dialog, null);
                 final AlertAndAnimationUtils alertAndAnimationUtils = new AlertAndAnimationUtils();
                 alertAndAnimationUtils.AlertDialog(context,view);

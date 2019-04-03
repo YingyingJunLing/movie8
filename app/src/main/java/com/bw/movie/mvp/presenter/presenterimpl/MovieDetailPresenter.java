@@ -102,6 +102,21 @@ public class MovieDetailPresenter extends BasePresenter<Contract.IMovieDetailVie
         });
     }
 
+    @Override
+    public void onICommentReplayPre(HashMap<String, String> hashMap, HashMap<String, String> map) {
+        movieDetailModel.onICommentReplayPre(hashMap, map, new Contract.MovieDetailBack() {
+            @Override
+            public void onSuccess(Object o) {
+                getView().onIMovieDetailSuccess(o);
+            }
+
+            @Override
+            public void onFail(String errorInfo) {
+
+            }
+        });
+    }
+
     public void onDestroy(){
         if (movieDetailModel!=null){
             movieDetailModel=null;

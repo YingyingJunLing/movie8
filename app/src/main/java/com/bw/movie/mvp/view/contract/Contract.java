@@ -143,6 +143,8 @@ public class Contract {
         void onIMovieCommentGreatePre(HashMap<String, String> hashMap,int commentId);
         //添加用户评论
         void  onIAddmovieCommentPre(HashMap<String, String> hashMap, HashMap<String,String> map);
+        //添加用户对评论的回复
+        void onICommentReplayPre(HashMap<String, String> hashMap, HashMap<String,String> map);
 
     }
 
@@ -159,6 +161,8 @@ public class Contract {
         void onIMovieCommentGreateModel(HashMap<String, String> hashMap,int commentId,MovieDetailBack movieDetailBack);
         //添加用户评论
         void  onIAddmovieCommentModel(HashMap<String, String> hashMap, HashMap<String,String> map,MovieDetailBack movieDetailBack);
+        //添加用户对评论的回复
+        void onICommentReplayPre(HashMap<String, String> hashMap, HashMap<String,String> map,MovieDetailBack movieDetailBack);
     }
 
     public interface MovieDetailBack {

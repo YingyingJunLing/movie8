@@ -10,6 +10,7 @@ import com.bw.movie.mvp.model.bean.CinemaCommentGreatBean;
 import com.bw.movie.mvp.model.bean.CinemaIfoBean;
 import com.bw.movie.mvp.model.bean.CinemaListBean;
 import com.bw.movie.mvp.model.bean.ComingSoonMovieBean;
+import com.bw.movie.mvp.model.bean.CommentReplyBean;
 import com.bw.movie.mvp.model.bean.FindAllCinemasBean;
 import com.bw.movie.mvp.model.bean.FindCinemaCommentBean;
 import com.bw.movie.mvp.model.bean.FindCinemaInfoBean;
@@ -183,4 +184,9 @@ public interface ApiService {
  @POST(Api.ADDCAMERACOMMENT)
  @FormUrlEncoded
  Observable<AddCimeraCommentBean>  addCameraComment(@HeaderMap HashMap<String ,String> hashMap, @FieldMap Map<String, String> map);
+ //添加用户对评论的回复
+ @POST(Api.COMMENTREPLAY)
+ @FormUrlEncoded
+ Observable<CommentReplyBean>  commentReplay(@HeaderMap HashMap<String ,String> hashMap, @FieldMap Map<String, String> map);
+
 }
