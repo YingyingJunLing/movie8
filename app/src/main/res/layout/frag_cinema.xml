@@ -56,23 +56,16 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:src="@mipmap/com_icon_search_default"
-                        android:layout_marginLeft="5dp"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"/>
                     <EditText android:id="@+id/search_edit_frame"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:textColor="#fff"
+                        android:layout_height="23dp"
                         android:layout_weight="1"
-                        android:layout_marginTop="8dp"
-                        android:textSize="12sp"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        android:background="#00000000"
                         android:visibility="gone"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
                     <TextView android:id="@+id/search_text_frame"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -80,6 +73,7 @@
                         android:textColor="#fff"
                         android:textSize="12sp"
                         android:visibility="gone"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"/>
                 </LinearLayout>
             </LinearLayout>
