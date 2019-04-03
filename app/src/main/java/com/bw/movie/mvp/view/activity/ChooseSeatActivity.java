@@ -1,12 +1,9 @@
 package com.bw.movie.mvp.view.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -63,7 +60,8 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
     private String sessionId;
     private HashMap<String, String> hashMap;
     private String sign;
-    private boolean b;
+    private int b;
+    private View view;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -79,11 +77,6 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
         hashMap.put("userId",userId);
         hashMap.put("sessionId",sessionId);
 
-        final View view = View.inflate(this, R.layout.choose_seat_dialog, null);
-        final AlertAndAnimationUtils alertAndAnimationUtils = new AlertAndAnimationUtils();
-        final TextView pay_price = view.findViewById(R.id.pay_price);
-        final RadioButton pay_type_1 = view.findViewById(R.id.pay_type_1);
-        final RadioButton pay_type_2 = view.findViewById(R.id.pay_type_2);
         seatTableView = (SeatTable) findViewById(R.id.seatView);
         seatTableView.setScreenName(screeningHall);//设置屏幕名称
         seatTableView.setMaxSelected(3);//设置最多选中
@@ -91,46 +84,51 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
         chooseSeatTimeText.setText(beginTime+"-"+endTime);
         chooseSeatTimeHall.setText(screeningHall);
 
-        pay_price.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pay_type_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        MobclickAgent.onEvent(ChooseSeatActivity.this, "pay_type_1");//参数二为当前统计的事件ID
-                        if (isChecked==true){
-                            b = true;
-                        }
-                    }
-                });
-                pay_type_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        MobclickAgent.onEvent(ChooseSeatActivity.this, "pay_type_2");
-                        if (isChecked==true){
-                            b = true;
-                        }
-                    }
-                });
-                if (b == true){
-                    Log.i("签名加密前",userId+scheduleId+size+"movie");
-                    sign = Md5.MD5(userId+scheduleId+size+"movie");
-                    Log.i("签名加密后",sign);
-                    seatPayPresenter.onISeatPayPre(hashMap,scheduleId,size,sign);
-                    Intent intent = new Intent(ChooseSeatActivity.this, MyRecordActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Toast.makeText(ChooseSeatActivity.this,"请选择支付方式",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
         chooseTrueImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (size>0){
-                    alertAndAnimationUtils.AlertDialog(ChooseSeatActivity.this,view);
+                    view = View.inflate(ChooseSeatActivity.this, R.layout.choose_seat_dialog, null);
+                    AlertAndAnimationUtils alertAndAnimationUtils = new AlertAndAnimationUtils();
+                    TextView pay_price = view.findViewById(R.id.pay_price);
+                    final RadioButton pay_type_1 = view.findViewById(R.id.pay_type_1);
+                    final RadioButton pay_type_2 = view.findViewById(R.id.pay_type_2);
+                    alertAndAnimationUtils.AlertDialog(ChooseSeatActivity.this, view);
                     pay_price.setText("需支付"+format+"元");
+                    pay_type_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            MobclickAgent.onEvent(ChooseSeatActivity.this, "pay_type_1");//参数二为当前统计的事件ID
+                            if (isChecked==true){
+                                b = 1;
+                            }
+                        }
+                    });
+                    pay_type_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            MobclickAgent.onEvent(ChooseSeatActivity.this, "pay_type_2");
+                            if (isChecked==true){
+                                b = 1;
+                            }
+                        }
+                    });
+                    pay_price.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (b == 1){
+                                Log.i("签名加密前",userId+scheduleId+size+"movie");
+                                sign = Md5.MD5(userId+scheduleId+size+"movie");
+                                Log.i("签名加密后",sign);
+                                seatPayPresenter.onISeatPayPre(hashMap,scheduleId,size,sign);
+                                Intent intent = new Intent(ChooseSeatActivity.this, MyRecordActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else {
+                                Toast.makeText(ChooseSeatActivity.this,"请选择支付方式",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 }else {
                     Toast.makeText(ChooseSeatActivity.this,"请选定座位",Toast.LENGTH_SHORT).show();
                 }
