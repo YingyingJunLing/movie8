@@ -13,7 +13,9 @@ android {
             exclude 'META-INF/rxjava.properties'
         }
         flavorDimensions "default"
+
     }
+
     signingConfigs {
         debug {
             storeFile file('movie.keystore')
@@ -96,4 +98,12 @@ dependencies {
     implementation(name: 'alipaySdk-15.6.0-20190226104053', ext: 'aar')
     implementation files('libs/umeng-analytics-8.0.2.jar')
     implementation files('libs/umeng-common-2.0.2.jar')
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> ccffb9c5d608469e1182bfb34fc6e22dab6a4dff
 }

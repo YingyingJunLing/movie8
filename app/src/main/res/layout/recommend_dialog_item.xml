@@ -49,6 +49,40 @@
                 android:layout_marginRight="24dp"
                 android:src="@mipmap/com_icon_down" />
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/comment_movie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="#36636161"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <EditText
+                    android:id="@+id/movie_comment_content"
+                    android:layout_width="260dp"
+                    android:layout_height="60dp"
+                    android:hint="写评论"
+                    />
+
+                <TextView
+                    android:id="@+id/movie_comment_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="24dp"
+                    android:text="发送"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </RelativeLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recommend_dialog_xiang"
             android:layout_marginTop="20dp"
@@ -66,4 +100,14 @@
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
+    <ImageView
+        android:id="@+id/comment_publish"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/com_icon_publish" />
 </RelativeLayout>

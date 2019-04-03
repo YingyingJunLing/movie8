@@ -23,6 +23,7 @@ import com.bw.movie.mvp.presenter.presenterimpl.SeatPayPresenter;
 import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.contract.Contract;
 import com.qfdqc.views.seattable.SeatTable;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -96,6 +97,7 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
                 pay_type_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        MobclickAgent.onEvent(ChooseSeatActivity.this, "pay_type_1");//参数二为当前统计的事件ID
                         if (isChecked==true){
                             b = true;
                         }
@@ -104,6 +106,7 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
                 pay_type_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        MobclickAgent.onEvent(ChooseSeatActivity.this, "pay_type_2");
                         if (isChecked==true){
                             b = true;
                         }
@@ -229,5 +232,17 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

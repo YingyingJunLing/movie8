@@ -79,7 +79,15 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
+<<<<<<< HEAD
             android:value="121bb76322f28454315aab4bb2fa79f5" />
+=======
+            android:value="121bb76322f28454315aab4bb2fa79f5"></meta-data>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5ca34e66203657f4c2001669"
+            ></meta-data>
+>>>>>>> ccffb9c5d608469e1182bfb34fc6e22dab6a4dff
 
         <service android:name="com.amap.api.location.APSService" />
     </application>

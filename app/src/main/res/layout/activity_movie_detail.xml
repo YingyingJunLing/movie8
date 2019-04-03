@@ -34,7 +34,8 @@
             android:id="@+id/collection_sel"
             android:layout_width="23dp"
             android:layout_height="20dp"
-            android:src="@drawable/com_icon_collection_default"
+            android:src="@drawable/com_icon_collection_selected"
+
             />
     </LinearLayout>
     <TextView android:id="@+id/movie_detail_text"
