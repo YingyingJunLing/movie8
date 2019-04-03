@@ -111,7 +111,6 @@ public class MyMovieCommentAdapter extends RecyclerView.Adapter<MyMovieCommentAd
     public void getlike(int position){
         movieCommentBeanResult.get(position).setIsGreat(1);
         movieCommentBeanResult.get(position).setGreatNum( movieCommentBeanResult.get(position).getGreatNum()+1);
-
         notifyDataSetChanged();
     }
 

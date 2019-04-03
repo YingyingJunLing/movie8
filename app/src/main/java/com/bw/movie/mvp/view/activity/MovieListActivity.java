@@ -120,6 +120,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
         hashMap.put("sessionId",sessionId);
         alertAndAnimationUtils = new AlertAndAnimationUtils();
         movieListPresenter.onIMovieListCinemaPre(cid);
+        //影院照片点击，弹出详情，和评论
         movieListLogo.setOnClickListener(new View.OnClickListener() {
 
             private TextView movie_comment_send;
@@ -129,11 +130,15 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
             public void onClick(View v) {
 
                 final View view2 = View.inflate(MovieListActivity.this, R.layout.recommend_dialog_item, null);
-                rec = view2.findViewById(R.id.recomm_dialog_rec_ping);
-                rec2 = view2.findViewById(R.id.recommend_dialog_xiang);
 
+                rec = view2.findViewById(R.id.recomm_dialog_rec_ping);
+
+                rec2 = view2.findViewById(R.id.recommend_dialog_xiang);
+                rec.setLayoutManager(new LinearLayoutManager(MovieListActivity.this, LinearLayoutManager.VERTICAL, false));
+                rec2.setLayoutManager(new LinearLayoutManager(MovieListActivity.this, LinearLayoutManager.VERTICAL, false));
                 rec.setVisibility(View.VISIBLE);
                 rec2.setVisibility(View.GONE);
+                //默认展示详情
                 movieListPresenter.onIFindCimeraInfoPre(hashMap,cid);
                 ImageButton dis_dialog1 = view2.findViewById(R.id.dialog_dismiss_ibt);
                 //详情
@@ -144,8 +149,6 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                 movie_comment_send = view2.findViewById(R.id.movie_comment_send);
                 //隐藏的评论布局
                 comment_movie = view2.findViewById(R.id.comment_movie);
-                rec.setLayoutManager(new LinearLayoutManager(MovieListActivity.this, LinearLayoutManager.VERTICAL, false));
-                rec2.setLayoutManager(new LinearLayoutManager(MovieListActivity.this, LinearLayoutManager.VERTICAL, false));
                 //详情点击事件
                 xiang.setOnClickListener(new View.OnClickListener() {
                     @Override

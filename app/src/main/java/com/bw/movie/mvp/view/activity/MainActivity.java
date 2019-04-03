@@ -49,8 +49,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        if(savedInstanceState == null){
+            setContentView(R.layout.activity_main);
+            ButterKnife.bind(this);
+        }
     }
 
     @Override
