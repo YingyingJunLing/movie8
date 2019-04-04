@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity {
     private FragmentManager manager;
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
+    public static MainActivity mainActivity;
 
     Handler mHandler = new Handler() {
 
@@ -49,6 +50,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
+        mainActivity=this;
         if(savedInstanceState == null){
             setContentView(R.layout.activity_main);
             ButterKnife.bind(this);
@@ -89,6 +91,7 @@ public class MainActivity extends BaseActivity {
                 transaction.commit();
             }
         });
+
     }
 
     @Override
@@ -137,5 +140,13 @@ public class MainActivity extends BaseActivity {
             finish();
             System.exit(0);
         }
+    }
+
+    public void ShowMyFragment(){
+        manager = MainActivity.this.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.show(frag_my).hide(frag_film).hide(frag_cinema);
+        transaction.commit();
+        myBtn.setChecked(true);
     }
 }

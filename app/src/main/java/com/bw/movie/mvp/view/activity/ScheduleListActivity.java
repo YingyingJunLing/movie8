@@ -56,10 +56,12 @@ public class ScheduleListActivity extends BaseActivity<Contract.IScheduleListVie
     private int mid;
     private int cid;
     private NetworkErrorUtils networkErrorUtils;
+    public static ScheduleListActivity scheduleListActivity;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_schedule_list);
+        scheduleListActivity = this;
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
     }

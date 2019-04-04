@@ -102,6 +102,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     private List<MovieCommentBean.ResultBean> list;
     private RelativeLayout comment_movie;
     private InputMethodManager imm;
+    public static MovieDetailActivity movieDetailActivity;
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getEvent(MoviesDetailBean.ResultBean resultBean) {
@@ -117,6 +118,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
+        movieDetailActivity=this;
         setContentView(R.layout.activity_movie_detail);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
@@ -195,7 +197,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 public void onClick(View v) {
                     MobclickAgent.onEvent(MovieDetailActivity.this, "buyBtn");
                     Intent intent = new Intent(MovieDetailActivity.this, CinemaListActivity.class);
-                        startActivity(intent);
+                    startActivity(intent);
                 }
             });
         }

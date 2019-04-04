@@ -33,9 +33,11 @@ public class CinemaListActivity extends BaseActivity<Contract.ICinemaListView, C
     private CinemaListPresenter cinemaListPresenter;
     private int id;
     private String name;
+    public static CinemaListActivity cinemaListActivity;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
+        cinemaListActivity=this;
         setContentView(R.layout.activity_cinema_list);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
