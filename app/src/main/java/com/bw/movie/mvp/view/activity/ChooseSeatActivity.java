@@ -123,6 +123,9 @@ public class ChooseSeatActivity extends BaseActivity<Contract.ISeatPayView,SeatP
                                 seatPayPresenter.onISeatPayPre(hashMap,scheduleId,size,sign);
                                 Intent intent = new Intent(ChooseSeatActivity.this, MyRecordActivity.class);
                                 startActivity(intent);
+                                ScheduleListActivity.scheduleListActivity.finish();
+                                CinemaListActivity.cinemaListActivity.finish();
+                                MovieDetailActivity.movieDetailActivity.finish();
                                 finish();
                             }else {
                                 Toast.makeText(ChooseSeatActivity.this,"请选择支付方式",Toast.LENGTH_LONG).show();

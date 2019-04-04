@@ -110,10 +110,13 @@ public class MyMessageActivity extends BaseActivity<Contract.IMyMessageView,MyMe
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        if( pass1 .equals(pass2))
+                        if( pass1 .equals(pass2) && !pass1.equals("")&& !pass2.equals(""))
                         {
                             myMessagePresenter.onIUpdatePassPre(hashMap, params);
                             dialog.dismiss();
+                        }else{
+                            Toast.makeText(MyMessageActivity.this,"输入内容不能为空，请检查",Toast.LENGTH_SHORT).show();
+                            return;
                         }
 
                     }
@@ -149,7 +152,6 @@ public class MyMessageActivity extends BaseActivity<Contract.IMyMessageView,MyMe
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-
                         final String oldPwd = alert_edit_nickname.getText().toString().trim();
                         final String pass1 =alert_edit_sex.getText().toString().trim();
                         final String pass2 = alert_edit_eamil.getText().toString().trim();
@@ -158,7 +160,14 @@ public class MyMessageActivity extends BaseActivity<Contract.IMyMessageView,MyMe
                         params.put("sex", pass1);
                         params.put("email",pass2);
                         Log.e("params", params +"");
-                        myMessagePresenter.onIUpdateNmaePre(hashMap, params);
+                        if(!oldPwd.equals("") &&!pass1.equals("")  && !pass2.equals("") )
+                        {
+                            myMessagePresenter.onIUpdateNmaePre(hashMap, params);
+                        }else{
+                            Toast.makeText(MyMessageActivity.this,"输入的信息有误，请检查",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         dialog.dismiss();
                     }
                 });

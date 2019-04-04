@@ -282,7 +282,7 @@ public class Frag_My extends BaseFragment<Contract.IUpdateHeadPicView, UpdateHea
         if(o instanceof UpdateHeadPicBean)
         {
             UpdateHeadPicBean updateHeadPicBean = (UpdateHeadPicBean) o;
-            Log.e("updateHeadPicBean",updateHeadPicBean+"");
+            Log.e("updateHeadPicBean",updateHeadPicBean.getHeadPath());
             if(updateHeadPicBean != null)
             {
                 Toast.makeText(getActivity(),updateHeadPicBean.getMessage(),Toast.LENGTH_SHORT).show();
