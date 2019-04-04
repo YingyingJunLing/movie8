@@ -29,8 +29,9 @@ public class StartActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         sp = getSharedPreferences("start", Context.MODE_PRIVATE);
         if(sp.getBoolean("key", false)){
-            Intent intent = new Intent(StartActivity.this,LoginActivity.class);
+            Intent intent = new Intent(StartActivity.this,GuideActivity.class);
             startActivity(intent);
+            finish();
         }
         //如果是第一次进 旧存值
         sp.edit().putBoolean("key", true).commit();

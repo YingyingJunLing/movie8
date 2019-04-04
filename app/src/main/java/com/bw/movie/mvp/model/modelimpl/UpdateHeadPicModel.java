@@ -12,7 +12,9 @@ import java.util.HashMap;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class UpdateHeadPicModel implements Contract.IUpdateHeadPicModel {
 
@@ -22,7 +24,8 @@ public class UpdateHeadPicModel implements Contract.IUpdateHeadPicModel {
     @Override
     public void IUpdateHeadPiBack(HashMap<String, String> hashMap, File file, final Contract.UpdateHeadPiclBack updateHeadPiclBack) {
         apiService = RetrofitUtils.getInstance().create(ApiService.class);
-        MultipartBody.Part filePart=MultipartBody.Part.createFormData("image",file.getName());
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part filePart=MultipartBody.Part.createFormData("image",file.getName(),requestFile);
         apiService.updateHeadPic(hashMap,filePart)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

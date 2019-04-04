@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.presenter.presenterimpl.WeChatLoginPresentr;
+import com.bw.movie.mvp.view.activity.LoginActivity;
 import com.bw.movie.mvp.view.activity.MainActivity;
 import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.contract.Contract;
@@ -100,6 +101,7 @@ public class WXEntryActivity extends BaseActivity<Contract.IWeChatLoginView,WeCh
                 EventBus.getDefault().postSticky(resultBean);
                 startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
                 finish();
+                LoginActivity.loginActivity.finish();
             }
 
         }

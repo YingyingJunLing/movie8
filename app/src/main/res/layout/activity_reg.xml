@@ -268,19 +268,19 @@
         android:src="@mipmap/register_icon_lock"
         />
     </android.support.constraint.ConstraintLayout>
+
     <Button
         android:id="@+id/reg_button_reg"
-        android:layout_width="330dp"
-        android:layout_height="50dp"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="91dp"
         android:background="@drawable/be"
         android:gravity="center"
         android:text="注册"
         android:textColor="#ffffff"
-        android:textSize="18sp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="25dp"
-        />
+        android:textSize="18sp" />
 
 </RelativeLayout>
 

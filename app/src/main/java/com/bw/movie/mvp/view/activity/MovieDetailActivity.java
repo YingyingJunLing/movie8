@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 
+import android.view.KeyEvent;
 import android.view.View;
 
 import android.view.inputmethod.InputMethodManager;
@@ -450,4 +451,5 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 break;
         }
     }
+
 }

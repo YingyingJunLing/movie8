@@ -39,7 +39,7 @@
             android:name="design_height_in_dp"
             android:value="1334" />
 
-        <activity android:name=".mvp.view.activity.LoginActivity">
+        <activity android:name=".mvp.view.activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,7 +53,7 @@
         <activity android:name=".mvp.view.activity.MyFeedDBActivity" />
         <activity android:name=".mvp.view.activity.MyVersionActivity" />
         <activity android:name=".mvp.view.activity.RegActivity" />
-        <activity android:name=".mvp.view.activity.StartActivity" />
+        <activity android:name=".mvp.view.activity.LoginActivity" />
         <activity android:name=".mvp.view.activity.GuideActivity" />
         <activity android:name=".mvp.view.activity.MovieDetailActivity" />
         <activity android:name=".mvp.view.activity.CinemaActivity" />

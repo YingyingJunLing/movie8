@@ -19,6 +19,7 @@ import com.bw.movie.Base64.EncryptUtil;
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.api.Api;
 import com.bw.movie.mvp.model.bean.LoginBean;
+import com.bw.movie.mvp.model.utils.AccountValidatorUtil;
 import com.bw.movie.mvp.model.utils.ClickUtils;
 import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.LoginPresenter;
@@ -76,9 +77,11 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
     private NetworkErrorUtils networkErrorUtils;
     private ImageView weixinLogin;
     private IWXAPI wxapi;
+    public static LoginActivity loginActivity;
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
+        loginActivity=this;
         setContentView(R.layout.activity_login);
         //通过WXAPIFactory工厂获取IWXApI的示例
         wxapi = WXAPIFactory.createWXAPI(this, "wxb3852e6a6b7d9516", true);
@@ -204,26 +207,38 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
             case R.id.login_button_login:
                 MobclickAgent.onEvent(this, "login_button_login");//参数二为当前统计的事件ID
                 pwd = loginEditPass.getText().toString().trim();
+                boolean password = AccountValidatorUtil.isPassword(pwd);
+                if(password)
+                {
+                    loginEditPass.setText(pwd);
+                }
                 pass = EncryptUtil.encrypt(pwd);
                 Log.e("pass", pass);
                 mabile = loginEditPhone.getText().toString().trim();
+                boolean mobiles = AccountValidatorUtil.isMobile(mabile);
+                if(mobiles)
+                {
+                    loginEditPhone.setText(mabile);
+                }
                 hashMap = new HashMap<>();
                 hashMap.put("phone", mabile);
                 hashMap.put("pwd", pass);
-                if (pass != null && mabile != null) {
-                    //5如果不为空 就存值
-                    edit = sp.edit();
-                    edit.putBoolean("jizhu", loginBoxRemember.isChecked());
-                    edit.putString("user", mabile);
-                    edit.putString("pass", pwd);
-                    //启动
-                    edit.commit();
 
-                    loginPresenter.onILoginPre(Api.LOGIN, hashMap);
+                    if (!pwd.equals("") && !mabile.equals("")) {
+                        //5如果不为空 就存值
+                        edit = sp.edit();
+                        edit.putBoolean("jizhu", loginBoxRemember.isChecked());
+                        edit.putString("user", mabile);
+                        edit.putString("pass", pwd);
+                        //启动
+                        edit.commit();
 
-                } else {
+                        loginPresenter.onILoginPre(Api.LOGIN, hashMap);
+
+                    }  if(pwd.equals("") || mabile.equals("")) {
                     Toast.makeText(LoginActivity.this, "账号或者密码不能为空", Toast.LENGTH_SHORT).show();
-                }
+                    return;
+                   }
 
                 break;
         }

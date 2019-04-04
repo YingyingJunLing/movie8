@@ -13,6 +13,7 @@ import com.bw.movie.R;
 import com.bw.movie.mvp.model.api.Api;
 
 import com.bw.movie.mvp.model.bean.RegBean;
+import com.bw.movie.mvp.model.utils.AccountValidatorUtil;
 import com.bw.movie.mvp.model.utils.NetworkErrorUtils;
 import com.bw.movie.mvp.presenter.presenterimpl.RegPresenter;
 import com.bw.movie.mvp.view.base.BaseActivity;
@@ -67,7 +68,6 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
     protected void initView() {
         networkErrorUtils = new NetworkErrorUtils(RegActivity.this);
 
-
     }
 
     @Override
@@ -112,17 +112,39 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
     @OnClick(R.id.reg_button_reg)
     public void onViewClicked()
     {
+
         name = regEditName.getText().toString();
+        boolean username = AccountValidatorUtil.isUsername(name);
+        if(username)
+        {
+            regEditName.setText(name);
+        }
         data = regEditData.getText().toString();
+
         email = regEditEmail.getText().toString();
+        boolean emails = AccountValidatorUtil.isEmail(this.email);
+        if(emails)
+        {
+            regEditEmail.setText(name);
+        }
         mobile = regEditMobile.getText().toString();
+        boolean mobiles = AccountValidatorUtil.isMobile(this.mobile);
+        if(mobiles)
+        {
+            regEditMobile.setText(mobile);
+        }
         pwd = regEditPwd.getText().toString();
+        boolean password = AccountValidatorUtil.isPassword(pwd);
+        if(password)
+        {
+            regEditPwd.setText(pwd);
+        }
         pass = EncryptUtil.encrypt(pwd);
         sex = regEditSex.getText().toString();
 
         HashMap<String ,String > hashMap = new HashMap<>();
         hashMap.put("nickName",name);
-        hashMap.put("phone",mobile);
+        hashMap.put("phone", this.mobile);
         hashMap.put("pwd2",pass);
         hashMap.put("imei","123456");
         hashMap.put("ua","小米");
@@ -131,16 +153,20 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
         hashMap.put("pwd",pass);
         hashMap.put("sex",sex);
         hashMap.put("birthday",data);
-        hashMap.put("email",email);
-
-        if (name !=null  && data!=null &&email!=null && mobile !=null &&pass !=null && sex !=null)
+        hashMap.put("email", this.email);
+        if(username && mobiles && password && emails)
         {
+            if (name !=null  && data!=null && this.email !=null && this.mobile !=null &&pass !=null && sex !=null)
+            {
+                regPresenter.onILoginPre(Api.REG,hashMap);
 
-            regPresenter.onILoginPre(Api.REG,hashMap);
-
-        }else {
-            Toast.makeText(RegActivity.this,"失败了",Toast.LENGTH_SHORT).show();
+            }if(name.equals("") ||data.equals("") || this.email.equals("") || this.mobile.equals("") || pwd.equals("") ||sex.equals("") ) {
+            Toast.makeText(RegActivity.this,"输入内容有误，请检查",Toast.LENGTH_SHORT).show();
         }
+        }else{
+            Toast.makeText(RegActivity.this,"输入内容有误，请检查",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override

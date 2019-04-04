@@ -25,6 +25,7 @@ public class AlertAndAnimationUtils {
         if (dialogWindow == null) {
             return;
         }
+
         //设置Dialog从窗体底部弹出
         dialogWindow.setGravity(Gravity.BOTTOM);
         //获得窗体的属性
@@ -35,6 +36,7 @@ public class AlertAndAnimationUtils {
         dialogWindow.setAttributes(lp);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();//显示对话框
+        dialog.setCancelable(false);
     }
 
     /**
