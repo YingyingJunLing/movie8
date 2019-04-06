@@ -106,5 +106,6 @@ public class MyRecordActivity extends BaseActivity<Contract.IMyRecotdView,MyReco
         {
             myRecordPresenter.detachView();
         }
+        MainActivity.mainActivity.ShowMyFragment();
     }
 }

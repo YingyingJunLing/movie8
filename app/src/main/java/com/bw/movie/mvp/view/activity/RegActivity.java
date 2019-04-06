@@ -1,9 +1,14 @@
 package com.bw.movie.mvp.view.activity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -19,6 +24,7 @@ import com.bw.movie.mvp.presenter.presenterimpl.RegPresenter;
 import com.bw.movie.mvp.view.base.BaseActivity;
 import com.bw.movie.mvp.view.contract.Contract;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -35,8 +41,7 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
     EditText regEditSex;
     @BindView(R.id.reg_view_pass)
     View regViewPass;
-    @BindView(R.id.reg_edit_data)
-    EditText regEditData;
+
     @BindView(R.id.reg_image_pass_lock)
     ImageView regImagePassLock;
     @BindView(R.id.reg_edit_mobile)
@@ -49,7 +54,6 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
     Button regButtonReg;
     private RegPresenter regPresenter;
     private String name;
-    private String data;
     private String email;
     private String mobile;
     private String pwd;
@@ -57,6 +61,10 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
     private String pass;
     private RegBean regBean;
     private NetworkErrorUtils networkErrorUtils;
+    private int mYear, mMonth, mDay;
+    private  String mBirthDay;
+    private EditText reg_edit_data;
+
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
@@ -67,6 +75,14 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
     @Override
     protected void initView() {
         networkErrorUtils = new NetworkErrorUtils(RegActivity.this);
+        reg_edit_data = findViewById(R.id.reg_edit_data);
+        reg_edit_data.setInputType(InputType.TYPE_NULL);
+        findViewById(R.id.reg_edit_data).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowBirthDialog();
+            }
+        });
 
     }
 
@@ -119,7 +135,7 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
         {
             regEditName.setText(name);
         }
-        data = regEditData.getText().toString();
+        reg_edit_data.setText(mBirthDay);
 
         email = regEditEmail.getText().toString();
         boolean emails = AccountValidatorUtil.isEmail(this.email);
@@ -152,15 +168,15 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
         hashMap.put("os","android");
         hashMap.put("pwd",pass);
         hashMap.put("sex",sex);
-        hashMap.put("birthday",data);
+        hashMap.put("birthday",mBirthDay);
         hashMap.put("email", this.email);
         if(username && mobiles && password && emails)
         {
-            if (name !=null  && data!=null && this.email !=null && this.mobile !=null &&pass !=null && sex !=null)
+            if (name !=null  && this.email !=null && this.mobile !=null &&pass !=null && sex !=null)
             {
                 regPresenter.onILoginPre(Api.REG,hashMap);
 
-            }if(name.equals("") ||data.equals("") || this.email.equals("") || this.mobile.equals("") || pwd.equals("") ||sex.equals("") ) {
+            }if(name.equals("") || this.email.equals("") || this.mobile.equals("") || pwd.equals("") ||sex.equals("") ) {
             Toast.makeText(RegActivity.this,"输入内容有误，请检查",Toast.LENGTH_SHORT).show();
         }
         }else{
@@ -174,4 +190,58 @@ public class RegActivity extends BaseActivity<Contract.ILoginView, RegPresenter>
         super.onDestroy();
         regPresenter.onDestroy();
     }
+    /**
+     * 出生日期的弹框
+     */
+    private void ShowBirthDialog() {
+        Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            new DatePickerDialog(RegActivity.this, R.style.DatePickThemeDialog, mDateSetListener, mYear, mMonth, mDay)
+                    .show();
+        }else new DatePickerDialog(RegActivity.this,mDateSetListener, mYear, mMonth, mDay)
+                .show();
+    }
+
+    /**
+     * 选择日期
+     */
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            if (view.isShown()) {
+                mYear = year;
+                String mm;
+                String dd;
+                if (monthOfYear < 9) {
+                    mMonth = monthOfYear + 1;
+                    mm = "0" + mMonth;
+                } else {
+                    mMonth = monthOfYear + 1;
+                    mm = String.valueOf(mMonth);
+                }
+                if (dayOfMonth < 10) {
+                    mDay = dayOfMonth;
+                    dd = "0" + mDay;
+                } else {
+                    mDay = dayOfMonth;
+                    dd = String.valueOf(mDay);
+                }
+
+                mMonth = monthOfYear;
+
+                mBirthDay = mYear + "-" + mm + "-" + dd;
+                Log.e("birthday",mBirthDay.toString());
+                reg_edit_data.setText(mBirthDay);
+                /*  submitAccountInfo();*/
+            }
+        }
+
+    };
+
+
+
+
 }

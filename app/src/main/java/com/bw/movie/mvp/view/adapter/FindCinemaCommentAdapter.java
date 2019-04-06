@@ -47,10 +47,8 @@ public class FindCinemaCommentAdapter extends RecyclerView.Adapter<FindCinemaCom
                 new java.util.Date(findCinemaCommentBean.getResult().get(i).getCommentTime()));
         viewHolder.camera_comment_time.setText(date);
         if (findCinemaCommentBean.getResult().get(i).getIsGreat()==1){
-
             Glide.with(context).load(R.mipmap.common_btn_prise_s).into(viewHolder.camera_comment_image_like);
         }else{
-
             Glide.with(context).load(R.mipmap.common_btn_prise_n).into(viewHolder.camera_comment_image_like);
         }
         //点赞按钮事件
@@ -59,7 +57,6 @@ public class FindCinemaCommentAdapter extends RecyclerView.Adapter<FindCinemaCom
             public void onClick(View v) {
                 if (mOnClick!=null){
                     mOnClick.getdatas(findCinemaCommentBean.getResult().get(i).getCommentId(),findCinemaCommentBean.getResult().get(i).getIsGreat(),i);
-
                 }
             }
         });

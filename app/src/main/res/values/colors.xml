@@ -10,4 +10,5 @@
     <color name="btn_text_f">#000</color>
     <color name="colorWhite">#FFF9F3F5</color>
     <color name="colorpop">#00ffffff</color>
+    <color name="theme_color_day" >#3E6588</color>
 </resources>

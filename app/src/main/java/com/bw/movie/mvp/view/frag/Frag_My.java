@@ -2,7 +2,7 @@ package com.bw.movie.mvp.view.frag;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -18,12 +18,10 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
 import com.bw.movie.mvp.model.bean.LoginBean;
 import com.bw.movie.mvp.model.bean.UpdateHeadPicBean;
-import com.bw.movie.mvp.presenter.presenterimpl.MyPresenter;
 import com.bw.movie.mvp.presenter.presenterimpl.UpdateHeadPicPresenter;
 import com.bw.movie.mvp.view.activity.MyAttentionActivity;
 import com.bw.movie.mvp.view.activity.MyFeedDBActivity;
@@ -33,16 +31,13 @@ import com.bw.movie.mvp.view.activity.MySysMsgActivity;
 import com.bw.movie.mvp.view.activity.MyVersionActivity;
 import com.bw.movie.mvp.view.base.BaseFragment;
 import com.bw.movie.mvp.view.contract.Contract;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 public class Frag_My extends BaseFragment<Contract.IUpdateHeadPicView, UpdateHeadPicPresenter> implements Contract.IUpdateHeadPicView, View.OnClickListener {
 
     private String nickName;
@@ -59,6 +54,7 @@ public class Frag_My extends BaseFragment<Contract.IUpdateHeadPicView, UpdateHea
     private String userId;
     private String sessionId;
     private HashMap<String, String> hashMap;
+    private ImageView myHead;
 
     @Override
     protected View initFragmentView(LayoutInflater inflater) {
@@ -77,6 +73,8 @@ public class Frag_My extends BaseFragment<Contract.IUpdateHeadPicView, UpdateHea
     public void getUserInfo(LoginBean.ResultBean.UserInfoBean userInfoBean){
         headPic = userInfoBean.getHeadPic();
         nickName = userInfoBean.getNickName();
+        Log.e("headPic",headPic);
+        Log.e("nickName",nickName);
     }
 
     @Override
@@ -85,7 +83,7 @@ public class Frag_My extends BaseFragment<Contract.IUpdateHeadPicView, UpdateHea
         hashMap.put("userId",userId);
         hashMap.put("sessionId",sessionId);
         TextView myName = view.findViewById(R.id.my_name);
-        ImageView myHead = view.findViewById(R.id.my_head);
+        myHead = view.findViewById(R.id.my_head);
         myHead.setOnClickListener(this);
         ImageView sysMsg = view.findViewById(R.id.sysMsg);
         sysMsg.setOnClickListener(this);
@@ -282,7 +280,7 @@ public class Frag_My extends BaseFragment<Contract.IUpdateHeadPicView, UpdateHea
         if(o instanceof UpdateHeadPicBean)
         {
             UpdateHeadPicBean updateHeadPicBean = (UpdateHeadPicBean) o;
-            Log.e("updateHeadPicBean",updateHeadPicBean+"");
+            Log.e("updateHeadPicBean",updateHeadPicBean.getHeadPath());
             if(updateHeadPicBean != null)
             {
                 Toast.makeText(getActivity(),updateHeadPicBean.getMessage(),Toast.LENGTH_SHORT).show();

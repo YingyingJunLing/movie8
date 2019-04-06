@@ -92,7 +92,6 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
     @Override
     protected void initView() {
         networkErrorUtils = new NetworkErrorUtils(LoginActivity.this);
-
         loginEditPass = findViewById(R.id.login_edit_pass);
         loginEditPhone = findViewById(R.id.login_edit_phone);
         loginBoxRemember = findViewById(R.id.login_box_remember);
@@ -113,7 +112,6 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
             loginEditPhone.setText(uname);
             loginEditPass.setText(upass);
             loginBoxRemember.setChecked(b);  //跳转
-
         }
         image_eye.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +140,7 @@ public class LoginActivity extends BaseActivity<Contract.ILoginView, LoginPresen
                 wxapi.sendReq(req);
             }
         });
+
 
     }
 

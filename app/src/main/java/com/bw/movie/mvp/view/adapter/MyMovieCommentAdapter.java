@@ -17,20 +17,27 @@ import com.bw.movie.mvp.model.bean.MovieCommentBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyMovieCommentAdapter extends RecyclerView.Adapter<MyMovieCommentAdapter.ViewHolder>
 {
     Context context;
-    List<MovieCommentBean.ResultBean> movieCommentBeanResult;
+    List<MovieCommentBean.ResultBean> list;
 
 
-    public MyMovieCommentAdapter(Context context, List<MovieCommentBean.ResultBean> list) {
+    public MyMovieCommentAdapter(Context context) {
         this.context = context ;
-        this.movieCommentBeanResult = list;
+
     }
 
-
+    public void setMovieComment(List<MovieCommentBean.ResultBean> list) {
+        if (list!=null||list.size()!=0){
+            this.list = list;
+            list.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
 
     @NonNull
     @Override
@@ -43,25 +50,27 @@ public class MyMovieCommentAdapter extends RecyclerView.Adapter<MyMovieCommentAd
     @Override
     public void onBindViewHolder(@NonNull final MyMovieCommentAdapter.ViewHolder viewHolder, final int i)
     {
-        viewHolder.film_comment_content.setText(movieCommentBeanResult.get(i).getCommentContent());
-        viewHolder.film_comment_name.setText(movieCommentBeanResult.get(i).getCommentUserName());
-        viewHolder.film_comment_num.setText(movieCommentBeanResult.get(i).getGreatNum()+"");
-       viewHolder.film_comment__replay_num.setText(movieCommentBeanResult.get(i).getReplyNum()+"");
-        FrescoUtils.setPic(movieCommentBeanResult.get(i).getCommentHeadPic(),viewHolder.film_comment_head);
+        viewHolder.film_comment_content.setText(list.get(i).getCommentContent());
+        viewHolder.film_comment_name.setText(list.get(i).getCommentUserName());
+        viewHolder.film_comment_num.setText(list.get(i).getGreatNum()+"");
+       viewHolder.film_comment__replay_num.setText(list.get(i).getReplyNum()+"");
+        FrescoUtils.setPic(list.get(i).getCommentHeadPic(),viewHolder.film_comment_head);
         String date = new SimpleDateFormat("yyyy-MM-dd").format(
-                new java.util.Date(movieCommentBeanResult.get(i).getCommentTime()));
+                new java.util.Date(list.get(i).getCommentTime()));
         viewHolder.film_comment_time.setText(date);
-        if (movieCommentBeanResult.get(i).getIsGreat()==1){
-            Glide.with(context).load(R.mipmap.common_btn_prise_s).into(viewHolder.film_comment_image_like);
+        int isGreat = list.get(i).getIsGreat();
+        Log.e("isGreat",isGreat+"");
+        if (list.get(i).getIsGreat()==1){
+            viewHolder.film_comment_image_like.setImageResource(R.mipmap.common_btn_prise_s);
         }else{
-            Glide.with(context).load(R.mipmap.common_btn_prise_n).into(viewHolder.film_comment_image_like);
+            viewHolder.film_comment_image_like.setImageResource(R.mipmap.common_btn_prise_n);
         }
         //点赞按钮事件
         viewHolder .film_comment_image_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mOnClick!=null){
-                    mOnClick.getdata(movieCommentBeanResult.get(i).getCommentId(),movieCommentBeanResult.get(i).getIsGreat(),i);
+                    mOnClick.getdata(list.get(i).getCommentId(),list.get(i).getIsGreat(),i);
                 }
             }
         });
@@ -71,10 +80,8 @@ public class MyMovieCommentAdapter extends RecyclerView.Adapter<MyMovieCommentAd
             public void onClick(View v) {
                 if(mOnClicks !=null)
                 {
-                    mOnClicks.getdatas(i,movieCommentBeanResult.get(i).getCommentId(),movieCommentBeanResult.get(i).getReplyNum());
+                    mOnClicks.getdatas(i,list.get(i).getCommentId(),list.get(i).getReplyNum());
                 }
-
-
             }
         });
 
@@ -82,11 +89,10 @@ public class MyMovieCommentAdapter extends RecyclerView.Adapter<MyMovieCommentAd
 
     @Override
     public int getItemCount() {
-        return movieCommentBeanResult.size();
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         private final SimpleDraweeView film_comment_head;
         private final TextView film_comment_name;
         private final TextView film_comment_time;
@@ -107,20 +113,17 @@ public class MyMovieCommentAdapter extends RecyclerView.Adapter<MyMovieCommentAd
             film_comment__replay_img =itemView.findViewById(R.id.film_comment__replay_img);
         }
     }
+
     //点赞改变
     public void getlike(int position){
-        movieCommentBeanResult.get(position).setIsGreat(1);
-        movieCommentBeanResult.get(position).setGreatNum( movieCommentBeanResult.get(position).getGreatNum()+1);
+        list.get(position).setIsGreat(1);
+        list.get(position).setGreatNum( list.get(position).getGreatNum()+1);
         notifyDataSetChanged();
     }
-
-
     private OnClick mOnClick;
     public void setOnClick(OnClick mOnClick){
         this.mOnClick=mOnClick;
     }
-
-
     public interface OnClick{
         void getdata(int id,int great,int position);
     }

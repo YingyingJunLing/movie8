@@ -91,8 +91,9 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
     public void getCinema(CinemaListBean.ResultBean resultBean) {
         cid = resultBean.getId();
     }
+
     //得到userId    sessionId
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getLoginData(LoginBean.ResultBean resultBean) {
         userId = resultBean.getUserId();
         sessionId = resultBean.getSessionId();
@@ -116,8 +117,8 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
     @Override
     protected void getData() {
         hashMap = new HashMap<>();
-        hashMap.put("userId",userId);
-        hashMap.put("sessionId",sessionId);
+        hashMap.put("userId", userId);
+        hashMap.put("sessionId", sessionId);
         alertAndAnimationUtils = new AlertAndAnimationUtils();
         movieListPresenter.onIMovieListCinemaPre(cid);
         //影院照片点击，弹出详情，和评论
@@ -139,7 +140,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                 rec.setVisibility(View.VISIBLE);
                 rec2.setVisibility(View.GONE);
                 //默认展示详情
-                movieListPresenter.onIFindCimeraInfoPre(hashMap,cid);
+                movieListPresenter.onIFindCimeraInfoPre(hashMap, cid);
                 ImageButton dis_dialog1 = view2.findViewById(R.id.dialog_dismiss_ibt);
                 //详情
                 xiang = view2.findViewById(R.id.recommend_xiang);
@@ -153,7 +154,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                 xiang.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        movieListPresenter.onIFindCimeraInfoPre(hashMap,cid);
+                        movieListPresenter.onIFindCimeraInfoPre(hashMap, cid);
                         rec.setVisibility(View.VISIBLE);
                         rec2.setVisibility(View.GONE);
 
@@ -163,27 +164,28 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
                 ping.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ImageView comment_publish=  view2.findViewById(R.id.comment_publish);
+                        ImageView comment_publish = view2.findViewById(R.id.comment_publish);
                         rec.setVisibility(View.GONE);
                         comment_publish.setVisibility(View.VISIBLE);
-                        int page=1;
-                        int count =10;
-                        movieListPresenter.onICimemaCommentPre(hashMap,cid,page,count);
+                        int page = 1;
+                        int count = 10;
+                        movieListPresenter.onICimemaCommentPre(hashMap, cid, page, count);
                         rec2.setVisibility(View.VISIBLE);
+                        //添加评论点击事件
                         comment_publish.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                             final EditText   movie_comment_content = view2.findViewById(R.id.movie_comment_content);
+                                final EditText movie_comment_content = view2.findViewById(R.id.movie_comment_content);
                                 comment_movie.setVisibility(View.VISIBLE);
                                 //发送点击事件
                                 movie_comment_send.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         String s = movie_comment_content.getText().toString();
-                                        HashMap<String,String> map = new HashMap<>();
+                                        HashMap<String, String> map = new HashMap<>();
                                         map.put("cinemaId", String.valueOf(cid));
-                                        map.put("commentContent",s);
-                                        movieListPresenter.onIAddCinemaCommentPre(hashMap,map);
+                                        map.put("commentContent", s);
+                                        movieListPresenter.onIAddCinemaCommentPre(hashMap, map);
                                         comment_movie.setVisibility(View.VISIBLE);
                                     }
                                 });
@@ -229,8 +231,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
 
     @Override
     public void onIFindCimeraInfoSuccess(Object o) {
-        if(o instanceof FindCinemaInfoBean)
-        {
+        if (o instanceof FindCinemaInfoBean) {
             FindCinemaInfoBean findCinemaInfoBean = (FindCinemaInfoBean) o;
             FindCinemaInfoAdapter findCinemaInfoAdapter = new FindCinemaInfoAdapter(MovieListActivity.this, findCinemaInfoBean);
             rec.setAdapter(findCinemaInfoAdapter);
@@ -255,7 +256,7 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
         Log.i("相关档期", o.toString());
         if (o instanceof ScheduleListBean) {
             ScheduleListBean scheduleListBean = (ScheduleListBean) o;
-            if (scheduleListBean.getResult().size()>0) {
+            if (scheduleListBean.getResult().size() > 0) {
                 List<ScheduleListBean.ResultBean> result = scheduleListBean.getResult();
                 movieListRecycle.setAdapter(new ScheuleAdapter(this, result));
             }
@@ -269,31 +270,27 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
 
     @Override
     public void onICimemaCommentSuccess(Object o) {
-        if(o instanceof FindCinemaCommentBean)
-        {
+        if (o instanceof FindCinemaCommentBean) {
             FindCinemaCommentBean findCinemaCommentBean = (FindCinemaCommentBean) o;
 
-            if(findCinemaCommentBean.getResult().size()==0)
-            {
-                Toast.makeText(MovieListActivity.this,findCinemaCommentBean.getMessage(),Toast.LENGTH_SHORT).show();
+            if (findCinemaCommentBean.getResult().size() == 0) {
+                Toast.makeText(MovieListActivity.this, findCinemaCommentBean.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
-            }
-            else{
+            } else {
                 findCinemaCommentAdapter = new FindCinemaCommentAdapter(MovieListActivity.this, findCinemaCommentBean);
                 rec2.setAdapter(findCinemaCommentAdapter);
-                        findCinemaCommentAdapter.setOnClick(new FindCinemaCommentAdapter.OnClick() {
-                            @Override
-                            public void getdatas(int id, int great, int position) {
-                                if (great==1){
-                                    //已点赞，需取消
-                                    movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
-
-                                }else{
-                                    movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
-                                    findCinemaCommentAdapter.getlike(position);
-                                }
-                            }
-                        });
+                findCinemaCommentAdapter.setOnClick(new FindCinemaCommentAdapter.OnClick() {
+                    @Override
+                    public void getdatas(int id, int great, int position) {
+                        if (great == 1) {
+                            //已点赞，需取消
+                            movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
+                        } else {
+                            movieListPresenter.onICimemaCommentGreatePre(hashMap, id);
+                            findCinemaCommentAdapter.getlike(position);
+                        }
+                    }
+                });
             }
         }
 
@@ -301,12 +298,10 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
 
     @Override
     public void onICimemaCommentGreateSuccess(Object o) {
-        if(o instanceof CinemaCommentGreatBean)
-        {
+        if (o instanceof CinemaCommentGreatBean) {
             cinemaCommentGreatBean = (CinemaCommentGreatBean) o;
-            if(cinemaCommentGreatBean !=null)
-            {
-                Toast.makeText(MovieListActivity.this, cinemaCommentGreatBean.getMessage(),Toast.LENGTH_SHORT).show();
+            if (cinemaCommentGreatBean != null) {
+                Toast.makeText(MovieListActivity.this, cinemaCommentGreatBean.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -314,11 +309,10 @@ public class MovieListActivity extends BaseActivity<Contract.IMovieListView, Mov
     @Override
     public void onIAddCinemaComment(Object o) {
         //添加影片的评论
-        if(o instanceof AddCimeraCommentBean)
-        {
+        if (o instanceof AddCimeraCommentBean) {
             AddCimeraCommentBean addCimeraCommentBean = (AddCimeraCommentBean) o;
-            if(addCimeraCommentBean !=null){
-                Toast.makeText(MovieListActivity.this,addCimeraCommentBean.getMessage(),Toast.LENGTH_SHORT).show();
+            if (addCimeraCommentBean != null) {
+                Toast.makeText(MovieListActivity.this, addCimeraCommentBean.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }

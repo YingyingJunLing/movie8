@@ -11,5 +11,11 @@
         <item name="colorControlNormal">@color/colorWhite</item>
         <item name="colorControlActivated">@color/colorWhite</item>
     </style>
-   
+    <style name="DatePickThemeDialog" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:colorAccent">@color/theme_color_day</item>
+        <item name="android:colorPrimary">@color/theme_color_day</item>
+        <item name="android:colorPrimaryDark">@color/theme_color_day</item>
+
+    </style>
+
 </resources>

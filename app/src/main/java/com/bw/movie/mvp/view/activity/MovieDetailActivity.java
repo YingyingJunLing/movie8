@@ -50,8 +50,10 @@ import com.umeng.analytics.MobclickAgent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.HashMap;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -103,6 +105,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     private List<MovieCommentBean.ResultBean> list;
     private RelativeLayout comment_movie;
     private InputMethodManager imm;
+    public static MovieDetailActivity movieDetailActivity;
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getEvent(MoviesDetailBean.ResultBean resultBean) {
@@ -118,6 +121,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
 
     @Override
     protected void initActivityView(Bundle savedInstanceState) {
+        movieDetailActivity = this;
         setContentView(R.layout.activity_movie_detail);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
@@ -144,13 +148,12 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
         collection_sel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(followMovie ==1)
-                {
+                if (followMovie == 1) {
                     movieDetailPresenter.onIFollowMovie(id, hashMap);
-                    followMovie =2;
-                }else{
+                    followMovie = 2;
+                } else {
                     movieDetailPresenter.onICancelFollowMovie(id, hashMap);
-                    followMovie =1;
+                    followMovie = 1;
                 }
             }
         });
@@ -159,6 +162,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     @Override
     protected MovieDetailPresenter createPresenter() {
         movieDetailPresenter = new MovieDetailPresenter();
+        myMovieCommentAdapter = new MyMovieCommentAdapter(MovieDetailActivity.this);
         return movieDetailPresenter;
     }
 
@@ -166,7 +170,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
     protected void getData() {
 
         movieDetailPresenter.onIMovieDetailPre(id);
-
+        movieDetailPresenter.onIMovieCommenPre(id, page, count);
     }
 
     @Override
@@ -180,12 +184,11 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             result = moviesDetailBean.getResult();
             Log.i("详情名字", result.getName());
             movieDetailText.setText(result.getName());
-            if(moviesDetailBean.getResult().getFollowMovie() == 1)
-            {
+            if (moviesDetailBean.getResult().getFollowMovie() == 1) {
                 Glide.with(MovieDetailActivity.this)
                         .load(R.drawable.com_icon_collection_selected)
                         .into(collection_sel);
-            }else{
+            } else {
                 Glide.with(MovieDetailActivity.this)
                         .load(R.drawable.com_icon_collection_default)
                         .into(collection_sel);
@@ -196,7 +199,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 public void onClick(View v) {
                     MobclickAgent.onEvent(MovieDetailActivity.this, "buyBtn");
                     Intent intent = new Intent(MovieDetailActivity.this, CinemaListActivity.class);
-                        startActivity(intent);
+                    startActivity(intent);
                 }
             });
         }
@@ -206,50 +209,49 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
         if (o instanceof MovieCommentBean) {
             movieCommentBean = (MovieCommentBean) o;
             list = movieCommentBean.getResult();
-            if (movieCommentBean != null)
-                myMovieCommentAdapter = new MyMovieCommentAdapter(MovieDetailActivity.this,list);
-               rec3.setAdapter(myMovieCommentAdapter);
-            myMovieCommentAdapter.setOnClick(new MyMovieCommentAdapter.OnClick() {
-                @Override
-                public void getdata(int id, int great, int position) {
-                    if (great == 1){
-                        //已点赞，需取消
-                        movieDetailPresenter.onIMovieCommentGreatePre(hashMap, id);
-                    }else{
-                        //未点赞需点赞
-                        movieDetailPresenter.onIMovieCommentGreatePre(hashMap, id);
-                        myMovieCommentAdapter.getlike(position);
+            if (movieCommentBean != null) {
+                myMovieCommentAdapter.setMovieComment(movieCommentBean.getResult());
+                myMovieCommentAdapter.setOnClick(new MyMovieCommentAdapter.OnClick() {
+                    @Override
+                    public void getdata(int id, int great, int position) {
+                        if (great == 1) {
+                            //已点赞，需取消
+                            movieDetailPresenter.onIMovieCommentGreatePre(hashMap, id);
+                        } else {
+                            //未点赞需点赞
+                            movieDetailPresenter.onIMovieCommentGreatePre(hashMap, id);
+                            myMovieCommentAdapter.getlike(position);
+                        }
                     }
-                }
-            });
-            //点击吊起系统键盘
-            imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-               myMovieCommentAdapter.setOnClicks(new MyMovieCommentAdapter.OnClicks() {
-                   @Override
-                   public void getdatas(final int i, final int commentId,  int nums) {
-                       comment_movie.setVisibility(View.VISIBLE);
-
-                       final EditText  movie_comment_content = view4.findViewById(R.id.movie_comment_content);
-                       imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-                       //发送点击事件
-                       movie_comment_send.setOnClickListener(new View.OnClickListener() {
-                           @Override
-                           public void onClick(View v) {
-                               String s = movie_comment_content.getText().toString();
-                               map = new HashMap<>();
-                               map.put("commentId", String.valueOf(commentId));
-                               map.put("replyContent",s);
-                               movieDetailPresenter.onICommentReplayPre(hashMap,map);
-                               comment_movie.setVisibility(View.GONE);
-                               imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-                               int replyNum = movieCommentBean.getResult().get(i).getReplyNum();
-                               replyNum++;
-                               movieCommentBean.getResult().get(i).setReplyNum(replyNum);
-                               myMovieCommentAdapter.notifyDataSetChanged();
-                           }
-                       });
-                   }
-               });
+                });
+                //点击吊起系统键盘
+                imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                myMovieCommentAdapter.setOnClicks(new MyMovieCommentAdapter.OnClicks() {
+                    @Override
+                    public void getdatas(final int i, final int commentId, int nums) {
+                        comment_movie.setVisibility(View.VISIBLE);
+                        final EditText movie_comment_content = view4.findViewById(R.id.movie_comment_content);
+                        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                        //发送点击事件
+                        movie_comment_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String s = movie_comment_content.getText().toString();
+                                map = new HashMap<>();
+                                map.put("commentId", String.valueOf(commentId));
+                                map.put("replyContent", s);
+                                movieDetailPresenter.onICommentReplayPre(hashMap, map);
+                                comment_movie.setVisibility(View.GONE);
+                                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                                int replyNum = movieCommentBean.getResult().get(i).getReplyNum();
+                                replyNum++;
+                                movieCommentBean.getResult().get(i).setReplyNum(replyNum);
+                                myMovieCommentAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                });
+            }
         }
         /**
          * 关注电影
@@ -270,33 +272,28 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
             }
         }
         //评论点赞
-        if(o instanceof MovieCommentGreate)
-        {
+        if (o instanceof MovieCommentGreate) {
             movieCommentGreate = (MovieCommentGreate) o;
-            if(movieCommentGreate !=null)
-            {
-                Toast.makeText(MovieDetailActivity.this, movieCommentGreate.getMessage(),Toast.LENGTH_SHORT).show();
+            if (movieCommentGreate != null) {
+                Toast.makeText(MovieDetailActivity.this, movieCommentGreate.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 
         //添加影片的评论
-        if(o instanceof AddMovieCommentBean)
-        {
+        if (o instanceof AddMovieCommentBean) {
             AddMovieCommentBean addMovieCommentBean = (AddMovieCommentBean) o;
-            if(addMovieCommentBean !=null){
-                Toast.makeText(MovieDetailActivity.this,addMovieCommentBean.getMessage(),Toast.LENGTH_SHORT).show();
+            if (addMovieCommentBean != null) {
+                Toast.makeText(MovieDetailActivity.this, addMovieCommentBean.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         }
         /**
          * 添加用户对评论的回复
          */
-        if(o instanceof CommentReplyBean)
-        {
+        if (o instanceof CommentReplyBean) {
             CommentReplyBean commentReplyBean = (CommentReplyBean) o;
-            if(commentReplyBean != null)
-            {
-                Toast.makeText(MovieDetailActivity.this,commentReplyBean.getMessage(),Toast.LENGTH_SHORT).show();
+            if (commentReplyBean != null) {
+                Toast.makeText(MovieDetailActivity.this, commentReplyBean.getMessage(), Toast.LENGTH_SHORT).show();
                 myMovieCommentAdapter.notifyDataSetChanged();
             }
         }
@@ -327,8 +324,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
         switch (view.getId()) {
             //详情
             case R.id.movie_datail_btn:
-                if(ClickUtils.isFastClick())
-                {
+                if (ClickUtils.isFastClick()) {
                     //电影详情
                     final View view1 = View.inflate(MovieDetailActivity.this, R.layout.details_dialog_item, null);
                     SimpleDraweeView img = view1.findViewById(R.id.details_dialog_img);
@@ -356,8 +352,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 break;
             //预告
             case R.id.movie_prevue_btn:
-                if(ClickUtils.isFastClick())
-                {
+                if (ClickUtils.isFastClick()) {
                     final View view2 = View.inflate(MovieDetailActivity.this, R.layout.forecast_dialog_item, null);
                     RecyclerView rec = view2.findViewById(R.id.forecast_dialog_rec);
                     ImageButton dis_dialog1 = view2.findViewById(R.id.dialog_dismiss_ibt);
@@ -385,8 +380,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 break;
             //剧照
             case R.id.movie_picture_btn:
-                if(ClickUtils.isFastClick())
-                {
+                if (ClickUtils.isFastClick()) {
                     final View view3 = View.inflate(MovieDetailActivity.this, R.layout.still_dialog_item, null);
                     RecyclerView rec1 = view3.findViewById(R.id.still_dialog_rec);
                     rec1.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -405,18 +399,23 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                 break;
             //影评
             case R.id.movie_commit_btn:
-                if(ClickUtils.isFastClick())
-                {
+                if (ClickUtils.isFastClick()) {
                     view4 = View.inflate(MovieDetailActivity.this, R.layout.comment_dialog_item, null);
                     rec3 = view4.findViewById(R.id.comment_dialog_rec);
                     rec3.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.VERTICAL, false));
-                    movieDetailPresenter.onIMovieCommenPre(id, page, count);
+
+                    if (movieCommentBean != null) {
+
+                        myMovieCommentAdapter.setMovieComment(movieCommentBean.getResult());
+                        rec3.setAdapter(myMovieCommentAdapter);
+                    }
                     comment_movie = view4.findViewById(R.id.comment_movie);
-                    movie_comment_send= view4.findViewById(R.id.movie_comment_send);
-                    comment_publish= view4.findViewById(R.id.comment_publish);
+                    movie_comment_send = view4.findViewById(R.id.movie_comment_send);
+                    comment_publish = view4.findViewById(R.id.comment_publish);
                     //添加评论
                     comment_publish.setOnClickListener(new View.OnClickListener() {
                         private EditText movie_comment_content;
+
                         @Override
                         public void onClick(View v) {
                             comment_movie.setVisibility(View.VISIBLE);
@@ -426,12 +425,12 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                                 @Override
                                 public void onClick(View v) {
                                     String s = movie_comment_content.getText().toString();
-                                    Log.e("lallallal",s);
+                                    Log.e("lallallal", s);
                                     map = new HashMap<>();
                                     map.put("movieId", String.valueOf(id));
-                                    map.put("commentContent",s);
-                                    Log.e("mapsss", map +"");
-                                    movieDetailPresenter.onIAddmovieCommentPre(hashMap,map);
+                                    map.put("commentContent", s);
+                                    Log.e("mapsss", map + "");
+                                    movieDetailPresenter.onIAddmovieCommentPre(hashMap, map);
                                     comment_movie.setVisibility(View.GONE);
                                     myMovieCommentAdapter.notifyDataSetChanged();
                                 }
@@ -447,6 +446,7 @@ public class MovieDetailActivity extends BaseActivity<Contract.IMovieDetailView,
                         }
                     });
                     alertAndAnimationUtils.AlertDialog(MovieDetailActivity.this, view4);
+
                 }
                 break;
         }
